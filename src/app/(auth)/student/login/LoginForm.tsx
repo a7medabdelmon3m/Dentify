@@ -6,7 +6,7 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "./LoginSchema";
-import { loginType } from "./LoginForm.type";
+import { loginType } from "./login.type";
 
 export default function LoginForm() {
   const { control, formState, handleSubmit } = useForm({
@@ -111,7 +111,7 @@ export default function LoginForm() {
         />
         <div className="space-y-2.5">
             <Button className="flex gap-2.5 h-auto rounded-[80px] py-2.5 px-5 bg-primary hover:bg-primary-hover text-white w-full">Login</Button>
-            <p>Not a member yet? <Link className="text-[#34A853] underline" href={'/patient/register'}>Sign up</Link></p>
+            <p>Not a member yet? <Link className="text-[#34A853] underline" href={'/student/register'}>Sign up</Link></p>
         </div>
       </form>
     </div>
