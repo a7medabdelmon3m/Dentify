@@ -16,8 +16,9 @@ export default function page() {
               className="object-cover"
             ></Image>
           </div>
-          <div className="md:min-w-100  w-full  lg:max-w-100">
+          <div className="md:min-w-100 w-full lg:max-w-100">
             <LoginForm/>
+            
           </div>
         </div>
       </div>
