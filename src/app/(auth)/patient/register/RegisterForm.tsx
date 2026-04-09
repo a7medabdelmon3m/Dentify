@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import React from "react";
@@ -7,12 +7,14 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema } from "./RegisterSchema";
 import { loginType } from "./register.type";
+import Image from "next/image";
+import google from '../../../../assets/images/icons8-google.svg'
 
 export default function RegisterForm() {
   const { control, formState, handleSubmit } = useForm({
     defaultValues: {
       Name: "",
-      academicEmail: "",
+      Email: "",
       Code: "",
       Password: "",
       rePassword: "",
@@ -26,7 +28,7 @@ export default function RegisterForm() {
   return (
     <div className="px-5 py-12.5 space-y-12.5">
       <div className="text-text-black">
-        <h3 className="text-3xl md:text-4xl font-medium font-heading  leading-7.5 pb-12">
+        <h3 className=" text-3xl md:text-4xl font-medium font-heading  leading-7.5 pb-12">
           Create an account
         </h3>
         <p className="font-normal">Enter your details below</p>
@@ -60,7 +62,7 @@ export default function RegisterForm() {
           )}
         />
         <Controller
-          name="academicEmail"
+          name="Email"
           control={control}
           render={({ field, fieldState }) => (
             <Field
@@ -70,10 +72,10 @@ export default function RegisterForm() {
               <Input
                 className=" border-t-0 border-l-0 border-r-0  border-b! border-[#3A3A3A] flex justify-between bg-transparent py-2 outline-none! rounded-none! focus-visible:ring-0 placeholder:text-text-body placeholder:font-medium placeholder:text-lg text-lg! font-medium! placeholder:opacity-40 "
                 {...field}
-                id="academicEmail"
+                id="Email"
                 type="email"
                 aria-invalid={fieldState.invalid}
-                placeholder="Academic Email"
+                placeholder="Email Or Phone Number"
                 autoComplete="off"
               />
               {fieldState.invalid && (
@@ -85,32 +87,7 @@ export default function RegisterForm() {
             </Field>
           )}
         />
-        <Controller
-          name="Code"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Field
-              data-invalid={fieldState.invalid}
-              className="flex flex-col gap-2"
-            >
-              <Input
-                className=" border-t-0 border-l-0 border-r-0  border-b! border-[#3A3A3A] flex justify-between bg-transparent py-2 outline-none! rounded-none! focus-visible:ring-0 placeholder:text-text-body placeholder:font-medium placeholder:text-lg text-lg! font-medium! placeholder:opacity-40 "
-                {...field}
-                id="Code"
-                type="text"
-                aria-invalid={fieldState.invalid}
-                placeholder="Code"
-                autoComplete="off"
-              />
-              {fieldState.invalid && (
-                <FieldError
-                  className="text-red-700"
-                  errors={[fieldState.error]}
-                />
-              )}
-            </Field>
-          )}
-        />
+        
         <Controller
           name="Password"
           control={control}
@@ -164,12 +141,15 @@ export default function RegisterForm() {
           )}
         />
         <div className="space-y-8">
-          <Button className="flex gap-2.5 h-auto rounded-[70px] py-4 px-25 mx-auto bg-primary hover:bg-primary-hover text-[#E3EFFF] font-medium ">
+          <Button className="flex gap-2.5 h-auto rounded-[70px] py-4 px-21.5 mx-auto bg-primary hover:bg-primary-hover text-[#E3EFFF] font-medium ">
             Create Account
+          </Button>
+          <Button type="button" className="flex gap-2.5 h-auto rounded-[70px] py-4 px-21.5 mx-auto bg-transparent hover:bg-primary-subtle  font-medium border border-[#00000066] text-text-black ">
+            <span className="flex gap-4 items-center"><Image width={24} height={24} src={google}  alt="google"></Image> with Google</span>
           </Button>
           <div className="flex gap-4 text-text-black ">
             Already Have An Account?
-            <Link className="font-medium" href={'/student/login'}>Log in</Link>
+            <Link className="font-medium" href={'/patient/login'}>Log in</Link>
              </div>
         </div>
       </form>

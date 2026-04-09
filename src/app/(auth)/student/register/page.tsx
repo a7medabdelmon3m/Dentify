@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import React from "react";
-import login from "../../../../assets/images/patient_login.jpg";
+import register from "../../../../assets/images/Modern Clinical Setting.png";
 import RegisterForm from "./RegisterForm";
 export default function page() {
   return (
@@ -11,7 +11,7 @@ export default function page() {
           <div className="hidden lg:block relative w-full md:w-133.75 aspect-535/564 shrink-0  overflow-hidden rounded-4xl ">
             <Image
               fill
-              src={login}
+              src={register}
               alt="login patient"
               className="object-cover"
             ></Image>
