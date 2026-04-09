@@ -103,7 +103,7 @@ export default function LoginForm() {
                   errors={[fieldState.error]}
                 />
               )}
-              <Link className="text-[#34A853] leading-6" href={"/"}>
+              <Link className="text-[#34A853] leading-6" href={"/student/forget-password"}>
                 Forget Password?
               </Link>
             </Field>

@@ -123,7 +123,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="pt-20 mt-20 border-t border-gray-100">
+          <div id="contact" className="pt-20 mt-20 border-t border-gray-100">
             <div className="text-center">
               <p className="text-[#3011DB] text-3xl md:text-[40px] font-light">
                 Get In Touch

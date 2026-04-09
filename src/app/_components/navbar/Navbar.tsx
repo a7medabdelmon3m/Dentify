@@ -86,27 +86,15 @@ export function NavigationMenuDemo() {
                 asChild
                 className={navigationMenuTriggerStyle()}
               >
-                <Link
+                <a
                   className="py-2.5 px-6 opacity-75 rounded-full! text-[20px] font-normal! border border-border-main hover:bg-primary-hover hover:text-white transition-all duration-300 w-full!"
-                  href="/"
+                  href="#contact"
                 >
                   Contact
-                </Link>
+                </a>
               </NavigationMenuLink>
             </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                asChild
-                className={navigationMenuTriggerStyle()}
-              >
-                <Link
-                  className="py-2.5 px-6 opacity-75 rounded-full! text-[20px] font-normal! border border-border-main hover:bg-primary-hover hover:text-white transition-all duration-300 w-full!"
-                  href="/"
-                >
-                  Login
-                </Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
+            
           </div>
         </NavigationMenuList>
       </NavigationMenu>

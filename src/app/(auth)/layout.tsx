@@ -10,6 +10,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   const pathName = usePathname();
   const isStudent = pathName.includes("student");
   const isLogin = pathName.includes("login");
+  const isSignUp = pathName.includes("register");
   console.log("is login : ", isLogin);
 
   // console.log('this is the path name :' , pathName);
@@ -31,19 +32,20 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
               <p className="text-primary font-bold font-heading ">Dentify</p>
             </div>
             <div className="flex gap-4 items-center">
-              {isLogin ? (
-                <Link
-                  href={`${isStudent ? "/student/register" : "/patient/register"}`}
-                  className=" rounded-lg py-2 px-5 md:px-6 h-fit bg-[#D9D9D9] text-text-body font-semibold text-sm hover:bg-[#C1C1C1] transition-colors duration-100 shadow-[0_5px_10px_rgba(0,0,0,0.4)]"
-                >
-                  Sign Up
-                </Link>
-              ) : (
+              {!isLogin && (
                 <Link
                   href={`${isStudent ? "/student/login" : "/patient/login"}`}
                   className=" rounded-lg py-2 px-5 md:px-6 h-fit bg-[#D9D9D9] text-text-body font-semibold text-sm hover:bg-[#C1C1C1] transition-colors duration-100 shadow-[0_5px_10px_rgba(0,0,0,0.4)]"
                 >
                   Login
+                </Link>
+              )}
+              {!isSignUp && (
+                <Link
+                  href={`${isStudent ? "/student/register" : "/patient/register"}`}
+                  className=" rounded-lg py-2 px-5 md:px-6 h-fit bg-[#D9D9D9] text-text-body font-semibold text-sm hover:bg-[#C1C1C1] transition-colors duration-100 shadow-[0_5px_10px_rgba(0,0,0,0.4)]"
+                >
+                  Sign Up
                 </Link>
               )}
             </div>
