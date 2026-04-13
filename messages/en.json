@@ -1,0 +1,144 @@
+{
+  "hero": {
+    "brand_name": "Dentify",
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "contact": "Contact"
+    },
+    "title": "Welcome to Dentify",
+    "subtitle": "select your role to continue",
+    "buttons": {
+      "student": "Student",
+      "patient": "Patient"
+    }
+  },
+  "about": {
+    "badge": "About us",
+    "title": "what we do?",
+    "patient": {
+      "role": "Patients",
+      "description": "Submit dental case through a well-organized system that ensures accurate case review, appropriate treatment, and matching with nearby dental students based on your geographic location.",
+      "link": "know more"
+    },
+    "student": {
+      "role": "Students",
+      "description": "Access real patient cases through an organized system that saves time, ensures accurate case selection, and helps you manage treatments efficiently.",
+      "link": "know more"
+    }
+  },
+  "contact": {
+    "badge": "Get In Touch",
+    "title": "how to reach?",
+    "info": {
+      "phone": "123-456-789",
+      "email": "Dentify@gmail.com",
+      "location": "Egypt, Beni-suef"
+    },
+    "form": {
+      "name_placeholder": "Full Name...",
+      "email_placeholder": "Email Address...",
+      "message_placeholder": "Message...",
+      "submit_btn": "Send Message"
+    }
+  },
+
+  "about_features": {
+    "money": {
+      "title": "MONEY",
+      "description": "Our site will help you to save your money because you can do without dentist with high cost your will be treated for free with great responsability form high doctors"
+    },
+    "privacy": {
+      "title": "SECURE PRIVACY",
+      "description": "Your medical data is fully encrypted and secure. Access is strictly limited to your treating student and supervising doctors to ensure maximum privacy"
+    },
+    "management": {
+      "title": "EASY MANAGEMENT",
+      "description": "Say goodbye to paperwork. We transform all patient cases into organized digital records, making it easier for students to track progress and for patients to access their history"
+    }
+  },
+  "auth": {
+    "nav_brand": "Dentify",
+    "nav_btns": {
+      "login": "Login",
+      "signup": "Sign Up"
+    },
+    "login": {
+      "title": "Welcome Back!",
+      "email_phone_placeholder": "Email or Phone Number",
+      "code_placeholder": "Code",
+      "password_placeholder": "Password",
+      "forget_password": "Forget Password?",
+      "login_btn": "Login",
+      "no_account": "Not a member yet?",
+      "sign_up_link": "Sign up"
+    },
+    "signup": {
+      "title": "Create an account",
+      "subtitle": "Enter your details below",
+      "name_placeholder": "Full Name",
+      "email_placeholder": "ahnedmoneim@gmail.com",
+      "academic_email_placeholder": "Academic Email",
+      "phone_email_placeholder": "Email Or Phone Number",
+      "code_placeholder": "Code",
+      "password_placeholder": "Password",
+      "confirm_password_placeholder": "Confirm Password",
+      "create_btn": "Create Account",
+      "google_btn": "with Google",
+      "already_have_account": "Already Have An Account?",
+      "login_link": "Log in"
+    },
+    "forgot_password": {
+      "title": "Forgot Password",
+      "subtitle": "Enter your email address to reset your password",
+      "email_label": "Email",
+      "email_placeholder": "Enter your email",
+      "hint": "We'll send you a reset link",
+      "cancel_btn": "Cancel",
+      "submit_btn": "Send"
+    },
+
+    "validation": {
+      "name": {
+        "required": "Name Is Required!",
+        "invalid": "Name Must Be String!",
+        "min": "Name Must Be At Least Three Letters!",
+        "max": "Name Must Be Maximum 25 Letters!"
+      },
+      "email": {
+        "required": "Email Is Required!",
+        "format": "Email Is Not In Format!"
+      },
+      "code": {
+        "required": "Code Is Required!",
+        "length": "Code Must Be 6 Numbers!"
+      },
+      "password": {
+        "required": "Password Is Required!",
+        "regex": "Your Password Must Be Minimum eight characters, at least one uppercase letter, one lowercase letter and one number",
+        "mismatch": "Passwords do not match!"
+      }
+    }
+  },
+
+  "footer": {
+    "description": "Dentify is your trusted platform to connect dental students with patients, ensuring high-quality dental care and a seamless clinical learning experience.",
+    "follow_us": "Follow us on",
+    "quick_links": {
+      "title": "Quick Links",
+      "home": "Home",
+      "about": "About",
+      "faq": "FAQ",
+      "contact": "Contact",
+      "privacy": "Privacy"
+    },
+    "help": {
+      "title": "Help",
+      "payments": "Payments",
+      "returns": "Returns",
+      "privacy_policy": "Privacy Policy"
+    },
+    "rights": "All rights reserved",
+    "developer": "Developed with care by Ahmed Abdelmonem"
+  }
+}

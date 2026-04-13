@@ -21,7 +21,7 @@ export default function HomeArticle({img ,title,titleIcon,article ,imageFirst =t
         />
       </div>
 
-      <div className="text-center md:text-left space-y-6">
+      <div className="text-center md:text-start space-y-6">
         <h2 className="text-3xl md:text-[40px] font-semibold text-black uppercase flex gap-3 items-center">
           {title}
           {titleIcon}
