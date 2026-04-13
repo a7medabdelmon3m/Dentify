@@ -20,7 +20,7 @@ export default function LanguageChanger() {
   return (
     <Button
       onClick={toggleLanguage}
-      className=" flex gap-2 px-4 py-2 border rounded-lg bg-primary-subtle border-primary  hover:bg-primary-hover hover:text-white transition-colors"
+      className=" flex gap-2 px-4 py-2 border rounded-lg text-text-black bg-primary-subtle border-primary  hover:bg-primary-hover hover:text-white transition-colors"
     >
         <GrLanguage />
         {currentLocale === "ar" ? <span>EN</span> : <span>AR</span>}

@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { FaBars } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 import LanguageChanger from "../ChangeLangBtn";
+import { FaXmark } from "react-icons/fa6";
 
 export function NavigationMenuDemo() {
   //  const {locale} =  params;
@@ -27,7 +28,8 @@ export function NavigationMenuDemo() {
   return (
     <div className="container mx-auto px-4 mt-8 ">
       <NavigationMenu className=" min-w-full block">
-        <NavigationMenuList className="flex flex-col lg:flex-row rtl:flex-row-reverse justify-between items-center py-8 gap-8 lg:gap-0 ">
+        <NavigationMenuList className="flex flex-col lg:rtl:flex-row-reverse lg:ltr:flex-row justify-between items-center py-8 gap-8 lg:gap-0 ">
+          
           <div className="w-full flex justify-between items-center rtl:flex-row-reverse">
             <NavigationMenuItem>
               <NavigationMenuLink
@@ -35,7 +37,7 @@ export function NavigationMenuDemo() {
                 className={navigationMenuTriggerStyle()}
               >
                 <Link
-                  className="font-semibold! text-5xl! text-text-title! font-heading"
+                  className="font-semibold! text-3xl! md:text-5xl! text-text-title! font-heading"
                   href="/"
                 >
                   {t(`brand_name`)}
@@ -47,7 +49,8 @@ export function NavigationMenuDemo() {
               onClick={() => setnavIsDroped(!navIsDroped)}
               className="bg-primary  h-auto p-2 text-white! lg:hidden"
             >
-              <FaBars />
+              {navIsDroped? <FaXmark /> :<FaBars />}
+              
             </Button>
           </div>
 
@@ -55,12 +58,14 @@ export function NavigationMenuDemo() {
             className={`
                       ${navIsDroped ? 'flex' : 'hidden'} 
                       lg:flex 
-                      flex-col lg:flex-row 
+                      flex-col lg:rtl:flex-row-reverse lg:ltr:flex-row
                       gap-4 lg:gap-9 
                       p-4 lg:px-2 
-                      bg-[#1F2A44]/70 lg:bg-transparent 
+                      bg-primary lg:bg-transparent 
                       w-full lg:w-auto
-                      rtl:flex-row-reverse
+                      text-white
+                      lg:text-text-title
+                      
                     `}
           >
             <NavigationMenuItem>
@@ -69,7 +74,7 @@ export function NavigationMenuDemo() {
                 className={navigationMenuTriggerStyle()}
               >
                 <Link
-                  className="py-2.5 px-6 opacity-75! whitespace-nowrap rounded-full! text-[20px] font-normal! border border-border-main hover:bg-primary-hover hover:text-white transition-all duration-300 w-full!"
+                  className="py-2.5 px-6 opacity-75! whitespace-nowrap rounded-full! text-[20px] font-normal! border border-white lg:border-border-main  hover:bg-primary-hover hover:text-white transition-all duration-300 w-full!"
                   href="/"
                 >
                   {t(`nav.home`)}
@@ -82,7 +87,7 @@ export function NavigationMenuDemo() {
                 className={navigationMenuTriggerStyle()}
               >
                 <Link
-                  className="py-2.5 px-6 whitespace-nowrap opacity-75 rounded-full! text-[20px] font-normal! border border-border-main hover:bg-primary-hover hover:text-white transition-all duration-300 w-full!"
+                  className="py-2.5 px-6 whitespace-nowrap opacity-75 rounded-full! text-[20px] font-normal! border border-white lg:border-border-main  hover:bg-primary-hover hover:text-white transition-all duration-300 w-full!"
                   href="/about"
                 >
                   {t(`nav.about`)}
@@ -95,7 +100,7 @@ export function NavigationMenuDemo() {
                 className={navigationMenuTriggerStyle()}
               >
                 <a
-                  className="py-2.5 px-6 opacity-75 whitespace-nowrap rounded-full! text-[20px] font-normal! border border-border-main hover:bg-primary-hover hover:text-white transition-all duration-300 w-full!"
+                  className="py-2.5 px-6 opacity-75 whitespace-nowrap rounded-full! text-[20px] font-normal! border border-white lg:border-border-main  hover:bg-primary-hover hover:text-white transition-all duration-300 w-full!"
                   href="#contact"
                 >
                   {t(`nav.contact`)}

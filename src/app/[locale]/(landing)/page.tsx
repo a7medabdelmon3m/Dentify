@@ -6,29 +6,35 @@ import { PiToothLight } from "react-icons/pi";
 import patient from "@/assets/images/patient.jpg";
 import student from "@/assets/images/student.jpg";
 import Link from "next/link";
-import { FaArrowLeftLong, FaArrowRightLong, FaLocationDot } from "react-icons/fa6";
+import {
+  FaArrowLeftLong,
+  FaArrowRightLong,
+  FaLocationDot,
+} from "react-icons/fa6";
 import { SlGraduation } from "react-icons/sl";
 import { FaPhone, FaUser } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { IoMdMail } from "react-icons/io";
-import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 
-export default async function Home({params}:{params:Promise<{locale: string}>}) {
-const {locale} = await params ; 
-   const t = await getTranslations();
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations();
   return (
     <div>
-      
       <div className="relative w-full h-screen overflow-hidden">
         <Image
           fill
           src={landing}
           alt="about landing"
           className="object-cover"
-          priority 
+          priority
         />
 
         <div className="absolute inset-0 z-5 flex flex-col justify-center items-center text-center text-text-title px-4 bg-black/10">
@@ -42,13 +48,18 @@ const {locale} = await params ;
             {t(`hero.subtitle`)}
           </p>
 
-          
           <div className="flex flex-wrap gap-4 justify-center mt-10 md:mt-16">
-            <Link href={'/student/login'} className="py-2 px-6 md:px-8 rounded-full bg-primary text-white text-2xl md:text-4xl font-normal h-auto hover:bg-primary-hover transition-all">
+            <Link
+              href={"/student/login"}
+              className="py-2 px-6 md:px-8 rounded-full bg-primary text-white text-2xl md:text-4xl font-normal h-auto hover:bg-primary-hover transition-all"
+            >
               {/* Student */}
               {t(`hero.buttons.student`)}
             </Link>
-            <Link href={'/patient/login'} className="py-2 px-6 md:px-8 rounded-full bg-primary text-white text-2xl md:text-4xl font-normal h-auto hover:bg-primary-hover transition-all">
+            <Link
+              href={"/patient/login"}
+              className="py-2 px-6 md:px-8 rounded-full bg-primary text-white text-2xl md:text-4xl font-normal h-auto hover:bg-primary-hover transition-all"
+            >
               {/* Patient */}
               {t(`hero.buttons.patient`)}
             </Link>
@@ -56,139 +67,149 @@ const {locale} = await params ;
         </div>
       </div>
       <section>
-        <div className="container py-25 px-4 mx-auto">
-          <div>
-            <div className="text-center">
-              <p className="text-[#3011DB] text-3xl md:text-[40px] font-light">
-               {t(`about.badge`)}
+        <div className="container py-16 px-4 mx-auto">
+          {/* Section: About */}
+          <div className="space-y-16">
+            <div className="text-center space-y-2">
+              <p className="text-[#3011DB] text-lg md:text-xl font-medium tracking-wide uppercase">
+                {t(`about.badge`)}
               </p>
-              <h2 className="font-heading font-bold text-text-title text-5xl md:text-[64px]">
+              <h2 className="font-heading font-bold text-text-title text-3xl md:text-5xl leading-tight">
                 {t(`about.title`)}
               </h2>
             </div>
-            <div className="grid grid-cols-4 gap-11 mt-25 ">
-              <div className="p-2.5 flex gap-2.5 col-span-4 md:col-span-1 justify-center">
-                <div className="space-y-5">
-                  <div className="p-1.25 flex gap-1  text-text-body text-4xl font-normal ">
-                    <PiToothLight />
+
+            {/* Cards Layout */}
+            <div className="max-w-5xl mx-auto space-y-12">
+              {/* Patient Section */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-50">
+                <div className="flex flex-col items-center space-y-4 col-span-1">
+                  <div className="flex items-center gap-2 text-text-body text-xl font-semibold">
+                    <PiToothLight className="text-2xl text-primary" />
                     {t(`about.patient.role`)}
                   </div>
-                  <div className="relative h-45 w-45 rounded-full overflow-hidden">
+                  <div className="relative h-32 w-32 rounded-full overflow-hidden border-4 border-primary-subtle shadow-md">
                     <Image
                       fill
                       src={patient}
                       alt="Patient"
                       className="object-cover"
-                    ></Image>
+                    />
                   </div>
                 </div>
+                <div className="col-span-1 md:col-span-3 space-y-6 text-center md:text-start">
+                  <p className="font-light text-lg md:text-xl text-text-black leading-relaxed">
+                    {t(`about.patient.description`)}
+                  </p>
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center gap-2 text-primary font-medium hover:gap-4 transition-all duration-300"
+                  >
+                    {t(`about.patient.link`)}
+                    {locale === "en" ? (
+                      <FaArrowRightLong />
+                    ) : (
+                      <FaArrowLeftLong />
+                    )}
+                  </Link>
+                </div>
               </div>
-              <div className="col-span-4 md:col-span-3 space-y-11">
-                <p className="font-light text-4xl text-text-black">
-                  {t(`about.patient.description`)}
-                </p>
-                <Link
-                  href={"/about"}
-                  className="flex gap-3.5 bg-primary-subtle text-[#1877F2] text-4xl font-light  w-fit mx-auto"
-                >
-                  {t(`about.patient.link`)}{locale === 'en' ? <FaArrowRightLong /> : <FaArrowLeftLong /> } 
-                </Link>
-              </div>
-            </div>
-            <div className="grid grid-cols-4 gap-11 mt-25">
-              <div className="p-2.5 flex gap-2.5 col-span-4 md:col-span-1 justify-center">
-                <div className="space-y-5">
-                  <div className="p-1.25 flex gap-1  text-text-body text-4xl font-normal ">
-                    <SlGraduation />
+
+              {/* Student Section */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-50">
+                <div className="flex flex-col items-center space-y-4 col-span-1">
+                  <div className="flex items-center gap-2 text-text-body text-xl font-semibold">
+                    <SlGraduation className="text-2xl text-primary" />
                     {t(`about.student.role`)}
                   </div>
-                  <div className="relative h-45 w-45 rounded-full overflow-hidden">
+                  <div className="relative h-32 w-32 rounded-full overflow-hidden border-4 border-primary-subtle shadow-md">
                     <Image
                       fill
                       src={student}
-                      alt="student"
+                      alt="Student"
                       className="object-cover"
-                    ></Image>
+                    />
                   </div>
                 </div>
-              </div>
-              <div className="col-span-4 md:col-span-3 space-y-11">
-                <p className=" font-light text-4xl text-text-black">
-                 {t(`about.student.description`)}
-                </p>
-                <Link
-                  href={"/about"}
-                  className="flex gap-3.5 bg-primary-subtle text-[#1877F2] text-4xl font-light  w-fit mx-auto"
-                >
-                  {t(`about.student.link`)} {locale === 'en' ? <FaArrowRightLong /> : <FaArrowLeftLong /> }
-                </Link>
+                <div className="col-span-1 md:col-span-3 space-y-6 text-center md:text-start">
+                  <p className="font-light text-lg md:text-xl text-text-black leading-relaxed">
+                    {t(`about.student.description`)}
+                  </p>
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center gap-2 text-primary font-medium hover:gap-4 transition-all duration-300"
+                  >
+                    {t(`about.student.link`)}
+                    {locale === "en" ? (
+                      <FaArrowRightLong />
+                    ) : (
+                      <FaArrowLeftLong />
+                    )}
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
 
-          <div id="contact" className="pt-20 mt-20 border-t border-gray-100">
-            <div className="text-center">
-              <p className="text-[#3011DB] text-3xl md:text-[40px] font-light">
+          {/* Section: Contact */}
+          <div id="contact" className="pt-20 mt-24 border-t border-gray-100">
+            <div className="text-center space-y-2 mb-16">
+              <p className="text-[#3011DB] text-lg md:text-xl font-medium uppercase">
                 {t(`contact.badge`)}
               </p>
-              <h2 className="font-heading font-bold text-text-title text-5xl md:text-[64px]">
+              <h2 className="font-heading font-bold text-text-title text-3xl md:text-5xl">
                 {t(`contact.title`)}
               </h2>
             </div>
-            <div className="grid md:grid-cols-2 gap-4 mt-25">
-              <div className="space-y-8">
-                <div className="flex gap-5 items-center">
-                  <div className="flex shrink-0 justify-center items-center h-17.5 w-17.5 rounded-full text-text-black bg-[#1877F2CC] text-[28px]">
-                    <FaPhone />
+
+            <div className="grid lg:grid-cols-5 gap-12 max-w-6xl mx-auto">
+              {/* Contact Info */}
+              <div className="lg:col-span-2 space-y-6">
+                {[
+                  { icon: <FaPhone />, text: t(`contact.info.phone`) },
+                  { icon: <SiGmail />, text: t(`contact.info.email`) },
+                  { icon: <FaLocationDot />, text: t(`contact.info.location`) },
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex gap-4 items-center p-4 rounded-xl hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="flex shrink-0 justify-center items-center h-12 w-12 rounded-full text-white bg-primary shadow-sm text-xl">
+                      {item.icon}
+                    </div>
+                    <span className="text-text-black font-medium text-lg break-all">
+                      {item.text}
+                    </span>
                   </div>
-                  <span className="text-text-black font-semibold text-4xl">
-                    {t(`contact.info.phone`)}
-                  </span>
-                </div>
-                <div className="flex gap-5 items-center">
-                  <div className="flex shrink-0 justify-center items-center h-17.5 w-17.5 rounded-full text-text-black bg-[#1877F2CC] text-[28px]">
-                    <SiGmail />
-                  </div>
-                  <span className="text-text-black break-all font-semibold text-4xl ">
-                    {t(`contact.info.email`)}
-                  </span>
-                </div>
-                <div className="flex gap-5 items-center">
-                  <div className="flex shrink-0 justify-center items-center h-17.5 w-17.5 rounded-full text-text-black bg-[#1877F2CC] text-[28px]">
-                    <FaLocationDot />
-                  </div>
-                  <span className="text-text-black font-semibold text-4xl">
-                    {t(`contact.info.location`)}
-                  </span>
-                </div>
+                ))}
               </div>
-              <form className="px-6 space-y-8" action="">
-                <div className="flex flex-col xl:flex-row gap-6">
-                  <div className="relative w-full text-text-body">
+
+              {/* Contact Form */}
+              <form className="lg:col-span-3 bg-gray-50 p-8 rounded-3xl space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="relative">
                     <Input
-                      className="rounded-full border border-[#1F2A44] bg-[#D9D9D9] py-4 ps-14 pe-4 h-auto  text-xl! focus:border-none  focus:ring-1 focus:ring-primary focus:ring-offset-2"
+                      className="rounded-xl border-gray-200 bg-white py-6 ps-12 h-auto text-base focus:ring-2 focus:ring-primary transition-all"
                       placeholder={t(`contact.form.name_placeholder`)}
-                    ></Input>
-                    <FaUser className="absolute top-1/2 left-4 text-2xl -translate-y-1/2" />
+                    />
+                    <FaUser className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
                   </div>
-                  <div className="relative w-full text-text-body">
+                  <div className="relative">
                     <Input
                       type="email"
-                      className="rounded-full border border-[#1F2A44] bg-[#D9D9D9] py-4 ps-14 pe-4 h-auto  text-xl! focus:border-none  focus:ring-1 focus:ring-primary focus:ring-offset-2"
+                      className="rounded-xl border-gray-200 bg-white py-6 ps-12 h-auto text-base focus:ring-2 focus:ring-primary transition-all"
                       placeholder={t(`contact.form.email_placeholder`)}
-                    ></Input>
-                    <IoMdMail className="absolute top-1/2 left-4 text-2xl -translate-y-1/2" />
+                    />
+                    <IoMdMail className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
                   </div>
                 </div>
-                <div className="w-full ">
-                  <Textarea
-                    className="rounded-[20px] min-h-40  border border-[#1F2A44] bg-[#D9D9D9] p-4 h-auto  text-xl! focus:border-none  focus:ring-1 focus:ring-primary focus:ring-offset-2"
-                    placeholder={t(`contact.form.message_placeholder`)}
-                  ></Textarea>
-                </div>
+                <Textarea
+                  className="rounded-xl min-h-37.5 border-gray-200 bg-white p-4 text-base focus:ring-2 focus:ring-primary transition-all"
+                  placeholder={t(`contact.form.message_placeholder`)}
+                />
                 <Button
                   type="button"
-                  className="rounded-[100px] text-white border border-[#1F2A44] w-full  text-2xl font-bold bg-primary hover:bg-primary-hover transition-colors duration-100 cursor-pointer px-8 py-4 h-auto"
+                  className="rounded-xl text-white w-full text-lg font-bold bg-primary hover:bg-primary-hover shadow-lg shadow-primary/20 py-6 h-auto transition-all transform hover:-translate-y-1"
                 >
                   {t(`contact.form.submit_btn`)}
                 </Button>
