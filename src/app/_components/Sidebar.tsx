@@ -3,13 +3,22 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { BsClipboardPlusFill } from "react-icons/bs";
-import { FaBars, FaBriefcaseMedical, FaHandHoldingHeart, FaRegEnvelope } from "react-icons/fa";
+import {
+  FaBars,
+  FaBriefcaseMedical,
+  FaHandHoldingHeart,
+  FaRegEnvelope,
+} from "react-icons/fa";
 import { FaUserDoctor, FaXmark } from "react-icons/fa6";
 import { GoGear } from "react-icons/go";
 import { ImProfile } from "react-icons/im";
 import { IoIosCreate } from "react-icons/io";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { MdDashboard } from "react-icons/md";
+import SearchInput from "./SearchInput";
+import { NotificationMenu } from "./menus/NotificationsMenu";
+import { MessagesMenu } from "./menus/messagesMenu";
+import { UserMenu } from "./menus/UserMenu";
 
 export type prop = {
   userType: string;
@@ -23,7 +32,7 @@ const translations = {
       createCase: "Create Case",
       myCases: "My Cases",
       availableDoctors: "Available Doctors",
-      careProposals: "Care Proposals"
+      careProposals: "Care Proposals",
     },
     // هنا مستقبلاً تقدر تضيف بقية الصفحات
     // Home: { ... }
@@ -34,9 +43,9 @@ const translations = {
       createCase: "إضافة حالة",
       myCases: "حالاتي المرضية",
       availableDoctors: "الأطباء المتاحين",
-      careProposals: "عروض الأطباء"
-    }
-  }
+      careProposals: "عروض الأطباء",
+    },
+  },
 };
 
 const activeStyle = "bg-[#F3F4FF] text-text-body";
@@ -46,12 +55,26 @@ export default function Sidebar({ userType }: prop) {
   const pathName = usePathname();
   const { locale } = useParams();
 
-  const t = (translations[locale as keyof typeof translations] || translations.en).Sidebar;
+  const t = (
+    translations[locale as keyof typeof translations] || translations.en
+  ).Sidebar;
 
   const patientItems = [
-    { title: t.dashboard, url: `/${locale}/patient/dashboard`, icon: <MdDashboard /> },
-    { title: t.createCase, url: `/${locale}/patient/dashboard`, icon: <IoIosCreate /> },
-    { title: t.myCases, url: `/${locale}/patient/my-cases`, icon: <FaBriefcaseMedical /> },
+    {
+      title: t.dashboard,
+      url: `/${locale}/patient/dashboard`,
+      icon: <MdDashboard />,
+    },
+    {
+      title: t.createCase,
+      url: `/${locale}/patient/dashboard`,
+      icon: <IoIosCreate />,
+    },
+    {
+      title: t.myCases,
+      url: `/${locale}/patient/my-cases`,
+      icon: <FaBriefcaseMedical />,
+    },
     {
       title: t.availableDoctors,
       url: `/${locale}/patient/available-doctors`,
@@ -71,13 +94,11 @@ export default function Sidebar({ userType }: prop) {
           Dentify
         </h1>
         <div className=" flex items-center gap-3 lg:hidden">
-          <div className="relative flex justify-center items-center bg-transparent shadow-md shadow-[#BF156C0D] w-10 h-10 rounded-full text-2xl text-white cursor-pointer">
-            <IoNotificationsOutline />
-            <div className="w-2 h-2 rounded-full bg-red-700 absolute top-1 right-1"></div>
-          </div>
-          <div className="relative flex justify-center items-center bg-transparent shadow-md shadow-[#BF156C0D] w-10 h-10 rounded-full text-2xl text-white cursor-pointer">
-            <FaRegEnvelope />
-            <div className="w-2 h-2 rounded-full bg-red-700 absolute top-1 right-1"></div>
+          <div className={`flex gap-4 justify-between items-center`}>
+            <NotificationMenu />
+            <MessagesMenu />
+
+            <UserMenu />
           </div>
           <div
             onClick={() => {
@@ -95,11 +116,11 @@ export default function Sidebar({ userType }: prop) {
       >
         {patientItems.map((item, idx) => {
           const isActive = pathName.includes(item.url);
-          
+
           return (
             <li key={idx}>
               <Link
-                className={` ${isActive ? activeStyle : 'text-[#F2F2F7]'} flex items-center rounded-[40px] lg:rounded-e-none py-3 px-4 gap-6  text-lg font-medium hover:bg-[#F3F4FF] hover:text-text-body transition-colors`}
+                className={` ${isActive ? activeStyle : "text-[#F2F2F7]"} flex items-center rounded-[40px] lg:rounded-e-none py-3 px-4 gap-6  text-lg font-medium hover:bg-[#F3F4FF] hover:text-text-body transition-colors`}
                 href={item.url}
               >
                 {item.icon}
@@ -109,6 +130,11 @@ export default function Sidebar({ userType }: prop) {
           );
         })}
       </ul>
+      {isOpen && (
+        <div className={`container mx-auto p-3 lg:hidden  `}>
+          <SearchInput />
+        </div>
+      )}
     </aside>
   );
 }

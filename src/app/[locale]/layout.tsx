@@ -47,7 +47,7 @@ export default async  function RootLayout({
     suppressHydrationWarning={true}
       lang={locale}
       dir={locale === 'en'? 'ltr' : 'rtl'}
-      className={cn("antialiased", fontClassName, "font-sans")}
+      className={cn("antialiased", fontClassName)}
     >
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider>

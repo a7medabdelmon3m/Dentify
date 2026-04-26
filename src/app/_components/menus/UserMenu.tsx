@@ -49,7 +49,7 @@ export function UserMenu() {
         </Button>
       </DropdownMenuTrigger>
       
-      <DropdownMenuContent align="end" className="bg-white ring-0 bottom-4">
+      <DropdownMenuContent align="end" className="bg-white ring-0 bottom-4 min-w-fit ">
         <DropdownMenuGroup>
           <DropdownMenuItem asChild className="hover:bg-gray-100  cursor-pointer"  >
             <Link href={`/patient/profile`}>
