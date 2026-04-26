@@ -41,7 +41,7 @@ export default function ChatPage() {
             alt="bg"
           ></Image>
           <Image
-            className="absolute z-2 -right-70 md:-right-50 lg:right-0 h-full"
+            className="absolute z-2 rtl:-right-70 md:rtl:-right-50 lg:rtl:-right-0 -right-70 md:-right-50 lg:right-0 h-full"
             src={vector}
             alt="vector"
           ></Image>

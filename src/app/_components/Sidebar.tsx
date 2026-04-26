@@ -46,13 +46,12 @@ export default function Sidebar({ userType }: prop) {
   const pathName = usePathname();
   const { locale } = useParams();
 
-  // الوصول لنصوص السايد بار بناءً على اللغة
   const t = (translations[locale as keyof typeof translations] || translations.en).Sidebar;
 
   const patientItems = [
     { title: t.dashboard, url: `/${locale}/patient/dashboard`, icon: <MdDashboard /> },
     { title: t.createCase, url: `/${locale}/patient/dashboard`, icon: <IoIosCreate /> },
-    { title: t.myCases, url: `/${locale}/patient/cases`, icon: <FaBriefcaseMedical /> },
+    { title: t.myCases, url: `/${locale}/patient/my-cases`, icon: <FaBriefcaseMedical /> },
     {
       title: t.availableDoctors,
       url: `/${locale}/patient/available-doctors`,
