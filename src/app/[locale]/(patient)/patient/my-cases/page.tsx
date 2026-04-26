@@ -10,7 +10,7 @@ export default function page() {
       <div className="container mx-auto p-4">
         <PageHeader
           title="My Health Records"
-          desc="Manage and track all the dental cases you’ve posted. Stay updated on their status and see who is interested in helping you."
+          desc="Manage and track all the dental cases you`ve posted. Stay updated on their status and see who is interested in helping you."
         />
         <div className="space-y-3 max-w-5xl mx-auto ">
           <div className="bg-white shadow-md p-3 rounded-lg flex gap-4 items-center text-primary">

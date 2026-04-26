@@ -10,8 +10,7 @@ import PageHeader from "@/app/_components/PageHeader";
 import { useTranslations } from "next-intl";
 
 export default function ProposedPage() {
-  // بننادي هنا على الفرع (card) اللي جوه الأوبجكت الكبير (proposed)
-  const t = useTranslations("proposed.card");
+  const t = useTranslations("proposal.card");
 
   return (
     <section className="bg-[#F3F4FF] min-h-screen">
