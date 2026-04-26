@@ -1,30 +1,30 @@
 import type { Metadata } from "next";
-// import { Geist, Geist_Mono } from "next/font/google";
 import { Poppins, Inter, Cairo } from "next/font/google";
 import "../globals.css";
 import { cn } from "@/lib/utils";
-import Footer from "../_components/footer/Footer";
-import { NavigationMenuDemo } from "../_components/navbar/Navbar";
 import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "700"], 
   variable: "--font-poppins",
-});
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-inter",
-});
-const cairo = Cairo({
-  subsets: ["arabic"],
-  weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-cairo",
+  display: 'swap', 
 });
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: 'swap',
+});
+
+const cairo = Cairo({
+  subsets: ["arabic"],
+  weight: ["400", "600", "700"], 
+  variable: "--font-cairo",
+  display: 'swap',
+});
 export const metadata: Metadata = {
   title: "Dentify",
   description:
@@ -41,19 +41,15 @@ export default async  function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+  const fontClassName = locale === 'ar' ? cairo.variable : `${poppins.variable} ${inter.variable}`;
   return (
     <html
+    suppressHydrationWarning={true}
       lang={locale}
       dir={locale === 'en'? 'ltr' : 'rtl'}
-      className={cn(
-        "antialiased",
-        poppins.variable,
-        inter.variable,
-        cairo.variable,
-        "font-sans",
-      )}
+      className={cn("antialiased", fontClassName, "font-sans")}
     >
-      <body>
+      <body suppressHydrationWarning={true}>
         <NextIntlClientProvider>
         <main>{children}</main>
         </NextIntlClientProvider>

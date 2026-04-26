@@ -94,6 +94,8 @@ export default async function Home({
                       src={patient}
                       alt="Patient"
                       className="object-cover"
+                      // ضيف السطر ده
+                      sizes="128px"
                     />
                   </div>
                 </div>

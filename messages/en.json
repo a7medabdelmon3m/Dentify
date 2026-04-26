@@ -120,7 +120,242 @@
       }
     }
   },
+  "patient-sidebar": {
+    "dashboard": "Dashboard",
+    "createCase": "Create Case",
+    "myCases": "My Cases",
+    "availableDoctors": "Available Doctors",
+    "careProposals": "Care Proposals"
+  },
+  "SearchInput": {
+    "placeholder": "Search here..."
+  },
+  "NotificationMenu": {
+    "title": "Notifications",
+    "label": "Notifications",
+    "defaultMessage": "hello can I help you",
+    "timeAgo": "2h ago"
+  },
+  "MessagesMenu": {
+    "title": "Messages",
+    "label": "My Messages",
+    "senderName": "Ali Mohammed",
+    "defaultMessage": "hello can I help you",
+    "timeAgo": "2h ago"
+  },
+  "UserMenu": {
+    "userName": "محمد علي",
+    "profile": "Profile",
+    "signOut": "Sign Out"
+  },
+  "available-doctors": {
+    "AvailableDoctorCard": {
+      "requestButton": "Request"
+    },
+    "AvailableDoctorsPage": {
+      "title": "Future Doctors, Ready to Care",
+      "desc": "Explore our list of dedicated dental students. View their ratings, specialties, and clinical experience to find the perfect match for your dental journey.",
+      "filterLabel": "Filter By University/City",
+      "selectPlaceholder": "Select City",
+      "all": "All"
+    }
+  },
+  "cases": {
+    "CaseCard": {
+      "statusMatched": "Matched",
+      "statusPending": "Pending",
+      "timeAgo": "3d ago",
+      "deleteTitle": "Delete",
+      "editTitle": "Edit"
+    },
+    "MyCasesPage": {
+      "title": "My Health Records",
+      "desc": "Manage and track all the dental cases you’ve posted. Stay updated on their status and see who is interested in helping you.",
+      "filterPlaceholder": "filter by...",
+      "filterLabel": "Filter by",
+      "statusPublished": "Published",
+      "statusRequested": "Requested",
+      "statusMatched": "Matched",
+      "statusRejected": "Rejected",
+      "statusExpired": "Expired"
+    }
+  },
+  "chat": {
+    "pageTitle": "Direct Communication",
+    "pageDesc": "A secure space to discuss treatment details, share medical photos, and coordinate appointments directly with your assigned student doctor.",
+    "heroTitle": "Dentify Chat",
+    "heroDesc": "Communicate with your doctor",
+    "statusOnline": "online",
+    "statusOffline": "offline",
+    "menuBlock": "Block",
+    "menuDelete": "Delete",
+    "today": "today",
+    "inputPlaceholder": "Type a Message"
+  },
+  "Rating": {
+    "triggerButton": "Close Case",
+    "title": "Treatment feedback",
+    "description": "Please rate your experience below",
+    "stars": "stars",
+    "feedbackLabel": "Additional feedback",
+    "feedbackPlaceholder": "My feedback!!",
+    "submitButton": "Submit feedback",
+    "or": "OR",
+    "cancelButton": "Cancel",
+    "skipButton": "Skip"
+  },
+  "PatientProfile": {
+    "headerTitle": "The First Step to a Brighter Smile & Better Education",
+    "headerDesc": "Egypt's premier platform connecting dental students with patients. Saving students' time while providing patients with professional care at university clinics.",
+    "userRole": "Patient",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email"
+  },
+  "CreateCase": {
+    "analysisReportTitle": "[Analysis Report]",
+    "findingsLabel": "Findings",
+    "recommendationLabel": "Recommendation",
+    "title": "Create Case",
+    "patientNamePlaceholder": "Patient Name...",
+    "phonePlaceholder": "Phone...",
+    "cityPlaceholder": "Select Your City",
+    "casePlaceholder": "Select Dental Case",
+    "submitBtn": "Submit",
+    "xrayTitle": "X-ray photo",
+    "optional": "(optional)",
+    "uploadBtn": "Upload",
+    "analysisBtn": "See Analysis",
+    "changePhoto": "Change photo",
+    "caseError": "Please select a case type",
+    "dentalCases": {
+      "caries": "Dental Caries (Cavities)",
+      "gingivitis": "Gingivitis (Gum Inflammation)",
+      "periodontitis": "Periodontitis",
+      "abscess": "Dental Abscess",
+      "endo": "Root Canal Treatment",
+      "wisdom-tooth": "Impacted Wisdom Tooth",
+      "fracture": "Tooth Fracture",
+      "ortho": "Orthodontic Consultation",
+      "implants": "Dental Implants",
+      "whitening": "Teeth Whitening",
+      "pediatric": "Pediatric Dentistry"
+    },
 
+    "XRayDialog": {
+      "title": "X-Ray Analysis",
+      "description": "Detailed AI analysis for the uploaded scan.",
+      "noImage": "No Image",
+      "defaultAnalysis": "Analysis content goes here...",
+      "close": "Close"
+    }
+  },
+  "DoctorInsights": {
+    "pageTitle": "Doctor Insights",
+    "pageDesc": "Detailed information about the student doctor, including their clinical experience, patient reviews, and academic background.",
+    "statusOnline": "ONLINE NOW",
+    "ratingText": "RATING",
+    "requestBtn": "Request Care",
+    "dialogTitle": "Create Case",
+    "dialogClose": "Close",
+    "aboutTitle": "About",
+    "reviewsTitle": "Reviews of Patients",
+    "verifiedPatient": "VERIFIED PATIENT",
+    "viewAllReviews": "VIEW ALL REVIEWS"
+  },
+  "proposal": {
+    "title": "Received Offers",
+    "description": "Review all treatment proposals sent by dental students who are ready to take on your case. Compare your options and choose the best fit.",
+    "actions": {
+      "view_details": "View Details"
+    }
+  },
+  "profile": {
+    "profile_header": {
+      "title": "Personal Profile",
+      "description": "Update your personal information, contact details, and medical history to ensure a seamless experience within the Mishwar community."
+    },
+    "basic_info": {
+      "title": "Basic Data",
+      "edit_title": "Edit Basic Information",
+      "governorate_label": "Governorate:",
+      "phone_label": "Phone Number:",
+      "email_label": "Email Address:",
+      "role_label": "Type/Role:",
+      "patient_role": "Patient",
+      "plan": "Your Plan: Essential",
+      "full_name": "Full Name",
+      "verified_mobile": "Verified Mobile Number",
+      "verified_badge": "VERIFIED",
+      "dob": "Date of Birth",
+      "email": "Email Address",
+      "email_placeholder": "dentify@gmail.com",
+      "phone_placeholder": "+20",
+      "select_location": "Select Location",
+      "location_placeholder": "Beni Suef",
+      "cancel": "Cancel",
+      "save_changes": "Save Changes",
+      "errors": {
+        "name_min": "Name must be at least 3 characters",
+        "name_max": "Name cannot exceed 25 characters",
+        "phone_invalid": "Invalid phone number",
+        "dob_required": "Date of birth is required",
+        "email_invalid": "Invalid email address",
+        "location_required": "Location is required"
+      }
+    },
+
+    "security": {
+      "title": "Change Password",
+      "current_password_label": "Current Password",
+      "new_password_label": "New Password",
+      "confirm_password_label": "Confirm New Password",
+      "placeholders": {
+        "current": "Enter Current Password",
+        "new": "Enter New Password",
+        "confirm": "Confirm New Password"
+      },
+      "button": "Update Password",
+      "errors": {
+        "current_required": "Current password is required",
+        "new_min": "Password must be at least 8 characters",
+        "password_uppercase": "Must contain at least one uppercase letter",
+        "password_lowercase": "Must contain at least one lowercase letter",
+        "password_number": "Must contain at least one number",
+        "password_special": "Must contain at least one special character",
+        "confirm_required": "Please confirm your new password",
+        "mismatch": "Passwords do not match"
+      }
+    }
+  },
+  "governorates": {
+    "cairo": "Cairo",
+    "alexandria": "Alexandria",
+    "giza": "Giza",
+    "qalyubia": "Qalyubia",
+    "dakahlia": "Dakahlia",
+    "monufia": "Monufia",
+    "sharkia": "Sharkia",
+    "gharbia": "Gharbia",
+    "kafr_el_sheikh": "Kafr El Sheikh",
+    "damietta": "Damietta",
+    "port_said": "Port Said",
+    "ismailia": "Ismailia",
+    "suez": "Suez",
+    "fayoum": "Fayoum",
+    "beni_suef": "Beni Suef",
+    "minya": "Minya",
+    "assiut": "Assiut",
+    "sohag": "Sohag",
+    "qena": "Qena",
+    "luxor": "Luxor",
+    "aswan": "Aswan",
+    "red_sea": "Red Sea",
+    "new_valley": "New Valley",
+    "matrouh": "Matrouh",
+    "north_sinai": "North Sinai",
+    "south_sinai": "South Sinai",
+    "beheira": "Beheira"
+  },
   "footer": {
     "description": "Dentify is your trusted platform to connect dental students with patients, ensuring high-quality dental care and a seamless clinical learning experience.",
     "follow_us": "Follow us on",

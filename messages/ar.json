@@ -118,7 +118,241 @@
       }
     }
   },
+  "patient-sidebar": {
+    "dashboard": "لوحة التحكم",
+    "createCase": "إضافة حالة جديدة",
+    "myCases": "حالاتي المرضية",
+    "availableDoctors": "الأطباء المتاحين",
+    "careProposals": "عروض الأطباء"
+  },
+  "SearchInput": {
+    "placeholder": "ابحث هنا..."
+  },
+  "NotificationMenu": {
+    "title": "الإشعارات",
+    "label": "الإشعارات",
+    "defaultMessage": "أهلاً، هل يمكنني مساعدتك؟",
+    "timeAgo": "منذ ساعتين"
+  },
+  "MessagesMenu": {
+    "title": "الرسائل",
+    "label": "رسائلي",
+    "senderName": "علي محمد",
+    "defaultMessage": "أهلاً، هل يمكنني مساعدتك؟",
+    "timeAgo": "منذ ساعتين"
+  },
+  "UserMenu": {
+    "userName": "محمد علي",
+    "profile": "الملف الشخصي",
+    "signOut": "تسجيل الخروج"
+  },
+  "available-doctors": {
+    "AvailableDoctorCard": {
+      "requestButton": "طلب"
+    },
+    "AvailableDoctorsPage": {
+      "title": "نُخبة من جيل المستقبل.. في خدمتك",
+      "desc": "استكشف قائمة الطلاب المتميزين من كليات طب الأسنان. يمكنك الإطلاع على تقييماتهم، تخصصاتهم، واختيار الأنسب لمتابعة حالتك.",
+      "filterLabel": "تصفية حسب الجامعة أو المدينة",
+      "selectPlaceholder": "اختر المدينة",
+      "all": "الكل"
+    }
+  },
+  "cases": {
+    "CaseCard": {
+      "statusMatched": "تم التوصيل",
+      "statusPending": "قيد الانتظار",
+      "timeAgo": "منذ 3 أيام",
+      "deleteTitle": "حذف",
+      "editTitle": "تعديل"
+    },
+    "MyCasesPage": {
+      "title": "حالاتي المرضية",
+      "desc": "إدارة ومتابعة جميع حالات الأسنان التي قمت بنشرها. ابقَ على اطلاع بحالتها ومعرفة من المهتم بمساعدتك.",
+      "filterPlaceholder": "تصفية حسب...",
+      "filterLabel": "تصفية حسب",
+      "statusPublished": "منشورة",
+      "statusRequested": "مطلوبة",
+      "statusMatched": "تم التوصيل",
+      "statusRejected": "مرفوضة",
+      "statusExpired": "منتهية"
+    }
+  },
+  "chat": {
+    "pageTitle": "تواصل مباشر",
+    "pageDesc": "مساحة آمنة لمناقشة تفاصيل العلاج، مشاركة الصور الطبية، وتنسيق المواعيد مباشرة مع طبيبك.",
+    "heroTitle": "دردشة دينتيفاي",
+    "heroDesc": "تواصل مع طبيبك بسهولة",
+    "statusOnline": "متصل الآن",
+    "statusOffline": "غير متصل",
+    "menuBlock": "حظر",
+    "menuDelete": "حذف المحادثة",
+    "today": "اليوم",
+    "inputPlaceholder": "اكتب رسالتك هنا..."
+  },
+  "Rating": {
+    "triggerButton": "إنهاء الحالة",
+    "title": "تقييم العلاج",
+    "description": "من فضلك قيم تجربتك معنا بالأسفل",
+    "stars": "نجوم",
+    "feedbackLabel": "ملاحظات إضافية",
+    "feedbackPlaceholder": "اكتب رأيك هنا...",
+    "submitButton": "إرسال التقييم",
+    "or": "أو",
+    "cancelButton": "إلغاء",
+    "skipButton": "تخطي"
+  },
+  "PatientProfile": {
+    "headerTitle": "خطوتك الأولى لابتسامة مشرقة وتعليم أفضل",
+    "headerDesc": "المنصة الأولى في مصر لربط طلاب طب الأسنان بالمرضى. بنوفر وقت الطالب وبنقدم رعاية طبية متميزة للمرضى في عيادات الجامعات.",
+    "userRole": "مريض",
+    "phoneLabel": "رقم الهاتف",
+    "emailLabel": "البريد الإلكتروني"
+  },
+  "CreateCase": {
+    "analysisReportTitle": "[تقرير التحليل الطبي]",
+    "findingsLabel": "النتائج",
+    "recommendationLabel": "التوصية الطبية",
+    "title": "إنشاء حالة",
+    "patientNamePlaceholder": "اسم المريض...",
+    "phonePlaceholder": "رقم الهاتف...",
+    "cityPlaceholder": "اختر المحافظة",
+    "casePlaceholder": "اختر حالة الأسنان",
+    "submitBtn": "إرسال",
+    "xrayTitle": "صورة الأشعة",
+    "optional": "(اختياري)",
+    "uploadBtn": "رفع الصورة",
+    "analysisBtn": "عرض التحليل",
+    "changePhoto": "تغيير الصورة",
+    "caseError": "يرجى اختيار نوع الحالة",
+    "dentalCases": {
+      "caries": "تسوس الأسنان",
+      "gingivitis": "التهاب اللثة",
+      "periodontitis": "التهاب دواعم السن",
+      "abscess": "خراج الأسنان",
+      "endo": "علاج الجذور",
+      "wisdom-tooth": "ضرس العقل المحشور",
+      "fracture": "كسر في السن",
+      "ortho": "استشارة تقويم",
+      "implants": "زراعة الأسنان",
+      "whitening": "تبييض الأسنان",
+      "pediatric": "طب أسنان الأطفال"
+    },
+    "XRayDialog": {
+      "title": "تحليل الأشعة السينية",
+      "description": "تحليل مفصل بواسطة الذكاء الاصطناعي للأشعة المرفوعة.",
+      "noImage": "لا توجد صورة",
+      "defaultAnalysis": "محتوى التحليل سيظهر هنا...",
+      "close": "إغلاق"
+    }
+  },
+  "DoctorInsights": {
+    "pageTitle": "بيانات الطبيب",
+    "pageDesc": "معلومات مفصلة عن الطالب الطبيب، تشمل خبرته الإكلينيكية، مراجعات المرضى، وخلفيته الأكاديمية.",
+    "statusOnline": "متصل الآن",
+    "ratingText": "تقييم",
+    "requestBtn": "طلب رعاية طبية",
+    "dialogTitle": "إنشاء حالة",
+    "dialogClose": "إغلاق",
+    "aboutTitle": "عن",
+    "reviewsTitle": "آراء المرضى",
+    "verifiedPatient": "مريض موثق",
+    "viewAllReviews": "عرض جميع الآراء"
+  },
+  "proposal": {
+    "title": "العروض المستلمة",
+    "description": "راجع جميع خطط العلاج المقترحة من طلاب طب الأسنان المستعدين لتولي حالتك. قارن بين خياراتك واختر الأنسب لك.",
+    "actions": {
+      "view_details": "عرض التفاصيل"
+    }
+  },
+  "profile": {
+    "profile_header": {
+      "title": "الملف الشخصي",
+      "description": "قم بتحديث معلوماتك الشخصية وتفاصيل الاتصال والتاريخ الطبي لضمان تجربة سلسة داخل مجتمع مشوار."
+    },
+    "basic_info": {
+      "title": "البيانات الأساسية",
+      "edit_title": "تعديل البيانات الأساسية",
+      "governorate_label": "المحافظة:",
+      "phone_label": "رقم الهاتف:",
+      "email_label": "البريد الإلكتروني:",
+      "role_label": "النوع/الدور:",
+      "patient_role": "مريض",
+      "plan": "باقتك: الأساسية",
+      "full_name": "الاسم بالكامل",
+      "verified_mobile": "رقم الموبايل",
+      "verified_badge": "متوثق",
+      "dob": "تاريخ الميلاد",
+      "email": "البريد الإلكتروني",
+      "email_placeholder": "dentify@gmail.com",
+      "phone_placeholder": "+20",
+      "select_location": "اختار المحافظة",
+      "location_placeholder": "بني سويف",
+      "cancel": "إلغاء",
+      "save_changes": "حفظ التغييرات",
+      "errors": {
+        "name_min": "يجب أن يكون الاسم 3 أحرف على الأقل",
+        "name_max": "لا يمكن أن يتجاوز الاسم 25 حرفاً",
+        "phone_invalid": "رقم الهاتف المدخل غير صحيح",
+        "dob_required": "حقل تاريخ الميلاد مطلوب",
+        "email_invalid": "البريد الإلكتروني المدخل غير صحيح",
+        "location_required": "يرجى تحديد المحافظة لضمان دقة الفرز"
+      }
+    },
 
+    "security": {
+      "title": "تغيير كلمة المرور",
+      "current_password_label": "كلمة المرور الحالية",
+      "new_password_label": "كلمة المرور الجديدة",
+      "confirm_password_label": "تأكيد كلمة المرور الجديدة",
+      "placeholders": {
+        "current": "أدخل كلمة المرور الحالية",
+        "new": "أدخل كلمة المرور الجديدة",
+        "confirm": "أدخل تأكيد كلمة المرور"
+      },
+      "button": "تحديث كلمة المرور",
+      "errors": {
+        "current_required": "حقل كلمة المرور الحالية مطلوب",
+        "new_min": "يجب ألا تقل كلمة المرور عن 8 رموز",
+        "password_uppercase": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل (A-Z)",
+        "password_lowercase": "يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل (a-z)",
+        "password_number": "يجب أن تحتوي كلمة المرور على رقم واحد على الأقل (0-9)",
+        "password_special": "يجب أن تحتوي كلمة المرور على رمز خاص واحد على الأقل (مثل @, #, $)",
+        "confirm_required": "يرجى تأكيد كلمة المرور الجديدة",
+        "mismatch": "كلمتا المرور غير متطابقتين"
+      }
+    }
+  },
+  "governorates": {
+    "cairo": "القاهرة",
+    "giza": "الجيزة",
+    "alexandria": "الإسكندرية",
+    "beni_suef": "بني سويف",
+    "dakahlia": "الدقهلية",
+    "red_sea": "البحر الأحمر",
+    "beheira": "البحيرة",
+    "fayoum": "الفيوم",
+    "gharbia": "الغربية",
+    "ismailia": "الإسماعيلية",
+    "monufia": "المنوفية",
+    "minya": "المنيا",
+    "qalyubia": "القليوبية",
+    "new_valley": "الوادي الجديد",
+    "suez": "السويس",
+    "aswan": "أسوان",
+    "assiut": "أسيوط",
+    "damietta": "دمياط",
+    "port_said": "بورسعيد",
+    "sharkia": "الشرقية",
+    "south_sinai": "جنوب سيناء",
+    "kafr_el_sheikh": "كفر الشيخ",
+    "matrouh": "مطروح",
+    "luxor": "الأقصر",
+    "qena": "قنا",
+    "north_sinai": "شمال سيناء",
+    "sohag": "سوهاج"
+  },
   "footer": {
     "description": "دينتيفاي هي منصتك الموثوقة للربط بين طلاب طب الأسنان والمرضى، لضمان رعاية صحية عالية الجودة وتجربة تعليمية إكلينيكية سلسة.",
     "follow_us": "تابعنا على",
