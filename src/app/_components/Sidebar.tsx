@@ -88,7 +88,7 @@ export default function Sidebar({ userType }: prop) {
   ];
 
   return (
-    <aside className=" sticky top-0 lg:h-screen z-6 w-full lg:w-70 bg-primary py-4  lg:py-12.5  ">
+    <aside className=" sticky top-0 lg:h-screen z-6 w-full lg:w-70 bg-primary py-4    ">
       <div className="flex justify-between items-center">
         <h1 className="text-white px-4 text-4xl font-bold font-heading text-start lg:text-center ">
           Dentify
