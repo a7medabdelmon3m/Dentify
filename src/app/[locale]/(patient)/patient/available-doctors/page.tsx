@@ -1,5 +1,4 @@
 "use client";
-import { egyptGovernorates } from "@/app/constants/locations";
 import {
   Select,
   SelectContent,
@@ -13,6 +12,7 @@ import { FaFilter } from "react-icons/fa";
 import AvailableDoctorCard from "./AvailableDoctorCard";
 import PageHeader from "@/app/_components/PageHeader";
 import { useTranslations } from "next-intl";
+import { egyptGovernorates } from "@/app/constants/locations";
 
 export default function AvailableDoctorsPage() {
   const t = useTranslations("available-doctors.AvailableDoctorsPage");
@@ -42,19 +42,15 @@ export default function AvailableDoctorsPage() {
                   className="bg-white ring-0 focus-visible:outline-0"
                 >
                   <SelectGroup className="text-text-muted text-xs leading-4.5">
-                    {/* خيار الكل - ده ثابت في الكومبوننت */}
                     <SelectItem value="All">{t("all")}</SelectItem>
 
-                    {/* المحافظات - بنلف على الـ constants ونترجم بالـ label */}
                     {egyptGovernorates.map((univer) => (
                       <SelectItem
-                        key={univer.label} // ده الكي بتاع الرياكت
-                        value={univer.label} // دي القيمة اللي هتروح للباك إند (مثلاً "cairo")
+                        key={univer.label} 
+                        value={univer.value} 
                       >
-                        {/* هنا السحر: الـ g هتاخد كلمة "cairo" من الـ constants 
-       وتروح تدور عليها في ملف الـ JSON وتطلع "القاهرة"
-    */}
-                        {g(univer.label)}
+
+                        {g(univer.value)}
                       </SelectItem>
                     ))}
                   </SelectGroup>

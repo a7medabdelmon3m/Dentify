@@ -267,6 +267,22 @@
     "description": "Review all treatment proposals sent by dental students who are ready to take on your case. Compare your options and choose the best fit.",
     "actions": {
       "view_details": "View Details"
+    },
+    "card": {
+      "headerTitle": "Care Proposals",
+      "headerDesc": "Review clinical treatment plans and choose the best student to manage your case.",
+      "rating": "Rating",
+      "submitted": "Submitted",
+      "doctorDetails": "Doctor Details",
+      "treatmentProposal": "Treatment Proposal",
+      "acceptBtn": "Accept Care",
+      "declineBtn": "Decline Care",
+      "timeAgo": "{time} ago",
+      "specialty": "Senior Orthodontist",
+      "university": "Beni-suef University"
+    },
+    "anotherSection": {
+      "example": "This is another part of the proposed page"
     }
   },
   "profile": {
