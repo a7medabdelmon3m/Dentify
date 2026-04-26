@@ -14,12 +14,12 @@ export default async function page() {
   return (
     <section className="bg-[#F3F4FF] flex-1">
       <div className="container px-4 py-4 mx-auto ">
-        <div className="container p-4  mx-auto ">
+       
           <PageHeader
             title={t("headerTitle")}
             desc={t("headerDesc")}
           />
-        </div>
+       
 
         <div className="border-2 border-white bg-white rounded-[20px] overflow-hidden shadow-sm mb-10">
           <div className="bg-linear-to-r from-primary to-primary-hover min-h-35 md:min-h-40 overflow-hidden relative">
