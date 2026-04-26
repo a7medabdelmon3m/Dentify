@@ -28,11 +28,11 @@ export default function ChatPage() {
 
   return (
     <section className="bg-[#F3F4FF] flex-1">
+      <div className="container p-4 mx-auto">
+        <PageHeader title={t("pageTitle")} desc={t("pageDesc")} />
+      </div>
+
       <div className="container mx-auto">
-        <PageHeader
-          title={t("pageTitle")}
-          desc={t("pageDesc")}
-        />
         <div className="min-h-screen relative overflow-hidden bg-white flex flex-col justify-center ">
           <Image
             fill
@@ -41,7 +41,7 @@ export default function ChatPage() {
             alt="bg"
           ></Image>
           <Image
-            className="absolute z-2 rtl:-right-70 md:rtl:-right-50 lg:rtl:-right-0 -right-70 md:-right-50 lg:right-0 h-full"
+            className="absolute z-2 rtl:-left-70 md:rtl:-left-50 lg:rtl:-left-0  -right-70 md:-right-50 lg:right-0 h-full"
             src={vector}
             alt="vector"
           ></Image>

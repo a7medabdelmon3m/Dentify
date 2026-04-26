@@ -144,7 +144,6 @@
     "timeAgo": "2h ago"
   },
   "UserMenu": {
-    "userName": "محمد علي",
     "profile": "Profile",
     "signOut": "Sign Out"
   },
@@ -191,6 +190,15 @@
     "menuDelete": "Delete",
     "today": "today",
     "inputPlaceholder": "Type a Message"
+  },
+  "chatBot": {
+    "title": "Chat bot",
+    "description": "If you find a problem in our site this chat will help you",
+    "aiChatHeader": "AI Chat",
+    "today": "Today",
+    "placeholder": "Type your message here...",
+    "hiThere": "Hi, there!",
+    "noImage": "No image available"
   },
   "Rating": {
     "triggerButton": "Close Case",

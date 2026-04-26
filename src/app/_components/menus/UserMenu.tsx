@@ -19,6 +19,7 @@ import Link from "next/link";
 import Image from "next/image";
 import user from "@/assets/images/patient.jpg";
 import { ImProfile } from "react-icons/im";
+import { useTranslations } from "next-intl";
 // const UserItems = [
 //     {label:'profile' , icon:<ImProfile /> ,isLink:true ,url:`/patient/profile`},
 //     {label:'sign out' , icon: <LogOutIcon /> ,isLink:false ,url:``},
@@ -26,6 +27,7 @@ import { ImProfile } from "react-icons/im";
 
 
 export function UserMenu() {
+  const t = useTranslations(`UserMenu`) ;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -52,7 +54,7 @@ export function UserMenu() {
           <DropdownMenuItem asChild className="hover:bg-gray-100  cursor-pointer"  >
             <Link href={`/patient/profile`}>
             <ImProfile />
-            Profile
+            {t(`profile`)}
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
@@ -60,7 +62,7 @@ export function UserMenu() {
 
         <DropdownMenuItem className="hover:bg-red-100 cursor-pointer text-red-500">
          <LogOutIcon />
-          Sign Out
+          {t(`signOut`)}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

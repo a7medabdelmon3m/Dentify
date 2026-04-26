@@ -142,7 +142,6 @@
     "timeAgo": "منذ ساعتين"
   },
   "UserMenu": {
-    "userName": "محمد علي",
     "profile": "الملف الشخصي",
     "signOut": "تسجيل الخروج"
   },
@@ -189,6 +188,15 @@
     "menuDelete": "حذف المحادثة",
     "today": "اليوم",
     "inputPlaceholder": "اكتب رسالتك هنا..."
+  },
+  "chatBot": {
+    "title": "مساعدنا الذكي",
+    "description": "إذا واجهت أي مشكلة في الموقع، هذا الشات سيساعدك",
+    "aiChatHeader": "دردشة الذكاء الاصطناعي",
+    "today": "اليوم",
+    "placeholder": "اكتب رسالتك هنا...",
+    "hiThere": "أهلاً بك!",
+    "noImage": "لا توجد صورة"
   },
   "Rating": {
     "triggerButton": "إنهاء الحالة",
