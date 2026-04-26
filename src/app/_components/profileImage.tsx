@@ -11,13 +11,13 @@ import { useTranslations } from "next-intl";
 export default function ProfileImage() {
   const [image, setImage] = useState(user.src); // مسار الصورة الافتراضية
   const imgPrev = useRef(null);
-  function handleImageChange(e) {
-    const file = e.target.files[0];
-    if (file) {
-      const urlPreview = URL.createObjectURL(file);
-      setImage(urlPreview);
-    }
+ function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+  const file = e.target.files?.[0]; 
+  if (file) {
+    const urlPreview = URL.createObjectURL(file);
+    setImage(urlPreview);
   }
+}
   const t = useTranslations(`profile`)
   return (
     <div className="flex flex-col items-center justify-center p-4 rounded-full">
