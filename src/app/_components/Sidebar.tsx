@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { BsClipboardPlusFill } from "react-icons/bs";
@@ -19,6 +18,8 @@ import SearchInput from "./SearchInput";
 import { NotificationMenu } from "./menus/NotificationsMenu";
 import { MessagesMenu } from "./menus/messagesMenu";
 import { UserMenu } from "./menus/UserMenu";
+import { Link } from "@/i18n/navigation";
+// import { Link } from "@/i18n/navigation";
 
 export type prop = {
   userType: string;
@@ -54,6 +55,9 @@ export default function Sidebar({ userType }: prop) {
   const [isOpen, setIsOpen] = useState(false);
   const pathName = usePathname();
   const { locale } = useParams();
+  console.log('pathName : ' , pathName);
+  console.log('locale : ' , locale);
+  
 
   const t = (
     translations[locale as keyof typeof translations] || translations.en
@@ -62,27 +66,27 @@ export default function Sidebar({ userType }: prop) {
   const patientItems = [
     {
       title: t.dashboard,
-      url: `/${locale}/patient/dashboard`,
+      url: `/patient/dashboard`,
       icon: <MdDashboard />,
     },
     {
       title: t.createCase,
-      url: `/${locale}/patient/dashboard`,
+      url: `/patient/dashboard`,
       icon: <IoIosCreate />,
     },
     {
       title: t.myCases,
-      url: `/${locale}/patient/my-cases`,
+      url: `/patient/myCases`,
       icon: <FaBriefcaseMedical />,
     },
     {
       title: t.availableDoctors,
-      url: `/${locale}/patient/available-doctors`,
+      url: `/patient/available-doctors`,
       icon: <FaUserDoctor />,
     },
     {
       title: t.careProposals,
-      url: `/${locale}/patient/proposals`,
+      url: `/patient/proposals`,
       icon: <FaHandHoldingHeart />,
     },
   ];
