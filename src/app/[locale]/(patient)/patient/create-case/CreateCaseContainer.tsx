@@ -23,7 +23,7 @@ ${t("recommendationLabel")}: Root canal treatment for #36.
 `;
 
   return (
-    <>
+    <div className="">
       <CreateCaseForm handleDialogOpen={handleDialogOpen} />
 
       <XRayDialog
@@ -32,6 +32,6 @@ ${t("recommendationLabel")}: Root canal treatment for #36.
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       />
-    </>
+    </div>
   );
 }

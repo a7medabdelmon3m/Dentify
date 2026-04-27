@@ -35,7 +35,7 @@ export default function CaseCard() {
           </div>
         </div>
 
-        <div className="bg-success text-white font-semibold text-sm rounded-sm flex justify-center items-center py-1 px-3">
+        <div className="bg-success text-white font-semibold text-sm rounded-sm flex justify-center items-center shrink-0 py-1 px-3">
           {t("statusMatched")}
         </div>
       </div>

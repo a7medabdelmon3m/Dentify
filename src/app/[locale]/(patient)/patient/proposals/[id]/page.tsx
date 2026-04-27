@@ -15,7 +15,6 @@ export default function ProposedPage() {
   return (
     <section className="bg-[#F3F4FF] min-h-screen">
       <div className="container p-4 mx-auto space-y-4">
-        {/* العناوين الرئيسية */}
         <PageHeader 
           title={t("headerTitle")} 
           desc={t("headerDesc")} 
@@ -23,7 +22,7 @@ export default function ProposedPage() {
         
         <div className="bg-white shadow-md rounded-xl p-6 max-w-3xl mx-auto">
           {/* جزء بيانات الطبيب والتقييم */}
-          <div className="flex gap-4 justify-between items-start pb-8 border-b border-gray-100">
+          <div className="flex flex-col-reverse sm:flex-row gap-4 justify-between items-start pb-8 border-b border-gray-100">
             <div className="flex gap-3 items-center">
               <div className="relative w-18 h-18 rounded-full overflow-hidden ring-4 ring-primary ring-offset-2">
                 <Image
@@ -57,7 +56,7 @@ export default function ProposedPage() {
             </div>
             
             {/* وقت الإرسال */}
-            <div className="flex gap-1 font-medium text-text-muted py-1 px-3 bg-gray-50 border border-gray-100 rounded-full shadow-sm shadow-black/10 text-sm">
+            <div className="flex  self-end sm:self-start gap-1 font-medium text-text-muted py-1 px-3 bg-gray-50 border border-gray-100 rounded-full shadow-sm shadow-black/10 text-xs">
               <span>{t("submitted")}</span>
               <span dir="ltr">{t("timeAgo", { time: "2h" })}</span>
             </div>

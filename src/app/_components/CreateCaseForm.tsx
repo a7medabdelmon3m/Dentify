@@ -34,7 +34,7 @@ export default function CreateCaseForm({
   const xRayFile = watch("xRay");
 
   return (
-    <div className="container mx-auto max-w-4xl h-screen flex flex-col justify-center">
+    <div className="container mx-auto max-w-4xl">
       <form className="grid grid-cols-1 md:grid-cols-2 gap-4 text-start ">
         {/* البيانات الأساسية */}
         <div className="bg-white rounded-xl p-4 shadow-sm space-y-10">
