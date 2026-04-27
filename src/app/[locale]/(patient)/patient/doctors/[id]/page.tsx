@@ -27,7 +27,7 @@ export default async function page() {
 
   return (
     <section className="bg-[#F3F4FF]">
-      <div className="container p-4 mx-auto ">
+      <div className="container p-4 mx-auto space-y-4 ">
         <PageHeader
           title={t("pageTitle")}
           desc={t("pageDesc")}

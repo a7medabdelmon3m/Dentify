@@ -21,7 +21,7 @@ export default function AvailableDoctorsPage() {
   return (
     <section className="flex-1 bg-[#F3F4FF]">
       <div className="container mx-auto p-4 space-y-4 min-h-screen">
-        <PageHeader title={t("title")} desc={t("desc")} />
+        <PageHeader title={t("title")} desc={t("desc")  }  />
 
         <div className="bg-white rounded-lg flex gap-3 items-center w-fit px-3 py-1">
           <div className="w-10 h-10 rounded-lg flex justify-center items-center bg-blue-100 text-blue-500 text-xl">

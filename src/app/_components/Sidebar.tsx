@@ -71,7 +71,7 @@ export default function Sidebar({ userType }: prop) {
     },
     {
       title: t.createCase,
-      url: `/patient/dashboard`,
+      url: `/patient/create-case`,
       icon: <IoIosCreate />,
     },
     {

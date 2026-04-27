@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import CreateCaseForm from "@/app/_components/CreateCaseForm";
 import React, { useState } from "react";
 import xRay from "@/assets/images/dental-x-rays.png";
@@ -6,15 +6,14 @@ import { XRayDialog } from "@/app/_components/x-rayDialog";
 import { useTranslations } from "next-intl";
 
 export default function CreateCaseContainer() {
-    const t = useTranslations("CreateCase");
-    const [isOpen, setIsOpen] = useState(false)
-    
-    function handleDialogOpen(){
-        setIsOpen(!isOpen) ;
-    }
+  const t = useTranslations("CreateCase");
+  const [isOpen, setIsOpen] = useState(false);
 
-    // تقرير افتراضي يراعي الترجمة في العناوين
-    const dynamicAnalysis = `
+  function handleDialogOpen() {
+    setIsOpen(!isOpen);
+  }
+
+  const dynamicAnalysis = `
 ${t("analysisReportTitle")}
 Patient: Essam Azzam
 ${t("findingsLabel")}:

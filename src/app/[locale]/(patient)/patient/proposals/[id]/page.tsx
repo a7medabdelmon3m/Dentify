@@ -14,7 +14,7 @@ export default function ProposedPage() {
 
   return (
     <section className="bg-[#F3F4FF] min-h-screen">
-      <div className="container p-4 mx-auto">
+      <div className="container p-4 mx-auto space-y-4">
         {/* العناوين الرئيسية */}
         <PageHeader 
           title={t("headerTitle")} 

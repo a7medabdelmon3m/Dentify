@@ -28,7 +28,7 @@ export default function ChatPage() {
 
   return (
     <section className="bg-[#F3F4FF] flex-1">
-      <div className="container p-4 mx-auto">
+      <div className="container p-4 mx-auto space-y-4">
         <PageHeader title={t("pageTitle")} desc={t("pageDesc")} />
       </div>
 

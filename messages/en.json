@@ -42,7 +42,6 @@
       "submit_btn": "Send Message"
     }
   },
-
   "about_features": {
     "money": {
       "title": "MONEY",
@@ -97,7 +96,6 @@
       "cancel_btn": "Cancel",
       "submit_btn": "Send"
     },
-
     "validation": {
       "name": {
         "required": "Name Is Required!",
@@ -152,8 +150,8 @@
       "requestButton": "Request"
     },
     "AvailableDoctorsPage": {
-      "title": "Future Doctors, Ready to Care",
-      "desc": "Explore our list of dedicated dental students. View their ratings, specialties, and clinical experience to find the perfect match for your dental journey.",
+      "title": "Available Doctors",
+      "desc": "Browse top dental students and choose the right match.",
       "filterLabel": "Filter By University/City",
       "selectPlaceholder": "Select City",
       "all": "All"
@@ -168,8 +166,8 @@
       "editTitle": "Edit"
     },
     "MyCasesPage": {
-      "title": "My Health Records",
-      "desc": "Manage and track all the dental cases you’ve posted. Stay updated on their status and see who is interested in helping you.",
+      "title": "My Cases",
+      "desc": "Track your submitted dental cases and view treatment offers.",
       "filterPlaceholder": "filter by...",
       "filterLabel": "Filter by",
       "statusPublished": "Published",
@@ -180,8 +178,8 @@
     }
   },
   "chat": {
-    "pageTitle": "Direct Communication",
-    "pageDesc": "A secure space to discuss treatment details, share medical photos, and coordinate appointments directly with your assigned student doctor.",
+    "pageTitle": "Doctor Chat",
+    "pageDesc": "Securely discuss treatments, share X-rays, and schedule your appointments.",
     "heroTitle": "Dentify Chat",
     "heroDesc": "Communicate with your doctor",
     "statusOnline": "online",
@@ -192,8 +190,8 @@
     "inputPlaceholder": "Type a Message"
   },
   "chatBot": {
-    "title": "Chat bot",
-    "description": "If you find a problem in our site this chat will help you",
+    "title": "Your AI Assistant",
+    "description": "If you run into any issues or need help, our chatbot is here for you.",
     "aiChatHeader": "AI Chat",
     "today": "Today",
     "placeholder": "Type your message here...",
@@ -202,8 +200,8 @@
   },
   "Rating": {
     "triggerButton": "Close Case",
-    "title": "Treatment feedback",
-    "description": "Please rate your experience below",
+    "title": "Rate Treatment",
+    "description": "Please share your feedback and rate your treatment experience.",
     "stars": "stars",
     "feedbackLabel": "Additional feedback",
     "feedbackPlaceholder": "My feedback!!",
@@ -213,21 +211,50 @@
     "skipButton": "Skip"
   },
   "PatientProfile": {
-    "headerTitle": "The First Step to a Brighter Smile & Better Education",
-    "headerDesc": "Egypt's premier platform connecting dental students with patients. Saving students' time while providing patients with professional care at university clinics.",
-    "userRole": "Patient",
+   
+    "userRole": "Patient ",
     "phoneLabel": "Phone",
     "emailLabel": "Email"
   },
+  "PatientDashboard": {
+    "title": "My Dashboard",
+    "description": "Manage your dental cases and track treatment progress easily.",
+    "myDashboard": "My Dashboard",
+    "casesDetails": "Cases Details & History",
+    "viewAllCases": "View all cases →",
+    "casesThisMonth": "Cases this month",
+    "onTrack": "On track",
+    "completion": "Completion",
+    "relatedDoctors": "Related Doctors",
+    "seeAll": "See all →",
+    "recentChats": "Recent Chats",
+    "viewAll": "View all →",
+    "matchedCases": "Matched cases",
+    "expiredCases": "Expired cases",
+    "publishedCases": "Published cases",
+    "rejectedCases": "Rejected cases",
+    "appointmentConfirmed": "Your next appointment is confirmed...",
+    "bringXray": "Please bring your X-ray results",
+    "caseUpdated": "Your case has been updated",
+    "reviewPrescription": "Review attached prescription",
+    "yesterday": "Yesterday",
+    "monday": "Mon",
+    "sunday": "Sun",
+    "support": "Support",
+    "dentist": "Dentist"
+  },
   "CreateCase": {
+    "headerTitle": "Create Case",
+    "headerDesc": "Submit your medical details now and receive the best free dental care.",
     "analysisReportTitle": "[Analysis Report]",
     "findingsLabel": "Findings",
     "recommendationLabel": "Recommendation",
-    "title": "Create Case",
+    "title": "Submit Case",
     "patientNamePlaceholder": "Patient Name...",
     "phonePlaceholder": "Phone...",
     "cityPlaceholder": "Select Your City",
     "casePlaceholder": "Select Dental Case",
+    "descPlaceholder": "Describe how you feel",
     "submitBtn": "Submit",
     "xrayTitle": "X-ray photo",
     "optional": "(optional)",
@@ -248,7 +275,6 @@
       "whitening": "Teeth Whitening",
       "pediatric": "Pediatric Dentistry"
     },
-
     "XRayDialog": {
       "title": "X-Ray Analysis",
       "description": "Detailed AI analysis for the uploaded scan.",
@@ -258,8 +284,8 @@
     }
   },
   "DoctorInsights": {
-    "pageTitle": "Doctor Insights",
-    "pageDesc": "Detailed information about the student doctor, including their clinical experience, patient reviews, and academic background.",
+    "pageTitle": "Doctor Profile",
+    "pageDesc": "Review your student doctor's clinical experience and patient feedback.",
     "statusOnline": "ONLINE NOW",
     "ratingText": "RATING",
     "requestBtn": "Request Care",
@@ -271,14 +297,14 @@
     "viewAllReviews": "VIEW ALL REVIEWS"
   },
   "proposal": {
-    "title": "Received Offers",
-    "description": "Review all treatment proposals sent by dental students who are ready to take on your case. Compare your options and choose the best fit.",
+    "title": "Treatment Offers",
+    "description": "Compare treatment plans from dental students and choose yours.",
     "actions": {
       "view_details": "View Details"
     },
     "card": {
-      "headerTitle": "Care Proposals",
-      "headerDesc": "Review clinical treatment plans and choose the best student to manage your case.",
+      "headerTitle": "Care Plans",
+      "headerDesc": "Review clinical steps and select your treating student doctor.",
       "rating": "Rating",
       "submitted": "Submitted",
       "doctorDetails": "Doctor Details",
@@ -295,8 +321,8 @@
   },
   "profile": {
     "profile_header": {
-      "title": "Personal Profile",
-      "description": "Update your personal information, contact details, and medical history to ensure a seamless experience within the Mishwar community."
+      "title": "Your Profile",
+      "description": "Keep your personal information and medical history updated."
     },
     "basic_info": {
       "title": "Basic Data",
@@ -327,7 +353,6 @@
         "location_required": "Location is required"
       }
     },
-
     "security": {
       "title": "Change Password",
       "current_password_label": "Current Password",

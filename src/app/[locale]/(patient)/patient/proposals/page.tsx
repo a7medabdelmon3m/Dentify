@@ -9,7 +9,7 @@ export default async function page() {
 
   return (
     <section className="bg-[#F3F4FF] flex-1">
-      <div className="container p-4 mx-auto ">
+      <div className="container p-4 mx-auto space-y-4 ">
         <PageHeader
           title={t("title")}
           desc={t("description")}

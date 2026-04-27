@@ -62,7 +62,7 @@ export default async function page() {
 
   return (
     <section className="bg-[#F3F4FF] flex-1">
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 space-y-4">
         <PageHeader title={t("title")} desc={t("desc")} />
         <div className="space-y-3 max-w-5xl mx-auto ">
           <div className="bg-white shadow-md p-3 rounded-lg flex gap-4 items-center text-primary">
