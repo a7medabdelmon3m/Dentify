@@ -33,13 +33,13 @@ export const metadata: Metadata = {
     "The digital bridge connecting dental students with clinical cases, empowering practice and serving the community",
 };
 
-export default async function RootLayout({
+export default  function RootLayout({
   children,
   params,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-  params: { locale: string }
-}>) {
+  params: any;
+}) {
   const { locale } =  params;
   if (!hasLocale(routing.locales, locale)) {
     notFound();
