@@ -20,11 +20,14 @@ import Image from "next/image";
 import user from "@/assets/images/patient.jpg";
 import { ImProfile } from "react-icons/im";
 import { useTranslations } from "next-intl";
+import { logoutAction } from "@/app/api/chat/authActions/login.action";
 // const UserItems = [
 //     {label:'profile' , icon:<ImProfile /> ,isLink:true ,url:`/patient/profile`},
 //     {label:'sign out' , icon: <LogOutIcon /> ,isLink:false ,url:``},
 // ]
+function handleLogOut(){
 
+}
 
 export function UserMenu() {
   const t = useTranslations(`UserMenu`) ;
@@ -60,8 +63,8 @@ export function UserMenu() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem className="hover:bg-red-100 cursor-pointer text-red-500">
-         <LogOutIcon />
+        <DropdownMenuItem onClick={logoutAction} className="hover:bg-red-100 cursor-pointer text-red-500">
+         <LogOutIcon  />
           {t(`signOut`)}
         </DropdownMenuItem>
       </DropdownMenuContent>

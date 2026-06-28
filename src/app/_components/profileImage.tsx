@@ -8,7 +8,7 @@ import { FaCamera } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 
 
-export default function ProfileImage() {
+export default function ProfileImage({userName ,role}:{userName:string ,role:string}) {
   const [image, setImage] = useState(user.src); // مسار الصورة الافتراضية
   const imgPrev = useRef(null);
  function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -51,8 +51,8 @@ export default function ProfileImage() {
       </div>
 
       {/* اسم المستخدم */}
-      <p className="mt-4 text-2xl font-bold text-text-black">Ali Mohammed </p>
-      <p className="font-medium text-lg text-success ">{t(`basic_info.patient_role`)}</p>
+      <p className="mt-4 text-2xl font-bold text-text-black">{userName} </p>
+      <p className="font-medium text-lg text-success ">{t(`basic_info.${role}`)}</p>
     </div>
   );
 }

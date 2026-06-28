@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -41,9 +41,9 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
+  if (!routing.locales.includes(locale as any)) {
+  notFound();
+}
   const fontClassName =
     locale === "ar" ? cairo.variable : `${poppins.variable} ${inter.variable}`;
   return (
@@ -56,15 +56,9 @@ export default async function RootLayout({
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider>
           <main>{children}</main>
+          <ToastContainer position="top-right" autoClose={3000} />
         </NextIntlClientProvider>
-        <Button className="text-white bg-red-700 py-2 px-5 h-auto sticky bottom-4 right-4 -translate-x-20 shadow-sm shadow-red-600  z-100 animate-bounce">
-          <Link
-            href={`/patient/dashboard`}
-            className=""
-          >
-            شوف صفحات المريض
-          </Link>
-        </Button>
+        
       </body>
     </html>
   );

@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -7,23 +6,42 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "./LoginSchema";
-import { loginType } from "./login.type";
+import { patientLoginType } from "./login.type";
 import { useTranslations } from "next-intl";
+import { loginAction } from "@/app/api/chat/authActions/login.action";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { RiLoader4Line } from "react-icons/ri";
 
 export default function LoginForm() {
-  const t = useTranslations(`auth`) ;
-  const { control, formState, handleSubmit } = useForm({
-    defaultValues:{
-        Email:"",
-        Password:"",
+  const router = useRouter();
+  const t = useTranslations(`auth`);
+  const {
+    control,
+    formState: { isSubmitting },
+    handleSubmit,
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
     },
-    resolver:zodResolver(LoginSchema(t))
+    resolver: zodResolver(LoginSchema(t)),
   });
 
-  function mySubmit(data:loginType){
-    console.log("Form Data Submitted:", data);
+  async function mySubmit(data: patientLoginType) {
+    const login = await loginAction(data , "patient");
+    const { status, data: loginData } = login;
+    // console.log("Form Data Submitted:", login);
+    if (status) {
+      toast.success(`Welcome Back ${loginData.displayName}`);
+      setTimeout(() => {
+        router.push(`/patient/dashboard`);
+      }, 1000);
+    }else
+      toast.error(`Oops! Email Or Password Is Not Correct `);
+
   }
-  
+
   return (
     <div className="px-5 py-12.5 space-y-12.5">
       <h3 className="text-4xl font-bold font-heading text-text-title leading-[30%] pb-12">
@@ -32,7 +50,7 @@ export default function LoginForm() {
 
       <form className="space-y-10" onSubmit={handleSubmit(mySubmit)}>
         <Controller
-          name="Email"
+          name="email"
           control={control}
           render={({ field, fieldState }) => (
             <Field
@@ -58,7 +76,7 @@ export default function LoginForm() {
           )}
         />
         <Controller
-          name="Password"
+          name="password"
           control={control}
           render={({ field, fieldState }) => (
             <Field
@@ -80,15 +98,39 @@ export default function LoginForm() {
                   errors={[fieldState.error]}
                 />
               )}
-              <Link className="text-[#34A853] leading-6" href={"/patient/forget-password"}>
+              <Link
+                className="text-[#34A853] leading-6"
+                href={"/patient/forget-password"}
+              >
                 {t(`login.forget_password`)}
               </Link>
             </Field>
           )}
         />
         <div className="space-y-2.5">
-            <Button className="flex gap-2.5 h-auto rounded-[80px] py-2.5 px-5 bg-primary hover:bg-primary-hover text-white w-full">{t(`login.login_btn`)}</Button>
-            <p>{t(`login.no_account`)} <Link className="text-[#34A853] underline" href={'/patient/register'}>{t(`login.sign_up_link`)}</Link></p>
+          <Button
+            disabled={isSubmitting}
+            type="submit"
+            className="flex gap-2.5 h-auto rounded-[80px] py-2.5 px-5 bg-primary hover:bg-primary-hover text-white w-full"
+          >
+            {isSubmitting ? (
+              <span className="flex items-center gap-2">
+                <RiLoader4Line className="font-bold animate-spin transition-all" />
+                {t(`login.login_btn_loading`)}{" "}
+              </span>
+            ) : (
+              t(`login.login_btn`)
+            )}
+          </Button>
+          <p>
+            {t(`login.no_account`)}{" "}
+            <Link
+              className="text-[#34A853] underline"
+              href={"/patient/register"}
+            >
+              {t(`login.sign_up_link`)}
+            </Link>
+          </p>
         </div>
       </form>
     </div>

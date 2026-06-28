@@ -22,9 +22,16 @@ import { FaArrowLeft, FaMicrophone } from "react-icons/fa";
 import Rating from "@/app/_components/Rateing";
 import PageHeader from "@/app/_components/PageHeader";
 import { useTranslations } from "next-intl"; // نداء الـ Hook
+import { useParams } from "next/navigation";
+import FinishCaseButton from "../FinishCaseButton";
 
 export default function ChatPage() {
   const t = useTranslations("chat");
+  const params  = useParams() 
+  const {id:requestId} = params 
+  console.log('requestId : ' , requestId);
+
+  
 
   return (
     <section className="bg-[#F3F4FF] flex-1">
@@ -82,7 +89,8 @@ export default function ChatPage() {
                       </div>
                     </div>
                     <div className="flex gap-4 items-center">
-                      <Rating />
+                      
+                      <FinishCaseButton requestId={requestId as string}/>
 
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>

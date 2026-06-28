@@ -1,94 +1,157 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import doctor from "@/assets/images/Dr. Ahmed.png";
-import { IoStarHalfSharp, IoStarSharp } from "react-icons/io5";
-import { FaPhone, FaUniversity } from "react-icons/fa";
+import { 
+  FaBuildingColumns, 
+  FaStar, 
+  FaStarHalfStroke, 
+  FaRegStar, 
+  FaClock 
+} from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import PageHeader from "@/app/_components/PageHeader";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { formatTimeAgo } from "@/lib/utils";
+// 1. استيراد useRouter و useParams من next/navigation
+import { useParams, useRouter } from "next/navigation"; 
+import { dynamicApiAction } from "../../patient.actions";
+import { toast } from "react-toastify";
 
 export default function ProposedPage() {
   const t = useTranslations("proposal.card");
+  const locale = useLocale(); 
+  const { id: requestId } = useParams(); 
+  
+  // 2. تعريف الـ router
+  const router = useRouter(); 
+  
+  const [isLoading, setisLoading] = useState(false);
+  const [mockSubmittedDate, setMockSubmittedDate] = useState<string>("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const calculatedDate = new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString();
+      setMockSubmittedDate(calculatedDate);
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, []);
+  
+  console.log('requestId : ' , requestId);
+  
+  async function handleAcceptRequest(){
+    setisLoading(true);
+    // 3. تعديل مسار الـ API بشيل السلاش الزيادة
+    const response = await dynamicApiAction('TreatmentRequests/accept', 'PUT', requestId as string, undefined); 
+    setisLoading(false);
+    console.log("response : " , response);
+    
+    if(response.success){
+      toast.success('تم قبول العرض بنجاح!');
+      // 4. استخدام router.push مع الـ locale عشان التوجيه يكون سليم 100%
+      router.push(`/${locale}/patient/chats/${requestId}`); 
+    } else {
+      toast.error(String(response.error));
+    }
+  }
+
+  const renderStars = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const fraction = rating - fullStars;
+    const hasHalfStar = fraction >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+    return (
+      <div className="flex items-center gap-0.5 text-warning text-lg">
+        {[...Array(fullStars)].map((_, i) => (
+          <FaStar key={`full-${i}`} />
+        ))}
+        {hasHalfStar && <FaStarHalfStroke />}
+        {[...Array(emptyStars > 0 ? emptyStars : 0)].map((_, i) => (
+          <FaRegStar key={`empty-${i}`} className="text-gray-300" />
+        ))}
+      </div>
+    );
+  };
+
+  const ratingValue = 3.6;
 
   return (
-    <section className="bg-[#F3F4FF] min-h-screen">
-      <div className="container p-4 mx-auto space-y-4">
+    <section className="bg-bg-main ">
+      <div className="container p-4 mx-auto space-y-6">
+        
         <PageHeader 
           title={t("headerTitle")} 
           desc={t("headerDesc")} 
         />
         
-        <div className="bg-white shadow-md rounded-xl p-6 max-w-3xl mx-auto">
-          {/* جزء بيانات الطبيب والتقييم */}
-          <div className="flex flex-col-reverse sm:flex-row gap-4 justify-between items-start pb-8 border-b border-gray-100">
-            <div className="flex gap-3 items-center">
-              <div className="relative w-18 h-18 rounded-full overflow-hidden ring-4 ring-primary ring-offset-2">
+        <div className="bg-white shadow-sm border border-border-light rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto space-y-8">
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-between items-start pb-8 border-b border-border-light">
+            
+            <div className="flex gap-4 items-start">
+              <div className="relative w-20 h-20 shrink-0 rounded-full overflow-hidden border-2 border-primary-subtle shadow-sm mt-1">
                 <Image
                   src={doctor}
                   alt="Doctor Profile"
                   fill
-                  sizes="72px" // 18 * 4 = 72px (لتحسين الأداء)
+                  sizes="80px"
                   className="object-cover"
                 />
               </div>
-              <div className="space-y-1">
-                <h4 className="font-heading text-text-title font-semibold text-xl">
+              
+              <div className="space-y-1.5 text-rightAr">
+                <h4 className="font-heading text-text-title font-bold text-2xl tracking-tight">
                   Dr. Ahmed Moneim
                 </h4>
-                <div className="flex gap-1 items-center">
-                  <div className="flex gap-1 items-center text-[#6D5E00] text-xl">
-                    <IoStarSharp />
-                    <IoStarSharp />
-                    <IoStarSharp />
-                    <IoStarHalfSharp />
-                    <IoStarHalfSharp />
-                  </div>
-                  <span className="text-sm text-text-muted">
-                    {t("rating")} (3.6)
+                
+                <div className="flex gap-2 items-center bg-bg-main px-3 py-1.5 rounded-lg border border-border-light w-fit">
+                  <span className="font-extrabold text-text-title text-sm mt-0.5">
+                    {ratingValue}
+                  </span>
+                  {renderStars(ratingValue)}
+                  <span className="text-xs text-text-muted font-medium mt-0.5">
+                    {t("rating")}
                   </span>
                 </div>
-                <p className="text-xs font-semibold text-sky-600">
+                
+                <p className="text-sm font-semibold text-primary">
                   {t("specialty")}
                 </p>
               </div>
             </div>
             
-            {/* وقت الإرسال */}
-            <div className="flex  self-end sm:self-start gap-1 font-medium text-text-muted py-1 px-3 bg-gray-50 border border-gray-100 rounded-full shadow-sm shadow-black/10 text-xs">
+            <div className="flex items-center gap-1.5 font-medium text-text-muted py-1.5 px-4 bg-bg-main border border-border-light rounded-full shadow-sm text-xs self-start">
+              <FaClock className="w-3 h-3" />
               <span>{t("submitted")}</span>
-              <span dir="ltr">{t("timeAgo", { time: "2h" })}</span>
+              <span>{mockSubmittedDate ? formatTimeAgo(mockSubmittedDate, locale) : "..."}</span>
             </div>
           </div>
 
-          {/* تفاصيل التواصل والجامعة */}
-          <div className="pt-6 space-y-2">
-            <h4 className="font-heading font-semibold text-text-title">
+          <div className="space-y-3">
+            <h4 className="font-heading font-bold text-text-title text-lg">
               {t("doctorDetails")}
             </h4>
             <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex gap-3 items-center border border-gray-200 py-1 px-4 bg-gray-50 rounded-full font-medium flex-1">
-                <div className="flex w-8 h-8 rounded-full justify-center items-center bg-primary-subtle text-primary">
-                  <FaPhone />
+              <div className="flex gap-3 items-center border border-border-light py-2 px-5 bg-bg-main rounded-xl font-medium flex-1 shadow-sm">
+                <div className="flex w-10 h-10 shrink-0 rounded-lg justify-center items-center bg-white border border-border-light text-primary">
+                  <FaBuildingColumns className="w-5 h-5" />
                 </div>
-                <span dir="ltr">01234567891</span>
-              </div>
-              <div className="flex gap-3 items-center border border-gray-200 py-1 px-4 bg-gray-50 rounded-full font-medium flex-1">
-                <div className="flex w-8 h-8 rounded-full justify-center items-center bg-primary-subtle text-primary">
-                  <FaUniversity />
+                <div className="flex flex-col text-rightAr">
+                  <span className="text-xs text-text-muted">الجامعة التابع لها</span>
+                  <span className="text-sm font-bold text-text-title">{t("university")}</span>
                 </div>
-                {t("university")}
               </div>
             </div>
           </div>
 
-          {/* محتوى المقترح العلاجي */}
-          <div className="space-y-3 pt-6">
-            <h4 className="font-heading font-semibold text-text-title">
+          <div className="space-y-3 p-5 rounded-2xl bg-primary-subtle/30 border border-primary/10">
+            <h4 className="font-heading font-bold text-primary text-lg">
               {t("treatmentProposal")}
             </h4>
-            <p className="text-text-body leading-relaxed">
+            <p className="text-text-body leading-relaxed text-sm sm:text-base text-rightAr">
               &quot;Hello! I have reviewed your case regarding tartar
               accumulation. I can provide a comprehensive professional scaling
               and polishing session at the university hospital. The plan
@@ -100,15 +163,15 @@ export default function ProposedPage() {
             </p>
           </div>
 
-          {/* أزرار اتخاذ القرار */}
-          <div className="flex gap-4 items-center pt-8">
-            <Button className="h-auto py-3 px-4 border-none flex flex-1 justify-center items-center rounded-xl text-lg text-white font-bold bg-success hover:bg-success/80 shadow-lg shadow-success/20 transition-all">
-              {t("acceptBtn")}
+          <div className="flex gap-4 items-center pt-4">
+            <Button onClick={handleAcceptRequest} disabled={isLoading} className="h-14 flex-1 rounded-xl text-base sm:text-lg text-white font-bold bg-success hover:bg-success/90 shadow-sm transition-all border-none">
+              { isLoading ? t(`acceptBtn_loading`) : t("acceptBtn")}
             </Button>
-            <Button className="h-auto py-3 px-4 flex border-none flex-1 justify-center items-center rounded-xl text-lg text-white font-bold bg-danger hover:bg-danger/80 shadow-lg shadow-danger/20 transition-all">
+            <Button disabled={isLoading} className="h-14 flex-1 rounded-xl text-base sm:text-lg text-danger font-bold bg-danger/10 hover:bg-danger hover:text-white border border-danger/20 shadow-sm transition-all">
               {t("declineBtn")}
             </Button>
           </div>
+          
         </div>
       </div>
     </section>

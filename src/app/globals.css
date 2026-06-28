@@ -50,3 +50,10 @@ html[lang="en"] h6 {
 
 
 
+.swal2-popup {
+  border-radius: 24px !important;
+  font-family: inherit !important;
+}
+.swal2-styled.swal2-confirm {
+  border-radius: 12px !important;
+}

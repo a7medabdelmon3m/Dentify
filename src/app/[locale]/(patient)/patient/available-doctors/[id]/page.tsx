@@ -1,5 +1,6 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import doctor from "@/assets/images/Dr. Ahmed.png";
 import {
   IoLocationOutline,
@@ -7,31 +8,44 @@ import {
   IoStarSharp,
 } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import CreateCaseForm from "@/app/_components/CreateCaseForm";
-import PageHeader from "@/app/_components/PageHeader";
-import { getTranslations } from "next-intl/server";
 
-export default async function page() {
-  const t = await getTranslations("DoctorInsights");
-  const g = await getTranslations("governorates");
+import CreateCaseForm from "@/app/[locale]/(patient)/patient/create-case/createCaseForm/CreateCaseForm";
+import PageHeader from "@/app/_components/PageHeader";
+import { useTranslations } from "next-intl";
+import { useParams, usePathname } from "next/navigation";
+import { dynamicApiAction } from "../../patient.actions";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
+export default function Page() {
+  const t = useTranslations("DoctorInsights");
+  const g = useTranslations("governorates");
+  const { id: studentId } = useParams();
+  const [isLoading, setisLoading] = useState(false)
+
+  async function handleSendRequestToDoctor() {
+    const cId = Cookies.get("caseId");
+    // console.log("studentId : ", studentId);
+    // console.log("caseId : ", cId);
+    const fullId = studentId + '/' + cId
+    // console.log("fullId : ", fullId);
+      setisLoading(true)
+      const response =  await dynamicApiAction('TreatmentRequests/patient/send' ,'POST' ,fullId ,'')
+      setisLoading(false)
+      if (response.success){
+        toast.success('Your Request Is Sent Successfully')
+      }else{
+        toast.error(String(response.error))
+      }
+      // console.log('response : ' , response
+
+      // );
+      
+  }
 
   return (
     <section className="bg-[#F3F4FF]">
       <div className="container p-4 mx-auto space-y-4 ">
-        <PageHeader
-          title={t("pageTitle")}
-          desc={t("pageDesc")}
-        />
+        <PageHeader title={t("pageTitle")} desc={t("pageDesc")} />
         <div className="space-y-10">
           <div className="flex flex-col sm:flex-row rounded-lg bg-white overflow-hidden shadow-[0px_1px_2px_0px_#000000/10]">
             <div className=" sm:w-80 aspect-square relative overflow-hidden">
@@ -73,26 +87,11 @@ export default async function page() {
                 </div>
               </div>
               <div className="flex gap-4">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button className=" w-full sm:w-fit rounded-xl shadow-[0px_10px_15px_-3px_#E8EBF2,0px_4px_6px_-4px_#E8EBF2] h-auto py-4 px-10 bg-primary text-white cursor-pointer hover:bg-primary-hover transition-colors">
-                      {t("requestBtn")}
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="bg-white sm:max-w-200 w-full">
-                    <DialogHeader>
-                      <DialogTitle className="text-lg">{t("dialogTitle")}</DialogTitle>
-                      <div className="-mx-4 no-scrollbar max-h-[50vh] overflow-y-auto px-4 mt-4">
-                        <CreateCaseForm isModel={true} />
-                      </div>
-                    </DialogHeader>
-                    <DialogFooter>
-                      <DialogClose asChild>
-                        <Button variant="outline">{t("dialogClose")}</Button>
-                      </DialogClose>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
+                <Button 
+                onClick={handleSendRequestToDoctor}
+                className=" w-full sm:w-fit rounded-xl shadow-[0px_10px_15px_-3px_#E8EBF2,0px_4px_6px_-4px_#E8EBF2] h-auto py-4 px-10 bg-primary text-white cursor-pointer hover:bg-primary-hover transition-colors">
+                  { isLoading ? t('requestBtn_loading') :  t("requestBtn")}
+                </Button>
               </div>
             </div>
           </div>
@@ -139,7 +138,9 @@ export default async function page() {
                   </p>
                 </div>
               </div>
-              <Button className="flex items-center justify-around h-auto bg-transparent text-xs leading-4 font-semibold text-[#094CB2] p-0 py-3 mx-auto">
+              <Button
+                className="flex items-center justify-around h-auto bg-transparent text-xs leading-4 font-semibold text-[#094CB2] p-0 py-3 mx-auto"
+              >
                 {t("viewAllReviews")}
               </Button>
             </div>

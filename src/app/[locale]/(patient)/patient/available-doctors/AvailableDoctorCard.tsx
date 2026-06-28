@@ -6,8 +6,9 @@ import { MdLocationPin } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { availableDoctorsType } from "@/type";
 
-export default function AvailableDoctorCard() {
+export default function AvailableDoctorCard({doctor:d}:{doctor:availableDoctorsType}) {
   // نداء ترجمة نصوص الكارد
   const t = useTranslations("available-doctors.AvailableDoctorCard");
   // نداء ترجمة المحافظات مباشرة من الأوبجكت اللي عندك
@@ -20,13 +21,13 @@ export default function AvailableDoctorCard() {
   };
 
   return (
-    <Link href={`/patient/doctors/123455`} className="bg-white rounded-xl px-3 py-5 space-y-3 shadow-sm hover:shadow-md transition-all">
+    <Link href={`/patient/available-doctors/${d.id}`} className="bg-white rounded-xl px-3 py-5 space-y-3 shadow-sm hover:shadow-md transition-all">
       <div className="relative w-16 h-16 mx-auto">
         <div className="relative w-16 h-16 rounded-full overflow-hidden ring-2 ring-primary ring-offset-2 ">
           <Image
             fill
             className="object-cover"
-            src={doctor}
+            src={d.profileImageUrl? d.profileImageUrl: doctor}
             alt="doctor"
           ></Image>
         </div>
@@ -35,13 +36,13 @@ export default function AvailableDoctorCard() {
       
       <div className="space-y-1">
         <h4 className="font-heading font-medium text-text-title text-center ">
-          {doctorData.name}
+          {d.fullName}
         </h4>
         
         <p className="text-text-muted text-sm font-medium flex gap-2 justify-center items-center ">
           <MdLocationPin />
           {/* استدعاء المحافظة المترجمة فوراً باستخدام الـ key */}
-          {g(doctorData.cityKey)}
+          {g(d.city)}
         </p>
       </div>
 

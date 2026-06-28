@@ -3,7 +3,7 @@ import React, { createContext, ReactNode, useContext, useState } from 'react'
 
  export type contextType = {
     chatIsOpen:boolean;
-    setchatIsOpen:(a:boolean) => void
+    setchatIsOpen:(a:boolean) => void;
  }
     const patientCont = createContext<contextType | undefined> (undefined)
 

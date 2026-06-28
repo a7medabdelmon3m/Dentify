@@ -7,32 +7,72 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError } from "@/components/ui/field";
 import { basicInfoSchema } from "./InfoForm.schema";
 import { infoType } from "./InfoFom.type";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useTranslations } from "next-intl";
 import { egyptGovernorates } from "@/app/constants/locations";
-
+import { dynamicApiAction } from "@/app/[locale]/(patient)/patient/patient.actions";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function InfoForm() {
   const t = useTranslations("profile");
   const g = useTranslations("governorates");
+  const router = useRouter()
 
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+    reset,
+  } = useForm({
     resolver: zodResolver(basicInfoSchema(t)),
     defaultValues: {
       fullName: "",
       phoneNumber: "",
-      dob: "",
-      email: "",
-      location: "",
+      specializations: null,
+      // email: "",
+      // location: "",
     },
   });
 
-  const onSubmit = (data: infoType) => console.log("Basic Info Data:", data);
+  const onSubmit = async (data: infoType) => {
+    // console.log("Basic Info Data:", data)
+    const requestBody = {
+      fullName: data.fullName,
+      phoneNumber: data.phoneNumber,
+      // 2. إجبار السيستم يبعت التخصصات بـ null للمريض
+      specializations: null,
+    };
+
+    // console.log("Body ready to send:", requestBody);
+    const response = await dynamicApiAction(
+      "Account/profile",
+      "PUT",
+      undefined,
+      requestBody,
+    );
+    // console.log('response : ' , response );
+    if (response.success) {
+      toast.success("Successful Process");
+      reset({
+        fullName: data.fullName,
+        phoneNumber: data.phoneNumber,
+        specializations: null
+      });
+      router.refresh();
+    } else {
+      toast.error("Failed Process");
+    }
+  };
 
   return (
     <div className="">
-      
-
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10"
@@ -105,7 +145,7 @@ export default function InfoForm() {
         />
 
         {/* Date of Birth */}
-        <Controller
+        {/* <Controller
           name="dob"
           control={control}
           render={({ field, fieldState }) => (
@@ -132,10 +172,10 @@ export default function InfoForm() {
               )}
             </Field>
           )}
-        />
+        /> */}
 
         {/* Email Address */}
-        <Controller
+        {/* <Controller
           name="email"
           control={control}
           render={({ field, fieldState }) => (
@@ -163,10 +203,10 @@ export default function InfoForm() {
               )}
             </Field>
           )}
-        />
+        /> */}
 
         {/* Location */}
-        <Controller
+        {/* <Controller
           name="location"
           control={control}
           render={({ field, fieldState }) => (
@@ -196,7 +236,6 @@ export default function InfoForm() {
                         value={govKey.value}
                         className="cursor-pointer hover:bg-sky-50 focus:bg-sky-50 transition-colors"
                       >
-                        {/* هنا بنجيب اسم المحافظة من ملف الترجمة */}
                         {g(`${govKey.value}`)}
                       </SelectItem>
                     ))}
@@ -212,11 +251,12 @@ export default function InfoForm() {
               </div>
             </Field>
           )}
-        />
+        /> */}
 
         {/* Buttons */}
         <div className="md:col-span-2 flex justify-end items-center gap-6 mt-6">
           <Button
+            onClick={() => reset()}
             type="button"
             variant="ghost"
             className=" text-gray-400 hover:text-gray-600"
@@ -224,10 +264,13 @@ export default function InfoForm() {
             {t("basic_info.cancel")}
           </Button>
           <Button
+            disabled={isSubmitting}
             type="submit"
             className="bg-primary hover:bg-primary-hover text-white px-10 py-6 rounded-xl shadow-md transition-all active:scale-95"
           >
-            {t("basic_info.save_changes")}
+            {isSubmitting
+              ? t("basic_info.save_changes_loading")
+              : t("basic_info.save_changes")}
           </Button>
         </div>
       </form>

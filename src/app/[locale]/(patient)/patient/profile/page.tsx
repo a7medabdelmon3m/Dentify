@@ -2,6 +2,8 @@ import ChangePassForm from "@/app/_components/changePasswoedForm/ChangePassForm"
 import InfoForm from "@/app/_components/infoForm/InfoForm";
 import PageHeader from "@/app/_components/PageHeader";
 import ProfileImage from "@/app/_components/profileImage";
+import { apiRequest } from "@/app/api/services/denti.services";
+import { profileType } from "@/type";
 import { getTranslations } from "next-intl/server";
 import React from "react";
 import { CgMail } from "react-icons/cg";
@@ -18,12 +20,13 @@ export default async function page() {
 
   // هفترض إن دي الداتا اللي جاية من الـ API
   const userData = {
-    name: "Ali Mohammed",
-    phone: "01207176466",
-    email: "alimohamed123@gmail.com",
-    roleKey: "patient_role",
-    cityKey: "beni_suef" // القيمة دي بنستخدمها في الـ object بتاع المحافظات
-  };
+   
+    cityKey: "beni_suef", // القيمة دي بنستخدمها في الـ object بتاع المحافظات
+  }; 
+  const profileDetails = await (await apiRequest<profileType>('http://localhost:5123/api/Account/profile')).data
+
+  // console.log('profileDetails : ' , profileDetails );
+  
 
   return (
     <section className="bg-[#F3F4FF] flex-1">
@@ -44,7 +47,7 @@ export default async function page() {
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className=" pr-3 border-b sm:border-e sm:border-b-0 border-gray-200">
-                  <ProfileImage />
+                  <ProfileImage userName={profileDetails?.fullName as string} role={profileDetails?.role as string} />
                 </div>
                 <div className="flex flex-col gap-3 justify-between  flex-1">
                   <div className="flex gap-4 items-center border-b border-gray-200 pb-3">
@@ -69,7 +72,7 @@ export default async function page() {
                         {t("basic_info.phone_label")}
                       </h4>
                       <p className="text-md text-text-body font-light">
-                        {userData.phone}
+                        {profileDetails?.phoneNumber}
                       </p>
                     </div>
                   </div>
@@ -82,7 +85,7 @@ export default async function page() {
                         {t("basic_info.email_label")}
                       </h4>
                       <p className="text-md text-text-body font-light">
-                        {userData.email}
+                        {profileDetails?.email}
                       </p>
                     </div>
                   </div>
@@ -95,7 +98,7 @@ export default async function page() {
                         {t("basic_info.role_label")}
                       </h4>
                       <p className="text-md text-text-body font-light">
-                        {t(`basic_info.${userData.roleKey}`)}
+                        {t(`basic_info.${profileDetails?.role}`)}
                       </p>
                     </div>
                   </div>

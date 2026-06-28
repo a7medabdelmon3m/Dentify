@@ -1,0 +1,22 @@
+export const govUniversities = [
+  { value: "0", label: "cairo_uni", city: "giza" },
+  { value: "1", label: "alex_uni", city: "alexandria" },
+  { value: "2", label: "ain_shams_uni", city: "cairo" },
+  { value: "3", label: "mansoura_uni", city: "dakahlia" },
+  { value: "4", label: "tanta_uni", city: "gharbia" },
+  { value: "5", label: "assiut_uni", city: "assiut" },
+  { value: "6", label: "azhar_uni", city: "cairo" },
+  { value: "7", label: "minia_uni", city: "minia" },
+  { value: "8", label: "beni_suef_uni", city: "beni_suef" },
+  { value: "9", label: "suez_canal_uni", city: "ismailia" },
+  { value: "10", label: "zagazig_uni", city: "sharqia" },
+  { value: "11", label: "helwan_uni", city: "cairo" },
+  { value: "12", label: "kafr_elshiekh_uni", city: "kafr_el_sheikh" },
+  { value: "13", label: "fayoum_uni", city: "fayoum" },
+  { value: "14", label: "sohag_uni", city: "sohag" },
+  { value: "15", label: "aswan_uni", city: "aswan" },
+  { value: "16", label: "south_valley_uni", city: "qena" },
+  { value: "17", label: "port_said_uni", city: "port_said" },
+  { value: "18", label: "sadat_uni", city: "monufia" },
+  { value: "19", label: "domiat_uni", city: "damietta" }
+];

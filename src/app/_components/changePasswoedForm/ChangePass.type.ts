@@ -1,4 +1,6 @@
-import { passwordSchema } from "./ChangePass.schema";
 import * as z from "zod";
+import { passwordSchema } from "./ChangePass.schema";
 
-export type changePassType = z.infer<typeof passwordSchema >
+export type ChangePassType = z.infer<
+  ReturnType<typeof passwordSchema>
+>;
