@@ -19,7 +19,6 @@ import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import { Input } from "@/components/ui/input";
 import { IoMdMicrophone, IoMdSend } from "react-icons/io";
 import { FaArrowLeft, FaMicrophone } from "react-icons/fa";
-import Rating from "@/app/_components/Rateing";
 import PageHeader from "@/app/_components/PageHeader";
 import { useTranslations } from "next-intl"; // نداء الـ Hook
 import { useParams } from "next/navigation";

@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "src/app/[locale]/(patient)/patient/my-appointment/page.tsx.bak"  ],
+, "src/app/[locale]/(patient)/patient/my-appointment/page.tsx"  ],
   "exclude": ["node_modules"]
 }
