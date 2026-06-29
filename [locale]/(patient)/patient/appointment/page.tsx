@@ -1,62 +1,54 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
 import NoAppointments from "./no-appointments";
-import AppointmentSelectionCard from "./AppointmentSelectionCard"; // الكومبوننت اللي عملناه
+import AppointmentSelectionCard from "./AppointmentSelectionCard";
 import { appointmentType } from "@/type";
 import { apiRequest } from "@/app/api/services/denti.services";
 
-// عدلنا الـ Mock عشان يرجع مواعيد متعددة للحالة الواحدة
-// const getCaseData = async () => {
-//   return {
-//     caseId: 5678,
-//     appointments: [
-//       {
-//         id: 1,
-//         studentName: "أحمد محمد محمود",
-//         location: "عيادة الجامعة، الدور الـ 2",
-//         status: "PendingAcceptance" as const,
-//         appointmentDate: "2026-06-09T17:30:00.000Z",
-//       },
-//       {
-//         id: 2,
-//         studentName: "أحمد محمد محمود",
-//         location: "مستشفى الطلبة، غرفة 4",
-//         status: "PendingAcceptance" as const,
-//         appointmentDate: "2026-06-12T10:00:00.000Z",
-//       }
-//     ]
-//   };
-// };
-
 export default async function PatientAppointmentPage() {
   const t = await getTranslations("patientAppointment");
-  const appoints = await apiRequest<appointmentType[]>('http://localhost:5123/api/Appointments/My/Patient');
+  const appoints = await apiRequest<appointmentType[]>(
+    "http://localhost:5123/api/Appointments/My/Patient",
+  );
 
-  console.log('appoints : ' , appoints );
-  
+  console.log("appoints : ", appoints);
 
-  if (!appoints ) {
+  if (!appoints || !appoints.data || appoints.data.length === 0) {
     return <NoAppointments />;
   }
 
+  // استخدام أول موعد لاستخراج الـ CaseID بشكل آمن
+  const currentCaseId = appoints.data?.[0]?.caseId || "N/A";
+
+  // تحويل البيانات لضمان تطابق الـ Type (مهم جداً للـ Build)
+  const formattedAppointments = appoints.data.map((item) => ({
+    ...item,
+    // إجبار الـ status على القيم اللي الكومبوننت بيقبلها
+    status: (item.status as "Confirmed" | "PendingAcceptance" | "Cancelled") || "PendingAcceptance",
+  }));
+
   return (
-    <div className="flex w-full flex-col p-6 text-center bg-bg-main">
-      <div className="mx-auto w-full max-w-2xl space-y-6 text-rightAr">
-        
-        {/* رأس الصفحة السيرفر */}
+    <section className="flex-1 bg-bg-main min-h-screen p-4 md:p-6 lg:p-8">
+      <div className="mx-auto w-full max-w-2xl space-y-8 text-rightAr">
+        {/* رأس الصفحة */}
         <div className="flex flex-col gap-1.5 mb-8">
           <h1 className="font-heading text-3xl font-bold tracking-tight text-text-title">
             {t("pageTitle")}
           </h1>
           <p className="text-sm font-medium text-text-muted">
-            {t("pageDesc")} <span className="font-bold text-primary">#{caseData.caseId}</span>
+            {t("pageDesc")}{" "}
+            <span className="font-bold text-primary">
+              #{currentCaseId}
+            </span>
           </p>
         </div>
 
         {/* الكومبوننت التفاعلي */}
-        <AppointmentSelectionCard appointments={caseData.appointments} />
-
+        <AppointmentSelectionCard
+          // هنا بعتنا البيانات المتوافقة
+          appointments={formattedAppointments as any}
+        />
       </div>
-    </div>
+    </section>
   );
 }
