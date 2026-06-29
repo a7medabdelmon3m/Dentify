@@ -5,28 +5,7 @@ import AppointmentSelectionCard from "./AppointmentSelectionCard"; // الكوم
 import { appointmentType } from "@/type";
 import { apiRequest } from "@/app/api/services/denti.services";
 
-// عدلنا الـ Mock عشان يرجع مواعيد متعددة للحالة الواحدة
-// const getCaseData = async () => {
-//   return {
-//     caseId: 5678,
-//     appointments: [
-//       {
-//         id: 1,
-//         studentName: "أحمد محمد محمود",
-//         location: "عيادة الجامعة، الدور الـ 2",
-//         status: "PendingAcceptance" as const,
-//         appointmentDate: "2026-06-09T17:30:00.000Z",
-//       },
-//       {
-//         id: 2,
-//         studentName: "أحمد محمد محمود",
-//         location: "مستشفى الطلبة، غرفة 4",
-//         status: "PendingAcceptance" as const,
-//         appointmentDate: "2026-06-12T10:00:00.000Z",
-//       }
-//     ]
-//   };
-// };
+
 
 export default async function PatientAppointmentPage() {
   const t = await getTranslations("patientAppointment");

@@ -64,7 +64,7 @@ export default function Sidebar({ userType }: prop) {
     },
     {
       title: t("Patient.appointments"),
-      url: `/patient/appointment`,
+      url: `/patient/my-appointment`,
       icon: <FaCalendarCheck />,
     },
     {
