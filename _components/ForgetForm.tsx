@@ -13,12 +13,11 @@ import { useRouter } from "next/navigation";
 import { RiLoader4Line } from "react-icons/ri";
 import SuccessMessage from "./forget.ui/successMessage";
 import ErrorMasseage from "./forget.ui/errorMasseage";
+import { forgetPasswordType } from "@/type";
 interface ForgetFormProps {
   onSentSuccess: () => void;
 }
- type forgetPasswordType = {
-    email:string
-  }
+ 
 export default function ForgetForm({ onSentSuccess }: ForgetFormProps) {
   const t = useTranslations("auth");
   const router = useRouter();

@@ -77,4 +77,7 @@ export type studentAvailableCaseType = {
     
   ]
 }
+export type forgetPasswordType = {
+    email:string
+  }
 
