@@ -7,9 +7,7 @@ import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 // import { zodResolver } from "@hookform/resolvers/zod";
 
- export type forgetPasswordType = {
-    email:string
-  }
+ 
 export default function Page() {
   const t = useTranslations('auth');
   const [isSent, setIsSent] = useState(false);
