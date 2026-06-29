@@ -1,8 +1,8 @@
 "use server";
 
-import { forgetPasswordType } from "@/app/[locale]/(auth)/patient/forget-password/page";
 import { patientLoginType } from "@/app/[locale]/(auth)/patient/login/login.type";
 import { studentLoginType } from "@/app/[locale]/(auth)/student/login/login.type";
+import { forgetPasswordType } from "@/type";
 import { cookies } from "next/headers";
 
 export async function forgetPasswordAction(data :forgetPasswordType) {

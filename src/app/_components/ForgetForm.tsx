@@ -7,12 +7,12 @@ import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
-import { forgetPasswordType } from "../[locale]/(auth)/patient/forget-password/page";
 import { forgetPasswordAction } from "../api/chat/authActions/forgetPassword.action";
 import { useRouter } from "next/navigation";
 import { RiLoader4Line } from "react-icons/ri";
 import SuccessMessage from "./forget.ui/successMessage";
 import ErrorMasseage from "./forget.ui/errorMasseage";
+import { forgetPasswordType } from "@/type";
 interface ForgetFormProps {
   onSentSuccess: () => void;
 }
