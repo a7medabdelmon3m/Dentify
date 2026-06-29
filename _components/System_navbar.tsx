@@ -14,7 +14,7 @@ export default function System_navbar() {
     <nav className="bg-primary sticky top-0 right-0 left-0 z-7 hidden lg:block ">
       <div className="container p-4 mx-auto ">
         <div className="flex justify-between">
-          <SearchInput />
+          
           <div className={`flex gap-4 justify-between items-center`}>
             
             <NotificationMenu/>

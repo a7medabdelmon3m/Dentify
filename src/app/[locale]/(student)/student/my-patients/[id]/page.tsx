@@ -47,8 +47,8 @@ export default function CaseDetailsPage() {
   >("chat");
 
   return (
-    <section className="flex-1 bg-bg-main min-h-screen pb-10">
-      <div className="container p-4 mx-auto space-y-6">
+    <section className="flex-1 bg-bg-main min-h-screen p-4 md:p-6 lg:p-8">
+    <div className="max-w-7xl mx-auto space-y-8">
         {/* ── زرار الرجوع ── */}
         <Link href="/student/my-patients" className="inline-block">
           <Button

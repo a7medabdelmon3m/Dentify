@@ -60,7 +60,7 @@ export default function Page() {
 
   return (
     <section className="flex-1 bg-bg-main min-h-screen p-4 md:p-6 lg:p-8">
-      <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="max-w-7xl mx-auto space-y-8">
         {/* ── الهيدر ── */}
         <PageHeader title={t("pageTitle")} desc={t("pageDesc")} />
 

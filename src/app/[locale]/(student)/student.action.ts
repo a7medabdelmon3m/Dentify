@@ -1,6 +1,6 @@
 'use server'
 import { cookies } from "next/headers";
-import { ProposeAppointmentFormType } from "./student/appointment/appointment.schema";
+import { ProposeAppointmentFormType } from "../../_components/BookAppointmentModal/appointment.schema";
 
 // غيرنا الـ Type لـ any أو ممكن تحط الـ Interface بتاعك (ProposeAppointmentFormType)
 export async function CreateAppointment(data: ProposeAppointmentFormType) {

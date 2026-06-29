@@ -204,14 +204,16 @@
       "myCases": "My Cases",
       "availableDoctors": "Available Doctors",
       "careProposals": "Care Proposals",
-      "appointments": "My Appointments"
+      "appointments": "My Appointments",
+      "profileAndSettings": "Profile & Settings"
     },
     "Student": {
       "dashboard": "Dashboard",
       "availableCases": "Available Cases",
       "myProposals": "My Proposals",
       "myPatients": "My Patients",
-      "settings": "Settings"
+      "myAppointments": "Appointments",
+      "profileAndSettings": "Profile & Settings"
     }
   },
   "SearchInput": {
@@ -533,64 +535,46 @@
     }
   },
   "profile": {
-    "profile_header": {
-      "title": "Your Profile",
-      "description": "Keep your personal information and medical history updated."
-    },
-    "basic_info": {
-      "title": "Basic Data",
-      "edit_title": "Edit Basic Information",
-      "governorate_label": "Governorate:",
-      "phone_label": "Phone Number:",
-      "email_label": "Email Address:",
-      "role_label": "Type/Role:",
-      "Patient": "Patient",
-      "plan": "Your Plan: Essential",
-      "full_name": "Full Name",
-      "verified_mobile": "Verified Mobile Number",
-      "verified_badge": "VERIFIED",
-      "dob": "Date of Birth",
-      "email": "Email Address",
-      "email_placeholder": "dentify@gmail.com",
-      "phone_placeholder": "+20",
-      "select_location": "Select Location",
-      "location_placeholder": "Beni Suef",
-      "cancel": "Cancel",
-      "save_changes": "Save Changes",
-      "save_changes_loading": "Saving Changes...",
-      "errors": {
-        "name_min": "Name must be at least 3 characters",
-        "name_max": "Name cannot exceed 25 characters",
-        "phone_invalid": "Invalid phone number",
-        "dob_required": "Date of birth is required",
-        "email_invalid": "Invalid email address",
-        "location_required": "Location is required"
-      }
-    },
-    "security": {
-      "title": "Change Password",
-      "current_password_label": "Current Password",
-      "new_password_label": "New Password",
-      "confirm_password_label": "Confirm New Password",
-      "placeholders": {
-        "current": "Enter Current Password",
-        "new": "Enter New Password",
-        "confirm": "Confirm New Password"
-      },
-      "button": "Update Password",
-      "button_loading": "Updating Password...",
-      "errors": {
-        "current_required": "Current password is required",
-        "new_min": "Password must be at least 8 characters",
-        "password_uppercase": "Must contain at least one uppercase letter",
-        "password_lowercase": "Must contain at least one lowercase letter",
-        "password_number": "Must contain at least one number",
-        "password_special": "Must contain at least one special character",
-        "confirm_required": "Please confirm your new password",
-        "mismatch": "Passwords do not match"
-      }
-    }
+  "profile_header": {
+    "title": "Profile & Settings",
+    "description": "Manage your personal information and security settings."
   },
+  "basic_info": {
+    "title": "Basic Information",
+    "edit_title": "Edit Information",
+    "full_name": "Full Name",
+    "phone_label": "Phone Number",
+    "email_label": "Email Address",
+    "governorate_label": "Governorate",
+    "role_label": "Account Type",
+    "Patient": "Patient",
+    "Student": "Dentistry Student",
+    "university": "University",
+    "bio": "About You (Bio)",
+    "specializations": "Interested Specializations",
+    "rating": "Overall Rating",
+    "verified_mobile": "Verified Mobile",
+    "verified_badge": "Verified",
+    "phone_placeholder": "Enter phone number",
+    "cancel": "Cancel",
+    "save_changes": "Save Changes",
+    "save_changes_loading": "Saving..."
+  },
+  "security": {
+    "title": "Security Settings",
+    "current_password_label": "Current Password",
+    "new_password_label": "New Password",
+    "confirm_password_label": "Confirm Password",
+    "button": "Update Password",
+    "button_loading": "Updating...",
+    "placeholders": {
+      "current": "Enter current password",
+      "new": "Enter new password",
+      "confirm": "Re-enter new password"
+    }
+  }
+}
+,
   "governorates": {
     "beni-suef": "Beni Suef",
     "cairo": "Cairo",
@@ -671,6 +655,29 @@
     "invalidDate": "Invalid Date",
     "invalidTime": "Invalid Time"
   },
+  "studentAppointments": {
+  "pageTitle": "Appointment Schedule",
+  "pageDesc": "Track your upcoming and pending sessions with patients.",
+  "tabs": {
+    "confirmed": "Confirmed Sessions",
+    "pending": "Pending Confirmation"
+  },
+  "emptyState": {
+    "title": "No appointments found",
+    "description": "There are no appointments registered in this list at the moment."
+  },
+  "card": {
+    "patient": "Patient",
+    "location": "Clinic / Location",
+    "date": "Date",
+    "time": "Time",
+    "status": {
+      "upcoming": "Confirmed (Upcoming)",
+      "completed": "Completed",
+      "pending": "Pending (Waiting for patient)"
+    }
+  }
+},
   "noAppointments": {
     "title": "No Upcoming Appointments!",
     "description": "It seems you don't have any confirmed appointments right now; they've all moved to your 'Past Appointments' list, just like missing baby teeth.",
@@ -692,7 +699,15 @@
         "title": "You Haven't Requested Any Cases Yet",
         "description": "Your record is currently empty. Browse available cases and start submitting your treatment proposals to patients."
       }
-    }
+    },"header": {
+    "title": "Available Cases",
+    "description": "Browse patient cases and submit your treatment proposals."
+  },
+  "filters": {
+    "searchPlaceholder": "Search by patient name or diagnosis...",
+    "allSpecialties": "All Specialties",
+    "noResults": "No cases match your search criteria."
+  }
   },
   "studentCaseDetails": {
     "pageTitle": "Medical Case Details",

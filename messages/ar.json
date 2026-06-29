@@ -201,14 +201,16 @@
       "myCases": "حالاتي المرضية",
       "availableDoctors": "الأطباء المتاحين",
       "careProposals": "عروض الأطباء",
-      "appointments": "مواعيدي"
+      "appointments": "مواعيدي",
+      "profileAndSettings": "Profile & Settings"
     },
     "Student": {
       "dashboard": "لوحة التحكم",
       "myProposals": "طلباتي",
       "availableCases": "الحالات المتاحة",
       "myPatients": "مرضاي",
-      "settings": "الإعدادات"
+      "myAppointments": "جدول المواعيد",
+      "profileAndSettings": "الملف الشخصي والإعدادات"
     }
   },
   "SearchInput": {
@@ -531,64 +533,45 @@
     }
   },
   "profile": {
-    "profile_header": {
-      "title": "الملف الشخصي",
-      "description": "حدث بياناتك الشخصية وتاريخك الطبي لضمان أفضل تجربة."
-    },
-    "basic_info": {
-      "title": "البيانات الأساسية",
-      "edit_title": "تعديل البيانات الأساسية",
-      "governorate_label": "المحافظة:",
-      "phone_label": "رقم الهاتف:",
-      "email_label": "البريد الإلكتروني:",
-      "role_label": "النوع/الدور:",
-      "Patient": "مريض",
-      "plan": "باقتك: الأساسية",
-      "full_name": "الاسم بالكامل",
-      "verified_mobile": "رقم الموبايل",
-      "verified_badge": "متوثق",
-      "dob": "تاريخ الميلاد",
-      "email": "البريد الإلكتروني",
-      "email_placeholder": "dentify@gmail.com",
-      "phone_placeholder": "+20",
-      "select_location": "اختار المحافظة",
-      "location_placeholder": "بني سويف",
-      "cancel": "إلغاء",
-      "save_changes": "حفظ التغييرات",
-      "save_changes_loading": "جاري حفظ التغييرات...",
-      "errors": {
-        "name_min": "يجب أن يكون الاسم 3 أحرف على الأقل",
-        "name_max": "لا يمكن أن يتجاوز الاسم 25 حرفاً",
-        "phone_invalid": "رقم الهاتف المدخل غير صحيح",
-        "dob_required": "حقل تاريخ الميلاد مطلوب",
-        "email_invalid": "البريد الإلكتروني المدخل غير صحيح",
-        "location_required": "يرجى تحديد المحافظة لضمان دقة الفرز"
-      }
-    },
-    "security": {
-      "title": "تغيير كلمة المرور",
-      "current_password_label": "كلمة المرور الحالية",
-      "new_password_label": "كلمة المرور الجديدة",
-      "confirm_password_label": "تأكيد كلمة المرور الجديدة",
-      "placeholders": {
-        "current": "أدخل كلمة المرور الحالية",
-        "new": "أدخل كلمة المرور الجديدة",
-        "confirm": "أدخل تأكيد كلمة المرور"
-      },
-      "button": "تحديث كلمة المرور",
-      "button_loading": "جاري تحديث كلمة المرور...",
-      "errors": {
-        "current_required": "حقل كلمة المرور الحالية مطلوب",
-        "new_min": "يجب ألا تقل كلمة المرور عن 8 رموز",
-        "password_uppercase": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل (A-Z)",
-        "password_lowercase": "يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل (a-z)",
-        "password_number": "يجب أن تحتوي كلمة المرور على رقم واحد على الأقل (0-9)",
-        "password_special": "يجب أن تحتوي كلمة المرور على رمز خاص واحد على الأقل (مثل @, #, $)",
-        "confirm_required": "يرجى تأكيد كلمة المرور الجديدة",
-        "mismatch": "كلمتا المرور غير متطابقتين"
-      }
-    }
+  "profile_header": {
+    "title": "الملف الشخصي والإعدادات",
+    "description": "قم بإدارة بياناتك الشخصية وإعدادات الأمان الخاصة بحسابك."
   },
+  "basic_info": {
+    "title": "البيانات الأساسية",
+    "edit_title": "تعديل البيانات",
+    "full_name": "الاسم الرباعي",
+    "phone_label": "رقم الهاتف",
+    "email_label": "البريد الإلكتروني",
+    "governorate_label": "المحافظة",
+    "role_label": "نوع الحساب",
+    "Patient": "مريض",
+    "Student": "طبيب (طالب طب أسنان)",
+    "university": "الجامعة",
+    "bio": "نبذة عنك (Bio)",
+    "specializations": "التخصصات المهتم بها",
+    "rating": "التقييم العام",
+    "verified_mobile": "رقم الهاتف الموثق",
+    "verified_badge": "موثق",
+    "phone_placeholder": "أدخل رقم الهاتف",
+    "cancel": "إلغاء",
+    "save_changes": "حفظ التعديلات",
+    "save_changes_loading": "جاري الحفظ..."
+  },
+  "security": {
+    "title": "إعدادات الأمان",
+    "current_password_label": "كلمة المرور الحالية",
+    "new_password_label": "كلمة المرور الجديدة",
+    "confirm_password_label": "تأكيد كلمة المرور",
+    "button": "تحديث كلمة المرور",
+    "button_loading": "جاري التحديث...",
+    "placeholders": {
+      "current": "أدخل كلمة المرور الحالية",
+      "new": "أدخل كلمة المرور الجديدة",
+      "confirm": "أعد إدخال كلمة المرور الجديدة"
+    }
+  }
+},
   "governorates": {
     "beni-suef": "بني سويف",
     "cairo": "القاهرة",
@@ -669,6 +652,29 @@
     "invalidDate": "التاريخ غير صالح",
     "invalidTime": "الوقت غير صالح"
   },
+  "studentAppointments": {
+  "pageTitle": "جدول المواعيد",
+  "pageDesc": "تابع مواعيد الجلسات القادمة والمعلقة مع مرضاك.",
+  "tabs": {
+    "confirmed": "المواعيد المؤكدة",
+    "pending": "في انتظار التأكيد"
+  },
+  "emptyState": {
+    "title": "لا توجد مواعيد هنا",
+    "description": "لا يوجد أي مواعيد مسجلة في هذه القائمة حالياً."
+  },
+  "card": {
+    "patient": "المريض",
+    "location": "العيادة / المكان",
+    "date": "التاريخ",
+    "time": "الوقت",
+    "status": {
+      "upcoming": "مؤكد (قادم)",
+      "completed": "مكتمل",
+      "pending": "معلق (بانتظار المريض)"
+    }
+  }
+},
   "noAppointments": {
     "title": "لا توجد مواعيد قادمة!",
     "description": "يبدو أنه ليس لديك أي مواعيد مؤكدة حالياً، تم نقلها جميعاً لقائمة 'المواعيد السابقة' تماماً مثل أسنان اللبن المفقودة.",
@@ -690,7 +696,15 @@
         "title": "لم تقم بطلب أي حالات بعد",
         "description": "سجلك خالي حالياً. تصفح الحالات المتاحة وابدأ في تقديم عروضك العلاجية للمرضى."
       }
-    }
+    },"header": {
+    "title": "الحالات المتاحة",
+    "description": "تصفح حالات المرضى المتاحة وقم بتقديم عرض معالجة."
+  },
+  "filters": {
+    "searchPlaceholder": "ابحث باسم المريض أو التشخيص...",
+    "allSpecialties": "كل التخصصات",
+    "noResults": "لم يتم العثور على حالات مطابقة للبحث."
+  }
   },
   "studentCaseDetails": {
     "pageTitle": "تفاصيل الحالة الطبية",

@@ -1,13 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import { CalendarPlus, CalendarClock, CheckCircle2, Clock, MapPin, MinusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import BookAppointmentModal from "@/app/_components/BookAppointmentModal/BookAppointmentModal"; // تأكد من مسار الملف عندك
 
-// داتا وهمية بتعكس السيناريو بتاعك: موعدين، واحد تأكد والتاني تم تجاهله
+// غيرنا الداتا هنا خلينا الأول pending عشان الزرار يفضل شغال للتجربة
 const MOCK_APPOINTMENTS = [
-  { id: 1, date: "2026-07-02", time: "10:00 AM", location: "عيادة 3 - الدور الثاني", status: "confirmed" },
+  { id: 1, date: "2026-07-02", time: "10:00 AM", location: "عيادة 3 - الدور الثاني", status: "pending" },
   { id: 2, date: "2026-07-03", time: "11:30 AM", location: "عيادة 1 - الدور الأول", status: "ignored" },
 ];
 
@@ -16,13 +17,13 @@ const StatusBadge = ({ status, t }: { status: string, t: any }) => {
   const styles: Record<string, string> = {
     confirmed: "bg-success/10 text-success border-success/20",
     pending: "bg-warning/10 text-warning border-warning/20",
-    ignored: "bg-border-main/50 text-text-muted border-border-main", // شكل باهت للموعد المتجاهل
+    ignored: "bg-border-main/50 text-text-muted border-border-main", 
   };
   
   const Icons: Record<string, any> = {
     confirmed: CheckCircle2,
     pending: Clock,
-    ignored: MinusCircle, // أيقونة تعبر عن الإلغاء أو التجاهل
+    ignored: MinusCircle, 
   };
 
   const Icon = Icons[status];
@@ -35,10 +36,13 @@ const StatusBadge = ({ status, t }: { status: string, t: any }) => {
   );
 };
 
-export default function CaseAppointmentsTab() {
+export default function CaseAppointmentsTab({ treatmentRequestId = 1234 }: { treatmentRequestId?: number }) {
   const t = useTranslations("CaseDetails.appointmentsTab");
+  
+  // State لفتح وقفل المودال
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // اللوجيك الجديد للتحكم في الزرار
+  // اللوجيك للتحكم في الزرار
   const pendingCount = MOCK_APPOINTMENTS.filter(apt => apt.status === "pending").length;
   const hasConfirmed = MOCK_APPOINTMENTS.some(apt => apt.status === "confirmed");
   
@@ -69,6 +73,7 @@ export default function CaseAppointmentsTab() {
         </div>
         
         <Button 
+          onClick={() => setIsModalOpen(true)} // فتح المودال عند الضغط
           disabled={isProposeDisabled}
           className="w-full sm:w-auto bg-primary hover:bg-primary-hover text-white rounded-xl font-bold shadow-md flex items-center gap-2 py-6 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
         >
@@ -87,7 +92,6 @@ export default function CaseAppointmentsTab() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {MOCK_APPOINTMENTS.length > 0 ? (
             MOCK_APPOINTMENTS.map((apt) => {
-              // لو الموعد متجاهل، بنعمله بهتان (Opacity) عشان نركز على الموعد المؤكد
               const isIgnored = apt.status === "ignored";
               
               return (
@@ -126,6 +130,13 @@ export default function CaseAppointmentsTab() {
           )}
         </div>
       </div>
+
+      {/* ── المودال الخاص بالحجز ── */}
+      <BookAppointmentModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        treatmentRequestId={treatmentRequestId} 
+      />
 
     </div>
   );

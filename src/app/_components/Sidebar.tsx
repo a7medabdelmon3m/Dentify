@@ -13,7 +13,7 @@ import {
   FaRegEnvelope,
   FaUsers,
 } from "react-icons/fa";
-import { FaUserDoctor, FaXmark } from "react-icons/fa6";
+import { FaUserDoctor, FaUserGear, FaXmark } from "react-icons/fa6";
 import { GoGear } from "react-icons/go";
 import { ImProfile } from "react-icons/im";
 import { IoIosCreate } from "react-icons/io";
@@ -25,6 +25,7 @@ import { MessagesMenu } from "./menus/messagesMenu";
 import { UserMenu } from "./menus/UserMenu";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { CalendarClock } from "lucide-react";
 
 export type prop = {
   userType: "patient" | "student" | string;
@@ -66,6 +67,11 @@ export default function Sidebar({ userType }: prop) {
       url: `/patient/appointment`,
       icon: <FaCalendarCheck />,
     },
+    {
+      title: t("Patient.profileAndSettings"),
+      url: "/patient/profile",
+      icon: <FaUserGear className="w-5 h-5" />,
+    },
   ];
 
   const studentItems = [
@@ -90,10 +96,16 @@ export default function Sidebar({ userType }: prop) {
       icon: <FaUsers />,
     },
     {
-      title: t("Student.settings"),
-      url: `/student/settings`,
-      icon: <GoGear />,
+      title: t("Student.myAppointments"), // الاسم اللي هنترجمه
+      url: "/student/my-appointments", // المسار اللي عملناه
+      icon: <CalendarClock className="w-5 h-5" />,
     },
+    {
+      title: t("Student.profileAndSettings"),
+      url: "/student/profile",
+      icon: <FaUserGear className="w-5 h-5" />,
+    },
+    
   ];
 
   const menuItems = isPatient ? patientItems : studentItems;

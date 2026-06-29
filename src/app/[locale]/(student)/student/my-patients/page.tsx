@@ -26,8 +26,8 @@ export default function StudentMyCasesPage() {
   const filteredCases = MOCK_CASES.filter((c) => c.status === activeTab);
 
   return (
-    <section className="flex-1 bg-bg-main min-h-screen pb-10">
-      <div className="container p-4 mx-auto space-y-8">
+    <section className="flex-1 bg-bg-main min-h-screen p-4 md:p-6 lg:p-8">
+    <div className="max-w-7xl mx-auto space-y-8">
         {/* ── الهيدر ── */}
         <PageHeader title={t("pageTitle")} desc={t("pageDesc")} />
 

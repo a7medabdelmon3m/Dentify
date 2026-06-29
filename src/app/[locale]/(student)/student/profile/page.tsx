@@ -1,5 +1,5 @@
 import SharedProfilePage from "@/app/_components/SharedProfile/SharedProfilePage";
 
-export default function PatientProfileRoute() {
+export default function StudentProfileRoute() {
   return <SharedProfilePage />;
 }

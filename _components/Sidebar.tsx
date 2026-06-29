@@ -164,7 +164,7 @@ export default function Sidebar({ userType }: prop) {
       </ul>
       {isOpen && (
         <div className={`container mx-auto p-3 lg:hidden  `}>
-          <SearchInput />
+          
         </div>
       )}
     </aside>
