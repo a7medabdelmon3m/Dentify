@@ -39,9 +39,11 @@ export default async function PatientAppointmentPage() {
   if (!appoints || !appoints.data || appoints.data.length === 0) {
     return <NoAppointments />;
   }
-  const currentCaseId = appoints.data?.[0]?.caseId;
+  const firstAppointment = appoints.data?.[0];
+  const currentCaseId = firstAppointment?.caseId || "N/A";
   return (
-    <div className="flex w-full flex-col p-6 text-center bg-bg-main">
+    <section className="flex-1 bg-bg-main min-h-screen p-4 md:p-6 lg:p-8">
+    <div className="max-w-2xl mx-auto space-y-8 text-rightAr">
       <div className="mx-auto w-full max-w-2xl space-y-6 text-rightAr">
         {/* رأس الصفحة السيرفر */}
         <div className="flex flex-col gap-1.5 mb-8">
@@ -62,5 +64,6 @@ export default async function PatientAppointmentPage() {
         />
       </div>
     </div>
+    </section>
   );
 }
