@@ -20,13 +20,27 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
         pathname: '/**',
-      }
+      },
+      {
+        protocol: 'https',
+        hostname: 'dintify.runasp.net',
+        port: '',
+        pathname: '/**', 
+      },
     ],
   },
   experimental: {
     serverActions: {
       bodySizeLimit: "10mb", 
     },
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api-proxy/:path*',
+        destination: 'http://localhost:5123/api/:path*', 
+      },
+    ];
   },
 };
 

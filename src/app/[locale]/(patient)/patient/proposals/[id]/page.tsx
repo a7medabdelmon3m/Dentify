@@ -3,57 +3,80 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import doctor from "@/assets/images/Dr. Ahmed.png";
-import { 
-  FaBuildingColumns, 
-  FaStar, 
-  FaStarHalfStroke, 
-  FaRegStar, 
-  FaClock 
+import {
+  FaBuildingColumns,
+  FaStar,
+  FaStarHalfStroke,
+  FaRegStar,
+  FaClock,
 } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import PageHeader from "@/app/_components/PageHeader";
 import { useLocale, useTranslations } from "next-intl";
 import { formatTimeAgo } from "@/lib/utils";
-// 1. استيراد useRouter و useParams من next/navigation
-import { useParams, useRouter } from "next/navigation"; 
+import { useParams, useRouter } from "next/navigation";
 import { dynamicApiAction } from "../../patient.actions";
 import { toast } from "react-toastify";
 
 export default function ProposedPage() {
   const t = useTranslations("proposal.card");
-  const locale = useLocale(); 
-  const { id: requestId } = useParams(); 
-  
-  // 2. تعريف الـ router
-  const router = useRouter(); 
-  
+  const locale = useLocale();
+  const { id: requestId } = useParams();
+
+  const router = useRouter();
+
   const [isLoading, setisLoading] = useState(false);
+  const [isDeclineLoading, setisDeclineLoading] = useState(false);
+  const [isSuccess, setisSuccess] = useState(false);
+  const [isDeclineSuccess, setisDeclineSuccess] = useState(false);
   const [mockSubmittedDate, setMockSubmittedDate] = useState<string>("");
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const calculatedDate = new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString();
+      const calculatedDate = new Date(
+        Date.now() - 2 * 60 * 60 * 1000,
+      ).toISOString();
       setMockSubmittedDate(calculatedDate);
     }, 0);
 
     return () => clearTimeout(timer);
   }, []);
-  
-  console.log('requestId : ' , requestId);
-  
-  async function handleAcceptRequest(){
+
+  console.log("requestId : ", requestId);
+
+  async function handleAcceptRequest() {
     setisLoading(true);
-    // 3. تعديل مسار الـ API بشيل السلاش الزيادة
-    const response = await dynamicApiAction('TreatmentRequests/accept', 'PUT', requestId as string, undefined); 
+    const response = await dynamicApiAction(
+      `TreatmentRequests/accept/${requestId}`,
+      "PUT",
+      undefined,
+      undefined,
+    );
     setisLoading(false);
-    console.log("response : " , response);
-    
-    if(response.success){
-      toast.success('تم قبول العرض بنجاح!');
-      // 4. استخدام router.push مع الـ locale عشان التوجيه يكون سليم 100%
-      router.push(`/${locale}/patient/chats/${requestId}`); 
+    console.log("response : ", response);
+
+    if (response.success) {
+      setisSuccess(true);
+      toast.success("تم قبول العرض بنجاح!");
+      router.push(`/${locale}/patient/chat`);
     } else {
       toast.error(String(response.error));
+    }
+  }
+  async function handleDeclineTreatementRequest() {
+    setisDeclineLoading(true);
+    const response = await dynamicApiAction(
+      `TreatmentRequests/reject/${requestId}`,
+      "PUT",
+      undefined,
+      undefined,
+    );
+    setisDeclineLoading(false);
+    if (response.success) {
+      setisDeclineSuccess(true);
+      toast.success("تم الرفض بنجاح");
+    } else {
+      toast.error("عزراً,فشل الرفض حاول مجدداً");
     }
   }
 
@@ -81,16 +104,10 @@ export default function ProposedPage() {
   return (
     <section className="bg-bg-main ">
       <div className="container p-4 mx-auto space-y-6">
-        
-        <PageHeader 
-          title={t("headerTitle")} 
-          desc={t("headerDesc")} 
-        />
-        
+        <PageHeader title={t("headerTitle")} desc={t("headerDesc")} />
+
         <div className="bg-white shadow-sm border border-border-light rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto space-y-8">
-          
           <div className="flex flex-col sm:flex-row gap-6 justify-between items-start pb-8 border-b border-border-light">
-            
             <div className="flex gap-4 items-start">
               <div className="relative w-20 h-20 shrink-0 rounded-full overflow-hidden border-2 border-primary-subtle shadow-sm mt-1">
                 <Image
@@ -101,12 +118,12 @@ export default function ProposedPage() {
                   className="object-cover"
                 />
               </div>
-              
+
               <div className="space-y-1.5 text-rightAr">
                 <h4 className="font-heading text-text-title font-bold text-2xl tracking-tight">
                   Dr. Ahmed Moneim
                 </h4>
-                
+
                 <div className="flex gap-2 items-center bg-bg-main px-3 py-1.5 rounded-lg border border-border-light w-fit">
                   <span className="font-extrabold text-text-title text-sm mt-0.5">
                     {ratingValue}
@@ -116,17 +133,21 @@ export default function ProposedPage() {
                     {t("rating")}
                   </span>
                 </div>
-                
+
                 <p className="text-sm font-semibold text-primary">
                   {t("specialty")}
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-center gap-1.5 font-medium text-text-muted py-1.5 px-4 bg-bg-main border border-border-light rounded-full shadow-sm text-xs self-start">
               <FaClock className="w-3 h-3" />
               <span>{t("submitted")}</span>
-              <span>{mockSubmittedDate ? formatTimeAgo(mockSubmittedDate, locale) : "..."}</span>
+              <span>
+                {mockSubmittedDate
+                  ? formatTimeAgo(mockSubmittedDate, locale)
+                  : "..."}
+              </span>
             </div>
           </div>
 
@@ -140,8 +161,12 @@ export default function ProposedPage() {
                   <FaBuildingColumns className="w-5 h-5" />
                 </div>
                 <div className="flex flex-col text-rightAr">
-                  <span className="text-xs text-text-muted">الجامعة التابع لها</span>
-                  <span className="text-sm font-bold text-text-title">{t("university")}</span>
+                  <span className="text-xs text-text-muted">
+                    الجامعة التابع لها
+                  </span>
+                  <span className="text-sm font-bold text-text-title">
+                    {t("university")}
+                  </span>
                 </div>
               </div>
             </div>
@@ -162,16 +187,32 @@ export default function ProposedPage() {
               forward to helping you!&quot;
             </p>
           </div>
-
-          <div className="flex gap-4 items-center pt-4">
-            <Button onClick={handleAcceptRequest} disabled={isLoading} className="h-14 flex-1 rounded-xl text-base sm:text-lg text-white font-bold bg-success hover:bg-success/90 shadow-sm transition-all border-none">
-              { isLoading ? t(`acceptBtn_loading`) : t("acceptBtn")}
-            </Button>
-            <Button disabled={isLoading} className="h-14 flex-1 rounded-xl text-base sm:text-lg text-danger font-bold bg-danger/10 hover:bg-danger hover:text-white border border-danger/20 shadow-sm transition-all">
-              {t("declineBtn")}
-            </Button>
-          </div>
-          
+          {(!isSuccess || !isDeclineSuccess) && (
+            <div className="flex gap-4 items-center pt-4">
+              <Button
+                onClick={handleAcceptRequest}
+                disabled={
+                  isLoading || isSuccess || isDeclineLoading || isDeclineSuccess
+                }
+                className="h-14 flex-1 rounded-xl text-base sm:text-lg text-white font-bold bg-success hover:bg-success/90 shadow-sm transition-all border-none"
+              >
+                {isSuccess
+                  ? t(`acceptedBtn`)
+                  : isLoading
+                    ? t(`acceptBtn_loading`)
+                    : t("acceptBtn")}
+              </Button>
+              <Button
+              onClick={handleDeclineTreatementRequest}
+                disabled={
+                  isLoading || isSuccess || isDeclineLoading || isDeclineSuccess
+                }
+                className="h-14 flex-1 rounded-xl text-base sm:text-lg text-danger font-bold bg-danger/10 hover:bg-danger hover:text-white border border-danger/20 shadow-sm transition-all"
+              >
+                { isDeclineLoading ?  t("declineBtn_loading") : t("declineBtn")}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </section>

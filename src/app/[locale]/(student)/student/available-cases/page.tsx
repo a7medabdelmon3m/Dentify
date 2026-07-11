@@ -1,22 +1,23 @@
 import React from 'react';
 import { apiRequest } from '@/app/api/services/denti.services';
-import { studentAvailableCaseType } from '@/type';
+import { studentAvailableCaseType, studentTreatementRequest } from '@/type';
 import { getTranslations } from 'next-intl/server';
 import EmptyState from '@/app/_components/EmptyState';
 import PageHeader from '@/app/_components/PageHeader';
 import { FaFolderOpen } from 'react-icons/fa6';
 import AvailableCasesClient from './AvailableCasesClient'; 
+import { FaCheck } from 'react-icons/fa';
 
 export default async function Page() {
   const t = await getTranslations("studentAvailableCases");
   const casesData = await apiRequest<studentAvailableCaseType[]>('http://localhost:5123/api/Case/available');
   const casesList = casesData.data;
+   const myAcceptedTreateMentRequest = await apiRequest<studentTreatementRequest[]>(`http://localhost:5123/api/TreatmentRequests/my/student`);
+    const myTreatmentData = myAcceptedTreateMentRequest.data?.[0]; 
 
   return (
-    // 1. الهيكل الخارجي الموحد (نفس المسافات في كل الموقع)
     <section className="flex-1 bg-bg-main min-h-screen p-4 md:p-6 lg:p-8">
       
-      {/* 2. الحاوية الداخلية (هنا اديناها 7xl عشان دي شبكة كروت محتاجة مساحة) */}
       <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500">
         
         <PageHeader 
@@ -30,7 +31,13 @@ export default async function Page() {
             title={t("studentEmptyStates.availableCases.title")} 
             description={t("studentEmptyStates.availableCases.description")} 
           />
-        ) : (
+        ) : myTreatmentData ? (
+          <EmptyState 
+            icon={<FaCheck />} 
+            title={'لديك مريض بالفعل'} 
+            description={`تم تعيين المريض ${myTreatmentData.patientName} اليك`} 
+          />
+        ): (
           <AvailableCasesClient casesList={casesList} />
         )}
         

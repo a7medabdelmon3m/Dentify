@@ -1,15 +1,24 @@
+import { UniversityIcon } from "lucide-react";
 import { number } from "zod";
+
 
 export type patientCaseType = {
   id: number;
   specidRequiredSpecialization: string;
-  description: string;
   city: string;
   status: string;
-  createdAt: string ;
+  createdAt: string;
+  age: number;
   patientName: string;
   image: string;
-  aiAnalysisResult: string | null;
+  aiAnalysisResult: string;
+};
+export type CreateCasePayload = {
+  Image: File; // لأننا هنبعتها كـ FormData
+  SymptomsText?: string;
+  PainDuration?: string;
+  ChronicDiseases?: string;
+  City: string;
 };
 export type userProfileType = {
   fullName: string;
@@ -80,4 +89,97 @@ export type studentAvailableCaseType = {
 export type forgetPasswordType = {
     email:string
   }
+  export type studentType = {
+  "id": number,
+  "fullName": string,
+  "phoneNumber": string,
+  "city": string,
+  "uniEmail": string,
+  "profileImageUrl": string,
+  "specializations": string[
+    
+  ]
+}
+export type notificationType = {
+    "id": number,
+    "isRead": boolean,
+    "title": string,
+    "message": string,
+    "type": number,
+    "referenceId": number,
+    "createdAt": string
+  }
+  export type studentTreatementRequest = {
+    "requestId": number,
+    "caseId": number,
+    "patientName": string,
+    "caseDescription": string,
+    "city": string,
+    "caseStatus": number | string,
+    "requestStatus": number | string,
+    "createdAt": string
+  }
+  export type patientTreatementRequest = {
+    "id": number,
+    "caseId": number,
+    "studentId": number,
+    "studentName": string,
+    "studentCity": string,
+    "studentPhoneNumber": string,
+    "studentProfileImageUrl": string | null,
+    "averageRating":number,
+    "totalRatings":number,
+    "status": string,
+    "initiatedBy": string,
+    "createdAt": string
+  }
+  export type currentUserType = {
+  "userId": string,
+  "email": string,
+  "displayName": string,
+  "role": string
+}
+export type RegisterFormValues = {
+  id:number,
+  fullName: string;
+  uniEmail: string;
+  email: string;
+  phoneNumber: string;
+  password: string;
+  city: string;
+  specializations: number[]; // مصفوفة أرقام زي ما إنت محدد في Schema
+};
+
+// {
+//   id,
+//   patientName,
+//   phone,
+//   city,
+//   age,
+//   email,
+//   treatmentRquest:{
+//     requestId,
+//     treatmentProposal,
+//     patientCase:{
+//       caseId,
+//       status,
+//       disease,
+//       desc,
+//       images:[...],
+//   },
+//   appointments:{
+//       id,
+//       status,
+//       location,
+//       date,
+//   },
+//   myDoctor:{
+//       id,
+//       name,
+//       university,
+//   }
+//   }
+  
+
+// }
 

@@ -1,4 +1,6 @@
 "use client";
+
+import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { BsUpload } from "react-icons/bs";
@@ -11,117 +13,187 @@ import { Input } from "@/components/ui/input";
 import { FiSend } from "react-icons/fi";
 import { usePatientCont } from "../contexts/patientContext";
 import { useTranslations } from "next-intl";
-
 import {
   Popover,
   PopoverContent,
-  PopoverDescription,
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import ChatBotBtn from "./ChatBotBtn";
+import { dynamicApiAction } from "@/app/[locale]/(patient)/patient/patient.actions"; 
+import { useParams } from "next/navigation";
+
+interface Message {
+  id: number;
+  sender: "user" | "ai";
+  text: string;
+}
 
 export function ChatBot() {
   const { chatIsOpen, setchatIsOpen } = usePatientCont();
   const t = useTranslations("chatBot");
+
+  const params = useParams() ;
+  const {locale} = params
+
+  const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const [messages, setMessages] = useState<Message[]>([
+    { id: Date.now(), sender: "ai", text: t("hiThere") || "أهلاً بك في Dentify AI Assistant! إزاي أقدر أساعدك النهاردة؟" },
+  ]);
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isLoading]);
+
+  const handleSendMessage = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!inputValue.trim() || isLoading) return;
+
+    const userMessage = inputValue.trim();
+    
+    setMessages((prev) => [...prev, { id: Date.now(), sender: "user", text: userMessage }]);
+    setInputValue("");
+    setIsLoading(true);
+
+    try {
+      const historyString = messages
+        .map((msg) => `${msg.sender === "user" ? "User" : "AI"}: ${msg.text}`)
+        .join("\n");
+
+      const payload = {
+        question: userMessage,
+        history: historyString,
+      };
+
+      const response = await dynamicApiAction("ChatBot", "POST", undefined, payload);
+
+       const aiAnswer = (response as any)?.answer ?? (response as any)?.data?.answer ?? "عذراً، لم أتمكن من فهم طلبك.";
+      
+      setMessages((prev) => [
+        ...prev,
+        { id: Date.now() + 1, sender: "ai", text: aiAnswer },
+      ]);
+    } catch (error) {
+      console.error("ChatBot Error:", error);
+      setMessages((prev) => [
+        ...prev,
+        { id: Date.now() + 1, sender: "ai", text: "حدث خطأ في الاتصال، يرجى المحاولة لاحقاً." },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Popover open={chatIsOpen} onOpenChange={setchatIsOpen}>
       <PopoverTrigger className="border-none! h-auto! focus-visible:outline-0 focus:ring-0" asChild>
         <Button variant="outline"><ChatBotBtn /></Button>
       </PopoverTrigger>
-      
-      <PopoverContent className="bg-white border-0! p-4 shadow-2xl rounded-2xl w-[350px]" align="end">
+
+      <PopoverContent className="bg-white border border-border-light p-4 shadow-2xl rounded-3xl w-[380px]" align="end">
         <PopoverHeader className="p-0">
-          <PopoverTitle className="font-heading font-bold text-2xl text-text-title px-3">
-            {t("title")}
-          </PopoverTitle>
           
-          <PopoverDescription className="text-start">
-            {/* استبدلنا الـ div بـ span block لحل مشكلة الـ Nesting والـ TypeScript */}
-            <span className="block space-y-2 ps-3 mb-8 mt-2">
-              <span className="block text-sm font-bold text-text-body">
-                {t("description")}
-              </span>
-              <span className="block text-xs text-text-muted">2 March 2021, 13:45 PM</span>
-            </span>
+          <div className="flex justify-between items-center mb-4 px-2">
+            <PopoverTitle className="font-heading font-bold text-2xl text-text-title">
+              {t("title")}
+            </PopoverTitle>
+            <TfiArrowCircleLeft 
+              onClick={() => setchatIsOpen(false)}
+              className="text-text-muted hover:text-danger cursor-pointer transition-colors rtl:rotate-180 w-6 h-6" 
+            />
+          </div>
 
-            <span className="block -mx-4 no-scrollbar max-h-[50vh] overflow-y-auto px-4">
-              <span className="block space-y-6">
-                <span className="block border-s border-dashed border-gray-300 px-2">
-                  <span className="flex justify-between gap-2.5 items-center text-[#A8B2FF] text-lg mb-6">
-                    <TfiArrowCircleLeft className="hover:text-text-body cursor-pointer transition-colors rtl:rotate-180" />
-                    <span className="text-text-title/70 font-bold text-xl">
-                      {t("aiChatHeader")}
-                    </span>
-                    <span className="flex gap-2 items-center">
-                      <BsUpload className="hover:text-text-body cursor-pointer transition-colors" />
-                      <GoMute className="hover:text-text-body cursor-pointer transition-colors" />
-                    </span>
-                  </span>
+          <div className="text-start">
+            <div className="space-y-1 ps-2 mb-6">
+              <h4 className="text-sm font-bold text-text-body">{t("description")}</h4>
+              <p className="text-xs text-text-muted">{new Date().toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+            </div>
+
+            <div className="bg-bg-main border border-border-light rounded-2xl p-4 mb-4 h-[50vh] overflow-y-auto no-scrollbar flex flex-col gap-4">
+              
+              <div className="flex justify-end gap-3 text-text-muted mb-2">
+                <BsUpload className="hover:text-primary cursor-pointer transition-colors w-4 h-4" />
+                <GoMute className="hover:text-primary cursor-pointer transition-colors w-4 h-4" />
+              </div>
+
+              {messages.map((msg) => (
+                <div key={msg.id} className={`flex gap-3 ${msg.sender === "user" ? "justify-end text-end" : "justify-start text-start"}`}>
                   
-                  <span className="block text-xs text-text-muted font-semibold text-center mb-8">
-                    {t("today")}, 04:12 pm
-                  </span>
+                  {msg.sender === "ai" && (
+                    <div className="w-8 h-8 relative shrink-0 bg-white rounded-full p-1 border border-border-light shadow-sm">
+                      <Image fill sizes="32px" className="object-contain" src={model} alt="Ai Icon" />
+                    </div>
+                  )}
 
-                  <span className="block space-y-6 mb-6">
-                    {/* رسالة الـ AI */}
-                    <span className="flex gap-3 text-start">
-                      <span className="w-8 h-8 relative shrink-0">
-                        <Image
-                          fill
-                          sizes="32px"
-                          className="object-contain"
-                          src={model}
-                          alt="Ai Icon"
-                        />
-                      </span>
-                      <span className="p-2.5 rounded-xl bg-[#D9DDFF] text-text-title text-sm font-semibold">
-                        {t("hiThere")}
-                      </span>
-                    </span>
+                  <div className={`p-3 rounded-2xl max-w-[80%] text-sm font-medium leading-relaxed shadow-sm ${
+                    msg.sender === "user" 
+                      ? "bg-primary text-white rounded-br-none" 
+                      : "bg-white border border-border-light text-text-title rounded-bl-none"
+                  }`}>
+                    {msg.text}
+                  </div>
 
-                    {/* رسالة المستخدم */}
-                    <span className="flex gap-3 justify-end text-end">
-                      <span className="p-2.5 rounded-xl bg-[#295BFF] text-white text-sm font-semibold">
-                        {t("hiThere")}
-                      </span>
-                      <span className="w-8 h-8 relative flex justify-center items-center rounded-full overflow-hidden shrink-0 border border-gray-100">
-                        <Image
-                          fill
-                          sizes="32px"
-                          className="object-cover"
-                          src={user}
-                          alt="User Icon"
-                        />
-                      </span>
-                    </span>
-                  </span>
-                </span>
+                  {msg.sender === "user" && (
+                    <div className="w-8 h-8 relative flex justify-center items-center rounded-full overflow-hidden shrink-0 border border-border-light shadow-sm">
+                      <Image fill sizes="32px" className="object-cover" src={user} alt="User Icon" />
+                    </div>
+                  )}
+                </div>
+              ))}
 
-                {/* منطقة الإدخال */}
-                <span className="flex gap-2 items-center pb-2">
-                  <label htmlFor="voice">
-                    <span className="flex gap-2.5 w-8 h-8 shrink-0 rounded-full items-center justify-center bg-[#D9DDFF] text-text-muted hover:bg-primary-hover hover:text-white transition-colors cursor-pointer">
-                      <FaMicrophone />
-                    </span>
-                  </label>
-                  <Input id="voice" type="file" className="hidden" />
-                  
-                  <span className="relative flex-1">
-                    <Input
-                      className="py-2 ps-3 pe-10 bg-[#D9DDFF] rounded-[30px] border-0 focus-visible:ring-2 focus-visible:ring-primary/40 text-text-title"
-                      placeholder={t("placeholder")}
-                    />
-                    <Button className="bg-transparent p-0 absolute top-1/2 right-3 -translate-y-1/2 hover:bg-transparent h-auto">
-                      <FiSend className="text-text-muted hover:text-primary transition-colors" />
-                    </Button>
-                  </span>
-                </span>
-              </span>
-            </span>
-          </PopoverDescription>
+              {isLoading && (
+                <div className="flex gap-3 justify-start text-start">
+                   <div className="w-8 h-8 relative shrink-0 bg-white rounded-full p-1 border border-border-light shadow-sm">
+                      <Image fill sizes="32px" className="object-contain" src={model} alt="Ai Icon" />
+                    </div>
+                  <div className="p-3 rounded-2xl bg-white border border-border-light text-text-muted text-sm font-medium rounded-bl-none flex items-center gap-1">
+                    <span className="w-2 h-2 bg-primary/50 rounded-full animate-bounce"></span>
+                    <span className="w-2 h-2 bg-primary/70 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
+                    <span className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></span>
+                  </div>
+                </div>
+              )}
+              
+              <div ref={messagesEndRef} />
+            </div>
+
+            <form onSubmit={handleSendMessage} className="flex gap-2 items-center bg-white p-2 rounded-2xl border border-border-light shadow-sm">
+              <label htmlFor="voice">
+                <div className="flex gap-2.5 w-10 h-10 shrink-0 rounded-full items-center justify-center bg-bg-main text-text-muted hover:bg-primary-subtle hover:text-primary transition-colors cursor-pointer">
+                  <FaMicrophone />
+                </div>
+              </label>
+              <Input id="voice" type="file" className="hidden" />
+              
+              <div className="relative flex-1">
+                <Input
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  disabled={isLoading}
+                  className="py-3 ps-4 pe-12 bg-bg-main rounded-xl border-none focus-visible:ring-1 focus-visible:ring-primary/30 text-text-title text-sm"
+                  placeholder={t("placeholder") || "اكتب سؤالك هنا..."}
+                  autoComplete="off"
+                />
+                <Button 
+                  type="submit" 
+                  disabled={isLoading || !inputValue.trim()}
+                  className={`bg-transparent p-2 absolute top-1/2 ${locale === 'ar' ? 'left-2' : 'right-2' }  -translate-y-1/2 hover:bg-primary-subtle rounded-lg h-auto transition-colors`}
+                >
+                  <FiSend className={`w-5 h-5 ${inputValue.trim() ? "text-primary" : "text-text-muted"}`} />
+                </Button>
+              </div>
+            </form>
+
+          </div>
         </PopoverHeader>
       </PopoverContent>
     </Popover>

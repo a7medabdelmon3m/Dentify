@@ -6,7 +6,6 @@ import { Stethoscope } from "lucide-react";
 
 interface SelectedDoctorProps {
   doctorName: string | null;
-  // doctorAvatarUrl: string | null; // إذا كان لديك صورة
 }
 
 export default function SelectedDoctor({ doctorName }: SelectedDoctorProps) {
@@ -26,12 +25,11 @@ export default function SelectedDoctor({ doctorName }: SelectedDoctorProps) {
       {doctorName ? (
         <div className="flex items-start gap-4">
           <div className="relative flex h-16 w-16 items-center justify-center rounded-full border border-border-light bg-white shadow-sm text-3xl select-none">
-            🧑‍⚕️ {/* أيقونة تعبيرية كبديل للصورة */}
           </div>
           <div className="space-y-1 pt-1 flex-1 text-rightAr">
             <p className="text-xs text-text-muted">{t("studentLabel")}</p>
             <p className="text-base font-bold text-text-black">{doctorName}</p>
-            <p className="text-xs text-primary">{t("studentTitle")}</p> {/* مثلاً طالب امتياز */}
+            <p className="text-xs text-primary">{t("studentTitle")}</p> 
           </div>
         </div>
       ) : (

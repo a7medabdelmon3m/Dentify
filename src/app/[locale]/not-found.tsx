@@ -13,7 +13,6 @@ export default function NotFound() {
     <div className="flex min-h-screen w-full flex-col items-center justify-center bg-bg-main p-6 text-center">
       <div className="flex w-full max-w-md flex-col items-center gap-6">
         
-        {/* Visual Metaphor: Animated Tooth Box */}
         <div className="relative flex h-24 w-24 items-center justify-center rounded-2xl border border-border-light bg-white shadow-sm">
           <motion.div
             animate={{
@@ -30,7 +29,6 @@ export default function NotFound() {
             🦷
           </motion.div>
 
-          {/* علامة الاستفهام الحائرة */}
           <motion.span
             animate={{ opacity: [0.3, 1, 0.3], scale: [0.9, 1.1, 0.9] }}
             transition={{ duration: 2, repeat: Infinity }}
@@ -40,7 +38,6 @@ export default function NotFound() {
           </motion.span>
         </div>
 
-        {/* Text Content */}
         <div className="flex flex-col gap-1.5">
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
@@ -61,7 +58,6 @@ export default function NotFound() {
           </motion.p>
         </div>
 
-        {/* Action Button */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}

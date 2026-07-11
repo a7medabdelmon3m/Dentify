@@ -7,11 +7,7 @@ export const RegisterSchema = (t: (key: string) => string) =>
       .min(3, t("validation.name.min"))
       .max(25, t("validation.name.max"))
       .nonempty(t("validation.name.required")),
-    userName: z
-      .string(t("validation.username.invalid"))
-      .min(3, t("validation.username.min"))
-      .max(25, t("validation.username.max"))
-      .nonempty(t("validation.username.required")),
+    
     uniEmail: z
       .string()
       .regex(
@@ -33,7 +29,7 @@ export const RegisterSchema = (t: (key: string) => string) =>
         t("validation.password.regex"),
       )
       .nonempty(t("validation.password.required")),
-    city: z.string().nonempty(t("validation.university.required")),
+    universityName: z.string().nonempty(t("validation.university.required")),
     specializations: z
       .array(z.number())
       .nonempty(t("validation.diseases.required")),

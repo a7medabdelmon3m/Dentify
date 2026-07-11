@@ -1,11 +1,10 @@
 'use server'
 import { cookies } from "next/headers";
-import { createCaseType } from "./CreateCaseForm";
-import { redirect } from "next/navigation";
 
-export async function createCase(data:FormData) {
+export async function createCase(data: FormData) {
   const cookiesStore = await cookies();
-  const token = cookiesStore.get("tkn")?.value;
+  
+  const token = cookiesStore.get("token")?.value || cookiesStore.get("tkn")?.value;
 
   try {
     if (!token) {
@@ -17,40 +16,49 @@ export async function createCase(data:FormData) {
     }
 
     const resp = await fetch("http://localhost:5123/api/Case", {
-      method: "post",
-      body :data ,
+      method: "POST",
+      body: data, 
       headers: {
         Authorization: `Bearer ${token}`,
       },
-
       cache: "no-store",
     });
 
-    const finalData = await resp.json();
+    const textData = await resp.text();
+    let finalData = {};
+    if (textData) {
+      try {
+        finalData = JSON.parse(textData);
+      } catch (e) {
+        finalData = { message: textData };
+      }
+    }
 
     if (!resp.ok) {
       return {
         success: false,
-        error: finalData.errors || "Something went wrong",
+        error: (finalData as any).errors || (finalData as any).title || "Something went wrong",
         status: resp.status,
       };
     }
-    const cookieStore = await cookies();
-    const caseId = finalData?.id ?? finalData?.caseId;
+
+    const caseId = (finalData as any)?.id ?? (finalData as any)?.caseId;
     if (caseId) {
-      cookieStore.set("caseId", String(caseId), {
+      cookiesStore.set("caseId", String(caseId), {
         path: "/",
         httpOnly: true,
       });
     }
+
     return {
       success: true,
       data: finalData,
       status: resp.status,
     };
-    redirect(`/patient/dashboard`);
+    
+
   } catch (error) {
-    console.error(error);
+    console.error("Error creating case:", error);
 
     return {
       success: false,

@@ -39,12 +39,10 @@ export default async function Home({
 
         <div className="absolute inset-0 z-5 flex flex-col justify-center items-center text-center text-text-title px-4 bg-black/10">
           <h1 className="font-heading text-4xl md:text-7xl font-bold leading-tight">
-            {/* Welcome to <br /> Dentify */}
             {t(`hero.title`)}
           </h1>
 
           <p className="font-semibold text-xl md:text-4xl mt-6 md:mt-10">
-            {/* select your role to continue */}
             {t(`hero.subtitle`)}
           </p>
 
@@ -53,14 +51,12 @@ export default async function Home({
               href={"/student/login"}
               className="py-2 px-6 md:px-8 rounded-full bg-primary text-white text-2xl md:text-4xl font-normal h-auto hover:bg-primary-hover transition-all"
             >
-              {/* Student */}
               {t(`hero.buttons.student`)}
             </Link>
             <Link
               href={"/patient/login"}
               className="py-2 px-6 md:px-8 rounded-full bg-primary text-white text-2xl md:text-4xl font-normal h-auto hover:bg-primary-hover transition-all"
             >
-              {/* Patient */}
               {t(`hero.buttons.patient`)}
             </Link>
           </div>
@@ -68,7 +64,6 @@ export default async function Home({
       </div>
       <section>
         <div className="container py-16 px-4 mx-auto">
-          {/* Section: About */}
           <div className="space-y-16">
             <div className="text-center space-y-2">
               <p className="text-[#3011DB] text-lg md:text-xl font-medium tracking-wide uppercase">
@@ -79,9 +74,7 @@ export default async function Home({
               </h2>
             </div>
 
-            {/* Cards Layout */}
             <div className="max-w-5xl mx-auto space-y-12">
-              {/* Patient Section */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-50">
                 <div className="flex flex-col items-center space-y-4 col-span-1">
                   <div className="flex items-center gap-2 text-text-body text-xl font-semibold">
@@ -117,7 +110,6 @@ export default async function Home({
                 </div>
               </div>
 
-              {/* Student Section */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-50">
                 <div className="flex flex-col items-center space-y-4 col-span-1">
                   <div className="flex items-center gap-2 text-text-body text-xl font-semibold">
@@ -153,7 +145,6 @@ export default async function Home({
             </div>
           </div>
 
-          {/* Section: Contact */}
           <div id="contact" className="pt-20 mt-24 border-t border-gray-100">
             <div className="text-center space-y-2 mb-16">
               <p className="text-[#3011DB] text-lg md:text-xl font-medium uppercase">
@@ -165,7 +156,6 @@ export default async function Home({
             </div>
 
             <div className="grid lg:grid-cols-5 gap-12 max-w-6xl mx-auto">
-              {/* Contact Info */}
               <div className="lg:col-span-2 space-y-6">
                 {[
                   { icon: <FaPhone />, text: t(`contact.info.phone`) },
@@ -186,7 +176,6 @@ export default async function Home({
                 ))}
               </div>
 
-              {/* Contact Form */}
               <form className="lg:col-span-3 bg-gray-50 p-8 rounded-3xl space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="relative">

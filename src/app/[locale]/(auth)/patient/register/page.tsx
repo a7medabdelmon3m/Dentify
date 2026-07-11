@@ -1,24 +1,33 @@
 "use client"
-import Image from "next/image";
 import React from "react";
-import register from "@/assets/images/Modern Clinical Setting.png";
 import RegisterForm from "./RegisterForm";
-export default function page() {
+import register from '@/assets/images/sign-up.webp'
+import Image from "next/image";
+
+export default function RegisterPage() {
   return (
-    <section className="py-12">
-      <div className="container px-4 md:px-16 mx-auto">
-        <div className="flex flex-col lg:flex-row justify-between items-stretch gap-10 max-w-7xl mx-auto">
-          <div className="hidden lg:block relative w-full md:w-133.75 aspect-535/564 shrink-0  overflow-hidden rounded-4xl ">
+    <section className="min-h-screen flex items-center py-12 bg-slate-50">
+      <div className="container px-4 md:px-8 mx-auto">
+        <div className="flex flex-col lg:flex-row-reverse justify-between items-center gap-12 max-w-7xl mx-auto">
+          
+          <div className="w-full lg:w-[45%] flex flex-col justify-center items-start relative z-10">
+             <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-bold text-sm border border-primary/20 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              فتح ملف طبي جديد
+            </div>
+            <RegisterForm />
+          </div>
+
+          <div className="hidden lg:flex relative w-full lg:w-[55%] h-[800px] rounded-[40px] bg-gradient-to-bl from-primary/15 via-primary/5 to-white items-center justify-center p-8 group">
+
             <Image
-              fill
               src={register}
-              alt="login patient"
-              className="object-cover"
-            ></Image>
+              alt="Register Illustration"
+              className="w-full max-w-lg h-auto object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-700 ease-in-out"
+            />
+
           </div>
-          <div className="md:min-w-100 w-full  lg:max-w-100">
-            <RegisterForm/>
-          </div>
+
         </div>
       </div>
     </section>

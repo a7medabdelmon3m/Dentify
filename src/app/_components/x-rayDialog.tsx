@@ -20,9 +20,8 @@ import {
   AlertCircle, 
   CheckCircle2, 
   Activity 
-} from "lucide-react"; // ضفنا أيقونات عشان التقرير يكون حيوي
+} from "lucide-react";
 
-// 1. تعريف الـ Type بتاع الـ JSON اللي راجعلك
 export interface AIAnalysisData {
   معلومات_الوثيقة?: {
     رقم_الملف_الطبي?: string;
@@ -49,7 +48,7 @@ interface XRayDialogProps {
   isOpen: boolean;
   setIsOpen: (v: boolean) => void;
   imageSrc?: string[];
-  analysisData?: AIAnalysisData | null; // استبدلنا الـ string بالـ interface
+  analysisData?: AIAnalysisData;
 }
 
 export function XRayDialog({
@@ -99,12 +98,9 @@ export function XRayDialog({
           </DialogDescription>
         </DialogHeader>
 
-        {/* جسم التقرير (Scrollable) */}
         <div className="max-h-[65vh] overflow-y-auto p-6 space-y-6 no-scrollbar">
           
-          {/* قسم الصورة ومعلومات الوثيقة */}
           <div className="flex flex-col md:flex-row gap-6">
-            {/* الصورة */}
             <div className="relative w-full md:w-48 h-48 rounded-2xl overflow-hidden bg-white border border-border-light shadow-sm shrink-0">
               {previewUrl ? (
                 <Image
@@ -121,7 +117,6 @@ export function XRayDialog({
               )}
             </div>
 
-            {/* معلومات الوثيقة */}
             <div className="flex-1 bg-white p-5 rounded-2xl border border-border-light shadow-sm space-y-3">
               <h4 className="flex items-center gap-2 text-primary font-bold mb-4">
                 <FileText className="w-5 h-5" />
@@ -144,7 +139,6 @@ export function XRayDialog({
             </div>
           </div>
 
-          {/* التقييم الطبي والتشخيص */}
           <div className="bg-white p-5 rounded-2xl border border-border-light shadow-sm">
             <h4 className="flex items-center gap-2 text-primary font-bold mb-4 border-b border-border-light pb-3">
               <Stethoscope className="w-5 h-5" />
@@ -177,7 +171,6 @@ export function XRayDialog({
             </div>
           </div>
 
-          {/* خطة الرعاية والتوجيه */}
           <div className="bg-success/5 p-5 rounded-2xl border border-success/20">
             <h4 className="flex items-center gap-2 text-success font-bold mb-3">
               <CheckCircle2 className="w-5 h-5" />
@@ -188,7 +181,6 @@ export function XRayDialog({
             </p>
           </div>
 
-          {/* إخلاء المسؤولية */}
           {analysisData?.إخلاء_مسؤولية_قانونية && (
             <div className="flex gap-3 items-start text-xs text-text-muted bg-warning/10 p-4 rounded-xl">
               <AlertCircle className="w-4 h-4 text-warning shrink-0 mt-0.5" />
@@ -200,7 +192,6 @@ export function XRayDialog({
 
         </div>
 
-        {/* الفوتر */}
         <DialogFooter className="p-4 bg-white border-t border-border-light sm:justify-center">
           <DialogClose asChild>
             <Button className="bg-primary text-white hover:bg-primary-hover rounded-xl px-12 py-6 font-bold shadow-md w-full sm:w-auto">

@@ -8,10 +8,8 @@ export default function Loading() {
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white/90 backdrop-blur-md">
       <div className="flex flex-col items-center space-y-4">
         
-        {/* Dental/Tooth Inspired Framer Motion Animation */}
         <div className="relative flex items-center justify-center w-24 h-24">
           
-          {/* Animated Glowing Background Rings */}
           <motion.div
             className="absolute inset-0 border-2 border-primary/30 rounded-2xl"
             animate={{
@@ -38,7 +36,6 @@ export default function Loading() {
             }}
           />
 
-          {/* Center Tooth Icon / Graphic Symbol using SVG */}
           <motion.div
             animate={{
               scale: [0.9, 1.1, 0.9],
@@ -50,7 +47,6 @@ export default function Loading() {
             }}
             className="text-primary z-10"
           >
-            {/* Minimalist Professional Tooth SVG Icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -68,14 +64,13 @@ export default function Loading() {
           </motion.div>
         </div>
 
-        {/* Brand Name Text Animation */}
         <motion.h3
           className="font-heading font-bold text-2xl text-text-title tracking-wider pt-2"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          Dentify
+          GradDental
         </motion.h3>
         
       </div>

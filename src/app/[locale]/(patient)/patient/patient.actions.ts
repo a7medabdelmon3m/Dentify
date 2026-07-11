@@ -1,10 +1,8 @@
 'use server'
 import { cookies } from "next/headers";
 
-// حدد الـ Base URL بتاع الباك إيند هنا مرة واحدة
 const BASE_API_URL = "http://localhost:5123/api/";
 
-// تعريف الـ Response Type لضمان الـ Type Safety في الكلاينت
 export type ApiResponse<T = unknown> = {
   success: boolean;
   data?: T;
@@ -30,7 +28,6 @@ export async function dynamicApiAction<T = unknown>(
   const token = cookiesStore.get("tkn")?.value;
 
   try {
-    // 1. التحقق من التوكن (HCI: أمان أولي)
     if (!token) {
       return {
         success: false,
@@ -39,47 +36,39 @@ export async function dynamicApiAction<T = unknown>(
       };
     }
 
-    // 2. بناء الـ URL ديناميكياً
-    // بنشيل أي سلاش زائدة في الأول وبنضيف الـ ID لو موجود
     const cleanEndpoint = endpoint.startsWith('/') ? endpoint.substring(1) : endpoint;
     const urlId = id ? `/${id}` : "";
     const targetUrl = `${BASE_API_URL}${cleanEndpoint}${urlId}`;
     console.log('targetUrl : ' , targetUrl);
     
 
-    console.log(`[API Call]: ${method} ${targetUrl}`); // للديجاجينج
+    console.log(`[API Call]: ${method} ${targetUrl}`); 
 
-    // 3. تجهيز خيارات الـ Fetch
     const fetchOptions: RequestInit = {
-      method: method.toUpperCase(), // تأكيد إنها كابيتال
+      method: method.toUpperCase(), 
       headers: {
         "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json", // بنفترض إنه JSON بناءً على طلبك
+        "Content-Type": "application/json", 
       },
-      cache: "no-store", // نضمن دايماً بيانات فريش
+      cache: "no-store", 
     };
 
-    // 4. إضافة الـ Body لو موجود ومش GET
     if (body && !['GET', 'HEAD'].includes(method.toUpperCase())) {
-      // ملحوظة: لو بتبعت FormData، لازم تشيل Content-Type header وتخلي الـ fetch يظبطها
       fetchOptions.body = JSON.stringify(body);
     }
 
-    // 5. إجراء الطلب
     const resp = await fetch(targetUrl, fetchOptions);
 
-    // 6. طريقة آمنة لقراءة الـ Response لتجنب الـ Crash
     let finalData = null;
     const textData = await resp.text();
     if (textData) {
       try {
         finalData = JSON.parse(textData);
       } catch {
-        finalData = textData; // لو مش JSON خد النص كـ Text
+        finalData = textData; 
       }
     }
 
-    // 7. معالجة الأخطاء من السيرفر
     if (!resp.ok) {
       return {
         success: false,
@@ -88,7 +77,6 @@ export async function dynamicApiAction<T = unknown>(
       };
     }
 
-    // 8. النجاح
     return {
       success: true,
       data: finalData,
@@ -96,7 +84,6 @@ export async function dynamicApiAction<T = unknown>(
     };
 
   } catch (error) {
-    // خطأ في الشبكة أو خطأ غير متوقع
     console.error(`[API Error] ${method} ${endpoint}:`, error);
 
     return {
@@ -104,5 +91,21 @@ export async function dynamicApiAction<T = unknown>(
       error: "Network Error",
       status: 500,
     };
+  }
+}
+export async function checkEmail(email: string) {
+  try {
+    const resp = await fetch(`http://localhost:5123/api/Authentication/emailexists?email=${encodeURIComponent(email)}`);
+    
+    if (!resp.ok) {
+      return false; 
+    }
+
+    const result = await resp.text(); 
+    return result === 'true'; 
+    
+  } catch (error) {
+    console.error("Error checking email:", error);
+    return false; 
   }
 }

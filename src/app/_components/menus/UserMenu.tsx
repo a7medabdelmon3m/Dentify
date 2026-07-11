@@ -20,7 +20,7 @@ import Image from "next/image";
 import user from "@/assets/images/patient.jpg";
 import { ImProfile } from "react-icons/im";
 import { useTranslations } from "next-intl";
-import { logoutAction } from "@/app/api/chat/authActions/login.action";
+import { logoutAction } from "@/app/api/authActions/login.action";
 // const UserItems = [
 //     {label:'profile' , icon:<ImProfile /> ,isLink:true ,url:`/patient/profile`},
 //     {label:'sign out' , icon: <LogOutIcon /> ,isLink:false ,url:``},
@@ -43,6 +43,7 @@ export function UserMenu() {
             <div className="relative w-10 h-10 flex justify-center flex-center rounded-full overflow-hidden bg-bg-card ring-2 ring-offset-2">
               <Image
                 fill
+                sizes="48px"
                 className="object-cover"
                 src={user}
                 alt="user"

@@ -36,7 +36,7 @@ export default function ChangePassForm() {
   const onSubmit = async (data: ChangePassType) => {
     const respons = await dynamicApiAction('Account/change-password', 'PUT', undefined, data)
     if (respons.success) {
-      toast.success(t("security.button_loading")); // ممكن تحط رسالة نجاح مخصصة
+      toast.success(t("security.button_loading")); 
       reset();
     } else {
       const errorMessage = (respons.error as errorType)?.PasswordMismatch?.[0] || 'Failed Process'
@@ -49,7 +49,6 @@ export default function ChangePassForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         
         <div className="flex flex-col sm:flex-row gap-6 w-full">
-          {/* حقل كلمة المرور الحالية */}
           <Controller
             name="currentPassword"
             control={control}
@@ -83,7 +82,6 @@ export default function ChangePassForm() {
             )}
           />
 
-          {/* حقل كلمة المرور الجديدة */}
           <Controller
             name="newPassword"
             control={control}
@@ -118,7 +116,6 @@ export default function ChangePassForm() {
           />
         </div>
 
-        {/* حقل تأكيد كلمة المرور */}
         <Controller
           name="confirmPassword"
           control={control}

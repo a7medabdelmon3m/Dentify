@@ -82,6 +82,7 @@
       "academic_email_placeholder": "Academic Email",
       "phone_placeholder": "Phone Number",
       "code_placeholder": "Code",
+      "age_placeholder": "Enter Your Age",
       "password_placeholder": "Password",
       "confirm_password_placeholder": "Confirm Password",
       "create_btn": "Create Account",
@@ -173,6 +174,11 @@
       "university": {
         "required": "Please select your university!"
       },
+      "age": {
+        "invalid": "Age must be a number",
+        "min": "You must be at least 18 years old",
+        "max": "Age is not valid"
+      },
       "phoneNumber": {
         "required": "Phone number is required!",
         "invalid": "Invalid phone number format! Must be a valid Egyptian number (11 digits)."
@@ -204,6 +210,7 @@
       "myCases": "My Cases",
       "availableDoctors": "Available Doctors",
       "careProposals": "Care Proposals",
+      "chat": "Chat",
       "appointments": "My Appointments",
       "profileAndSettings": "Profile & Settings"
     },
@@ -222,15 +229,12 @@
   "NotificationMenu": {
     "title": "Notifications",
     "label": "Notifications",
-    "defaultMessage": "hello can I help you",
-    "timeAgo": "2h ago"
+    "empty": "No notifications right now"
   },
   "MessagesMenu": {
     "title": "Messages",
-    "label": "My Messages",
-    "senderName": "Ali Mohammed",
-    "defaultMessage": "hello can I help you",
-    "timeAgo": "2h ago"
+    "label": "Messages",
+    "empty": "No messages right now"
   },
   "UserMenu": {
     "profile": "Profile",
@@ -238,7 +242,7 @@
   },
   "available-doctors": {
     "AvailableDoctorCard": {
-      "requestButton": "Request"
+      "requestButton": "View Profile"
     },
     "AvailableDoctorsPage": {
       "title": "Available Doctors",
@@ -286,7 +290,11 @@
       "phoneLabel": "Phone Number",
       "locationLabel": "Location / Governorate",
       "dateTimeLabel": "Publish Date",
-      "ageLabel": "Age"
+      "ageLabel": "Age",
+      "editDialogTitle": "Edit Case Details",
+      "editDialogDesc": "Update your medical case information and complaint. Ensure all details are accurate to receive the best care.",
+      "closeBtn": "Cancel & Close",
+      "submitEditBtn": "Save Changes"
     },
     "MyCasesPage": {
       "title": "My Current Case",
@@ -313,16 +321,27 @@
     }
   },
   "chat": {
-    "pageTitle": "Doctor Chat",
-    "pageDesc": "Securely discuss treatments, share X-rays, and schedule your appointments.",
-    "heroTitle": "Dentify Chat",
-    "heroDesc": "Communicate with your doctor",
-    "statusOnline": "online",
-    "statusOffline": "offline",
+    "pageTitle": "Treatment Case Chat",
+    "pageDesc": "Communicate directly with the doctor handling your case",
+    "emptyChat": "No messages yet, start the conversation now",
+    "today": "Today",
+    "inputPlaceholder": "Type your message here...",
+    "caseId": "Case ID",
+    "caseStatus": "Request Status",
+    "studentOffer": "Student's Offer",
+
+    "caseDetails": "Case Details",
+    "patientRequest": "Patient Complaint",
+    "noDescription": "No written description provided.",
+    "aiAnalysisTab": "AI Analysis & Display",
+    "painDuration": "Pain Duration",
+    "chronicDiseases": "Chronic Diseases",
+    "none": "None",
+    "aiDiagnosis": "Initial Diagnosis (AI)",
+    "recommendedDept": "Recommended Dept.",
+    "statusOnline": "Online",
     "menuBlock": "Block",
-    "menuDelete": "Delete",
-    "today": "today",
-    "inputPlaceholder": "Type a Message"
+    "menuDelete": "Delete Chat"
   },
   "chatBot": {
     "title": "Your AI Assistant",
@@ -333,28 +352,7 @@
     "hiThere": "Hi, there!",
     "noImage": "No image available"
   },
-  "Rating": {
-    "triggerButton": "Finish Case",
-    "title": "Session Rating",
-    "description": "Your feedback is highly appreciated! Share your experience.",
-    "studentRole": "Dentistry Trainee",
-    "stars": "Stars",
-    "ratingRequired": "Please select a star rating first!",
-    "feedbackLabel": "How was your experience? (Optional)",
-    "feedbackPlaceholder": "Write your feedback about the treatment, doctor's behavior, etc...",
-    "submitButton": "Submit Rating",
-    "or": "OR",
-    "cancelButton": "Cancel",
-    "skipButton": "Skip",
-    "confirmAction": {
-      "title": "Are you sure?",
-      "text": "You won't be able to revert this!",
-      "confirm": "Yes, finish it",
-      "cancel": "Cancel",
-      "successTitle": "Done!",
-      "successText": "Case finished successfully."
-    }
-  },
+
   "PatientProfile": {
     "userRole": "Patient ",
     "phoneLabel": "Phone",
@@ -399,90 +397,51 @@
     "noNextAppointmentTitle": "No Confirmed Upcoming Appointments",
     "noNextAppointmentDesc": "A clinic appointment will be scheduled after agreement and student acceptance.",
     "welcomeTitle": "Welcome Mohamed Ali, how are your teeth today?",
-    "welcomeDesc": "Here's a quick overview of your treatment case and upcoming appointments."
+    "welcomeDesc": "Here's a quick overview of your treatment case and upcoming appointments.",
+    "appointmentStatus": {
+      "Pending": "Pending your confirmation",
+      "Accepted": "Appointment Confirmed",
+      "Declined": "Appointment Declined"
+    },
+    "appointmentActions": {
+      "confirm": "Confirm",
+      "decline": "Decline"
+    }
   },
   "CreateCase": {
-    "headerTitle": "Create Case",
-    "headerDesc": "Submit your medical details now and receive the best free dental care.",
-    "analysisReportTitle": "[Analysis Report]",
-    "findingsLabel": "Findings",
-    "recommendationLabel": "Recommendation",
-    "title": "Submit Case",
-    "patientNamePlaceholder": "Patient Name...",
-    "phonePlaceholder": "Phone...",
-    "cityPlaceholder": "Select Your City",
-    "casePlaceholder": "Select Dental Case",
-    "descPlaceholder": "Describe how you feel...(e.g., pain with hot/cold, swollen gums, broken filling)",
-    "submitBtn": "Submit",
-    "submitBtn_loading": "Submiting...",
-    "optional": "(optional)",
-    "uploadBtn": "Upload",
-    "changePhoto": "Change photo",
-    "caseError": "Please select a case type",
-    "xrayTitle": "X-rays and Case Images",
-    "mandatory": "(Mandatory)",
-    "uploadBtnText": "Click here to upload images",
-    "uploadSubText": "You can upload up to 5 images",
-    "analysisBtn": "View AI Analysis",
-
-    "diseases": {
-      "caries": "Dental Caries",
-      "gingivitis": "Gingivitis",
-      "periodontitis": "Periodontitis",
-      "impacted_tooth": "Impacted Wisdom Tooth",
-      "tooth_loss": "Tooth Loss"
-    },
-    "XRayDialog": {
-      "title": "AI Preliminary Examination Report",
-      "description": "This report outlines the preliminary analysis of the submitted X-rays and case images.",
-      "noImage": "No Image",
-      "close": "Close Report",
-      "sections": {
-        "documentInfo": "Document Information",
-        "medicalEval": "Medical Evaluation & Diagnosis",
-        "carePlan": "Care Plan & Guidance"
-      },
-      "labels": {
-        "fileNumber": "File Number",
-        "date": "Date",
-        "source": "Source",
-        "caseClass": "Case Classification",
-        "department": "Department",
-        "priority": "Priority",
-        "diagnosis": "Diagnosis"
-      }
+    "header": {
+    "title": "Submit a New Medical Case",
+    "description": "Upload your X-ray or case image and describe your symptoms. Our AI will analyze it and route your case to the appropriate department."
+  },
+    "title": "Create a New Case",
+    "desc": "Upload your X-Ray or case image and describe your symptoms. Our AI will analyze it and route it to the correct department.",
+    "form": {
+      "image": "X-Ray / Case Image (Required)",
+      "city": "City (Required)",
+      "selectCityPlaceholder": "Select a Governorate...",
+      "symptomsText": "Symptoms Description (Optional)",
+      "painDuration": "Pain Duration (Optional)",
+      "chronicDiseases": "Chronic Diseases (Optional)",
+      "submitBtn": "Analyze & Submit Case"
     },
     "validation": {
-      "description": {
-        "min": "Description must be 15 characters at least!",
-        "max": "Description can't be more than 1200 characters!",
-        "required": "Your comfort matters to us. Please describe what you are feeling so our dental students can provide the best care for you."
-      },
-      "city": {
-        "required": "Please select your city / governorate"
-      },
-      "case_error": "The disease must be selected or at least an image must be uploaded",
-      "image_required": "At least one image is required.",
-      "image_max": "You cannot upload more than 5 images."
-    },
-    "submitError": {
-      "title": "Sorry, failed to save the case",
-      "description": "An error occurred while submitting data, please try again."
+      "imageRequired": "A case image is required for AI diagnosis.",
+      "cityRequired": "Please select or enter a city."
     }
   },
   "DoctorInsights": {
     "pageTitle": "Doctor Profile",
-    "pageDesc": "Review your student doctor's clinical experience and patient feedback.",
-    "statusOnline": "ONLINE NOW",
-    "ratingText": "RATING",
-    "requestBtn": "Request Care",
-    "requestBtn_loading": "...Requesting Care",
-    "dialogTitle": "Create Case",
-    "dialogClose": "Close",
+    "pageDesc": "View doctor details and previous patient reviews.",
+    "statusOnline": "Available Now",
+    "ratingText": "Rating",
+    "requestBtn": "Send Treatment Request",
+    "requestBtn_loading": "Sending...",
     "aboutTitle": "About",
-    "reviewsTitle": "Reviews of Patients",
-    "verifiedPatient": "VERIFIED PATIENT",
-    "viewAllReviews": "VIEW ALL REVIEWS"
+    "reviewsTitle": "Patient Reviews",
+    "verifiedPatient": "Verified Patient",
+    "viewAllReviews": "View all reviews",
+    "specialty": "Dental Student",
+    "university": "Beni-Suef University"
   },
   "proposal": {
     "title": "Treatment Offers",
@@ -514,7 +473,9 @@
       "treatmentProposal": "Treatment Proposal",
       "acceptBtn": "Accept Care",
       "acceptBtn_loading": "...Accepting Care",
+      "acceptedBtn": "Accepted Care",
       "declineBtn": "Decline Care",
+      "declineBtn_loading": "Declining Care...",
       "timeAgo": "{time} ago",
       "specialty": "Senior Orthodontist",
       "university": "Beni-suef University"
@@ -535,46 +496,54 @@
     }
   },
   "profile": {
-  "profile_header": {
-    "title": "Profile & Settings",
-    "description": "Manage your personal information and security settings."
-  },
-  "basic_info": {
-    "title": "Basic Information",
-    "edit_title": "Edit Information",
-    "full_name": "Full Name",
-    "phone_label": "Phone Number",
-    "email_label": "Email Address",
-    "governorate_label": "Governorate",
-    "role_label": "Account Type",
-    "Patient": "Patient",
-    "Student": "Dentistry Student",
-    "university": "University",
-    "bio": "About You (Bio)",
-    "specializations": "Interested Specializations",
-    "rating": "Overall Rating",
-    "verified_mobile": "Verified Mobile",
-    "verified_badge": "Verified",
-    "phone_placeholder": "Enter phone number",
-    "cancel": "Cancel",
-    "save_changes": "Save Changes",
-    "save_changes_loading": "Saving..."
-  },
-  "security": {
-    "title": "Security Settings",
-    "current_password_label": "Current Password",
-    "new_password_label": "New Password",
-    "confirm_password_label": "Confirm Password",
-    "button": "Update Password",
-    "button_loading": "Updating...",
-    "placeholders": {
-      "current": "Enter current password",
-      "new": "Enter new password",
-      "confirm": "Re-enter new password"
+    "profile_header": {
+      "title": "Profile & Settings",
+      "description": "Manage your personal information and security settings."
+    },
+    "basic_info": {
+      "title": "Basic Information",
+      "edit_title": "Edit Information",
+      "full_name": "Full Name",
+      "phone_label": "Phone Number",
+      "change_avatar" :"change image",
+      "age_label": "Age ",
+      "email_label": "Email Address",
+      "governorate_label": "Governorate",
+      "role_label": "Account Type",
+      "Patient": "Patient",
+      "Student": "Dentistry Student",
+      "university": "University",
+      "bio": "About You (Bio)",
+      "specializations": "Interested Specializations",
+      "rating": "Overall Rating",
+      "verified_mobile": "Verified Mobile",
+      "verified_badge": "Verified",
+      "phone_placeholder": "Enter phone number",
+
+      "location_placeholder": "Select Your Governorate ",
+      "cancel": "Cancel",
+      "save_changes": "Save Changes",
+      "save_changes_loading": "Saving..."
+    },
+    "security": {
+      "title": "Security Settings",
+      "current_password_label": "Current Password",
+      "new_password_label": "New Password",
+      "confirm_password_label": "Confirm Password",
+      "button": "Update Password",
+      "button_loading": "Updating...",
+      "placeholders": {
+        "current": "Enter current password",
+        "new": "Enter new password",
+        "confirm": "Re-enter new password"
+      }
+    },
+    "reviews": {
+      "title": "Patient Reviews",
+      "description": "Feedback from your recently treated patients",
+      "noReviews": "No reviews available yet."
     }
-  }
-}
-,
+  },
   "governorates": {
     "beni-suef": "Beni Suef",
     "cairo": "Cairo",
@@ -655,29 +624,7 @@
     "invalidDate": "Invalid Date",
     "invalidTime": "Invalid Time"
   },
-  "studentAppointments": {
-  "pageTitle": "Appointment Schedule",
-  "pageDesc": "Track your upcoming and pending sessions with patients.",
-  "tabs": {
-    "confirmed": "Confirmed Sessions",
-    "pending": "Pending Confirmation"
-  },
-  "emptyState": {
-    "title": "No appointments found",
-    "description": "There are no appointments registered in this list at the moment."
-  },
-  "card": {
-    "patient": "Patient",
-    "location": "Clinic / Location",
-    "date": "Date",
-    "time": "Time",
-    "status": {
-      "upcoming": "Confirmed (Upcoming)",
-      "completed": "Completed",
-      "pending": "Pending (Waiting for patient)"
-    }
-  }
-},
+
   "noAppointments": {
     "title": "No Upcoming Appointments!",
     "description": "It seems you don't have any confirmed appointments right now; they've all moved to your 'Past Appointments' list, just like missing baby teeth.",
@@ -699,15 +646,16 @@
         "title": "You Haven't Requested Any Cases Yet",
         "description": "Your record is currently empty. Browse available cases and start submitting your treatment proposals to patients."
       }
-    },"header": {
-    "title": "Available Cases",
-    "description": "Browse patient cases and submit your treatment proposals."
-  },
-  "filters": {
-    "searchPlaceholder": "Search by patient name or diagnosis...",
-    "allSpecialties": "All Specialties",
-    "noResults": "No cases match your search criteria."
-  }
+    },
+    "header": {
+      "title": "Available Cases",
+      "description": "Browse patient cases and submit your treatment proposals."
+    },
+    "filters": {
+      "searchPlaceholder": "Search by patient name or diagnosis...",
+      "allSpecialties": "All Specialties",
+      "noResults": "No cases match your search criteria."
+    }
   },
   "studentCaseDetails": {
     "pageTitle": "Medical Case Details",
@@ -729,25 +677,26 @@
     }
   },
   "student_dashboard": {
-    "overview": "Overview",
-    "stats": {
-      "completedCases": "Completed cases",
-      "casesToTarget": "Cases to target"
+    "no_patient": {
+    "title": "No Patient Assigned",
+    "description": "No patient has been accepted or assigned to this case yet."
+  },
+    "selectedSpecialties": "Targeted Cases",
+    "noSpecialties": "No targeted cases selected.",
+    "myPatient": "Current Patient",
+    "noPatientTitle": "No Current Patient",
+    "noPatientDesc": "You haven't accepted any case yet.",
+    "viewPatient": "View Patient Details",
+    "nextAppointment": "Next Appointment",
+    "noAppointmentTitle": "No Appointment",
+    "noAppointmentDesc": "No appointment has been scheduled yet.",
+    "appointmentStatus": {
+      "Pending": "Pending",
+      "Accepted": "Confirmed",
+      "Declined": "Declined"
     },
-    "shelvedCases": "Cheived cases by type",
-    "status": {
-      "completed": "Completed",
-      "inProgress": "In Progress"
-    },
-    "patients": {
-      "heading": "My current patients",
-      "role": "Patient"
-    },
-    "messages": {
-      "heading": "My recent messages",
-      "reply": "Reply",
-      "viewThread": "View thread"
-    }
+    "dateTime": "Date & Time",
+    "patientComplaint": "Patient Complaint:"
   },
   "StudentMyCases": {
     "pageTitle": "My Cases",
@@ -780,7 +729,7 @@
     "patientInfo": {
       "title": "Case Info",
       "name": "Patient",
-      "specialty": "Specialty",
+      "specialty": "Medical Case",
       "date": "Start Date"
     },
     "tabs": {
@@ -817,34 +766,180 @@
     }
   },
   "StudentProposals": {
-    "pageTitle": "My Proposals",
-    "pageDesc": "Track the status of treatment offers you sent to patients.",
+    "pageTitle": "Requests & Offers",
+    "pageDesc": "Track patient offers and the requests you submitted.",
     "tabs": {
-      "pending": "Pending",
-      "rejected": "Rejected"
+      "patientOffers": "Patient Offers",
+      "myRequests": "My Requests"
     },
     "card": {
       "patient": "Patient",
-      "specialty": "Specialty",
-      "dateApplied": "Date Applied",
-      "cancelBtn": "Cancel Request",
-      "deleteBtn": "Remove",
-      "status": {
-        "pending": "Waiting for Reply",
-        "rejected": "Rejected"
-      }
+      "type": {
+        "patientOffer": "Patient Offer",
+        "myRequest": "My Request"
+      },
+      "patientComplaint": "Case Description",
+      "disease": "Disease",
+      "acceptBtn": "Accept Care",
+      "viewMyRequestBtn": "View My Request Details"
     },
     "emptyState": {
-      "pendingTitle": "No Pending Proposals",
-      "pendingDesc": "You haven't submitted any new treatment offers recently.",
-      "rejectedTitle": "No Rejected Proposals",
-      "rejectedDesc": "Your record is clean! No rejected offers to display."
+      "patientOffersTitle": "No Patient Offers",
+      "patientOffersDesc": "There are no available patient cases at the moment.",
+      "myRequestsTitle": "No Requests",
+      "myRequestsDesc": "You haven't submitted any treatment requests yet."
     },
     "detailsDialog": {
-      "title": "Your Proposal Text",
-      "viewBtn": "View Details"
+      "title": "My Request Details",
+      "viewBtn": "View"
     }
   },
+  "SessionFlow": {
+    "title": {
+      "Patient": "Was the session completed?",
+      "Student": "Did you finish the session?"
+    },
+    "description": {
+      "Patient": "Based on your appointment, did you meet the doctor and receive treatment as scheduled?",
+      "Student": "Did you provide treatment to the patient as scheduled?"
+    },
+    "yesButton": {
+      "Patient": "Yes, I received treatment",
+      "Student": "Yes, session finished"
+    },
+    "noButton": "No, it didn't happen"
+  },
+  "Rating": {
+    "title": {
+      "Patient": "Rate the Treating Doctor",
+      "Student": "Rate the Patient"
+    },
+    "description": {
+      "Patient": "Your feedback is highly appreciated! Please rate your experience.",
+      "Student": "Please rate the patient's cooperation and adherence to instructions."
+    },
+    "appointmentDateLabel": "Appointment Date & Time",
+    "ratingRequired": "Please select a star rating before submitting",
+    "feedbackLabel": "Add a comment (Optional)",
+    "feedbackPlaceholder": {
+      "Patient": "Write your feedback here...",
+      "Student": "Write any notes regarding the patient's condition or behavior..."
+    },
+    "submitButton": "Confirm Session & Submit Rating",
+    "backButton": "Go Back (Session Not Completed)"
+  },
+  "AdminStudentReview": {
+    "pageTitle": "Review Student Accounts",
+    "pageDesc": "Review pending student registration requests. Approve to activate or reject.",
+    "card": {
+      "uniEmail": "University Email",
+      "personalEmail": "Personal Email",
+      "phone": "Phone Number",
+      "city": "City",
+      "specializations": "Specializations",
+      "approveBtn": "Approve",
+      "rejectBtn": "Reject"
+    },
+    "emptyState": {
+      "title": "No Pending Requests",
+      "desc": "All student accounts have been reviewed."
+    },
+    "toast": {
+      "approved": "Student account approved successfully",
+      "rejected": "Student account rejected"
+    }
+  },
+  "number_diseases": {
+    "0": "Dental Caries",
+    "1": "Dental Caries",
+    "2": "Periodontal Disease",
+    "4": "Hypodontia",
+    "8": "Mouth Ulcer",
+    "16": "Tooth Discoloration"
+  },
+  "nonNumber_diseases": {
+    "None": "None",
+    "DentalCaries": "Dental Caries",
+    "PeriodontalDiseas": "Periodontal Diseas",
+    "Hypodontia": "Hypodontia",
+    "Mouth`Ulcer": "Mouth Ulcer",
+    "ToothDiscoloration": "Tooth Discoloration"
+  },
+  "PatientMyCases": {
+    "card": {
+      "patientNameLabel": "Patient Name",
+      "unknownSpecialty": "Analyzing...",
+      "viewDetails": "View Details",
+      "yearsOld": "years old",
+      "painDuration": "Pain Duration",
+      "chronicDiseases": "Chronic Diseases",
+      "priorityLevel": "Priority",
+      "aiDiagnosis": "Initial Diagnosis (AI)",
+      "status": {
+        "pending": "Pending",
+        "accepted": "Accepted",
+        "inprogress": "In Progress",
+        "completed": "Completed",
+        "rejected": "Rejected"
+      }
+    }
+  },
+  "Specialties": {
+    "DentalCaries": "Dental Caries",
+    "PeriodontalDisease": "Periodontal Disease",
+    "Endodontics": "Endodontics",
+    "Surgery": "Oral Surgery"
+  },
+  "ComprehensiveCard": {
+    "yearsOld": "yrs",
+    "painDuration": "Pain Duration",
+    "chronicDiseases": "Chronic Diseases",
+    "none": "None",
+    "aiAssessment": "AI Assessment",
+    "diagnosis": "Initial Diagnosis",
+    "recommendedDept": "Recommended Department",
+    "nextSteps": "Care Plan & Next Steps",
+    "viewDetailsBtn": "Details",
+    "deleteBtn": "Delete Case",
+  "deleteConfirm": "Are you sure you want to permanently delete this case? This action cannot be undone.",
+  "deleteSuccess": "Case deleted successfully.",
+  "deleteError": "Sorry, failed to delete the case. Please try again!",
+    "status": {
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "inprogress": "In Progress",
+      "completed": "Completed",
+      "rejected": "Rejected"
+    }
+  },"MandatoryRating": {
+  "title": "Rate Your Session",
+  "mandatoryDesc": "Please rate your last session with the doctor to continue using the platform.",
+  "appointmentDateLabel": "Appointment Date",
+  "ratingRequired": "You must select a star rating first",
+  "feedbackLabel": "How was your experience? (Optional)",
+  "feedbackPlaceholder": "Write your feedback here to help us improve...",
+  "submitButton": "Submit Rating",
+  "successToast": "Rating submitted successfully, thank you!",
+  "errorToast": "An error occurred while submitting the rating. Please try again."
+},
+"PatientCaseDetails": {
+  "pageTitle": "My Medical Case Details",
+  "patientInfo": "Basic Information",
+  "description": "Complaint Description",
+  "aiAnalysis": "Initial Analysis",
+  "status": {
+    "pending": "Pending Review",
+    "assigned": "Assigned to Doctor",
+    "completed": "Completed",
+    "rejected": "Rejected"
+  }
+},"reviews": {
+  "title": "Overall Rating",
+  "description": "Average patient ratings for your profile",
+  "basedOn": "Based on",
+  "ratingsCount": "ratings",
+  "noReviews": "No ratings yet"
+},
   "footer": {
     "description": "Dentify is your trusted platform to connect dental students with patients, ensuring high-quality dental care and a seamless clinical learning experience.",
     "follow_us": "Follow us on",

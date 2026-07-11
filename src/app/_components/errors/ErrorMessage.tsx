@@ -22,7 +22,6 @@ export function ErrorMessage({
         
         <div className="flex items-start gap-4">
           
-          {/* Animated Icon */}
           <motion.div
             animate={{
               y: [0, -4, 0],
@@ -36,7 +35,6 @@ export function ErrorMessage({
             <AlertTriangle className="h-7 w-7 text-warning" />
           </motion.div>
 
-          {/* Text */}
           <div>
             <h2 className="font-heading text-xl font-semibold text-text-title">
               {title}

@@ -9,7 +9,7 @@ export default  function AuthLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <AuthNav/>
-      <main>{children}</main>
+      <main className="mt-11">{children}</main>
       <Footer />
     </>
   );

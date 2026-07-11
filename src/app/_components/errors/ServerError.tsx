@@ -13,10 +13,8 @@ export function ServerError() {
     >
       <div className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-border-light bg-bg-card p-8 shadow-xl">
         
-        {/* Background Glow */}
         <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-danger/10 blur-3xl" />
 
-        {/* Icon */}
         <motion.div
           animate={{
             rotate: [0, -8, 8, -8, 0],
@@ -32,7 +30,6 @@ export function ServerError() {
           </div>
         </motion.div>
 
-        {/* Content */}
         <div className="text-center">
           <h1 className="font-heading text-3xl font-bold text-text-title">
             Server Error
@@ -43,7 +40,6 @@ export function ServerError() {
             Please try again in a few moments.
           </p>
 
-          {/* Actions */}
           <div className="mt-8 flex items-center justify-center gap-3">
             <Button
               onClick={() => window.location.reload()}

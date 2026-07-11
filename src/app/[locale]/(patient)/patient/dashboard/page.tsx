@@ -5,41 +5,37 @@ import MiniProfile from "@/app/_components/miniProfile";
 import CaseCard from "@/app/_components/CaseCard";
 import { apiRequest } from "@/app/api/services/denti.services";
 import NoCaseCard from "./NoCaseCard";
-import { patientCaseType } from "@/type";
+import { appointmentType, patientCaseType, patientTreatementRequest } from "@/type";
 import SelectedDoctor from "./SelectedDoctor";
 import NextAppointment from "./NextAppointment";
-// import { cookies } from "next/headers";
 
 
 
-// ─── Main Component ──────────────────────────────────────────────────────────
 
 export default async function DentoryDashboard() {
   const t = await getTranslations("PatientDashboard");
   const c = await getTranslations("cases.MyCasesPage");
 
-  // ─── Data ────────────────────────────────────────────────────────────────────
 
   const myCase = await apiRequest<patientCaseType[]>('http://localhost:5123/api/Case/my-cases');
   const singleCase: patientCaseType | undefined = myCase.data && myCase.data?.length > 0 ? myCase.data[0] : undefined;
   console.log("myCase :", myCase);
   
- 
 
-  const hasSelectedDoctor = true; // نعم، تم اختيار الطالب
-  const hasAppointment = true;     // نعم، تم تحديد الموعد
+  const myAppointment =  await apiRequest<appointmentType[]>('http://localhost:5123/api/Appointments/My/Patient') 
+  const singleAppointment = myAppointment.data?.[0] 
 
-  const appData = hasAppointment ? {
-    appointmentDate: "2026-06-09T17:30:00.000Z", // 7:30 PM
-    location: "عيادة الجامعة، الدور الـ 2",
-  } : null;
+  const myDoctor =  await apiRequest<patientTreatementRequest[]>('http://localhost:5123/api/TreatmentRequests/cases') 
+  const myDoctorDetails = myDoctor.data?.[0] 
 
-  const doctorName = hasSelectedDoctor ? "أحمد محمد محمود" : null;
+
+
   
 
   return (
     <div className="container p-4 mx-auto space-y-4">
       <PageHeader title={t(`title`)} desc={t(`description`)}/>
+      
     
      <MiniProfile/>
       <section className="space-y-4 mb-8">
@@ -47,17 +43,12 @@ export default async function DentoryDashboard() {
         {singleCase? <CaseCard caseData={singleCase}/> :<NoCaseCard/> }
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6"> {/* gap-6 = 24px، أقصى مسافة مسموحة */}
           
-          {/* كارد الدكتور المختار للمعلجة */}
           <div className="h-full">
-            <SelectedDoctor doctorName={doctorName} />
+            <SelectedDoctor doctorName={myDoctorDetails?.studentName ?? null} />
           </div>
 
-          {/* كارد الموعد القادم */}
           <div className="h-full">
-            <NextAppointment 
-              appointmentDate={appData?.appointmentDate ?? null} 
-              location={appData?.location ?? null} 
-            />
+            <NextAppointment appointment={singleAppointment ?? null} />
           </div>
           </div>
       </section>

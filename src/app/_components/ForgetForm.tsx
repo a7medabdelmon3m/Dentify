@@ -7,12 +7,15 @@ import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
-import { forgetPasswordAction } from "../api/chat/authActions/forgetPassword.action";
+import { forgetPasswordAction } from "../api/authActions/forgetPassword.action";
 import { useRouter } from "next/navigation";
 import { RiLoader4Line } from "react-icons/ri";
 import SuccessMessage from "./forget.ui/successMessage";
 import ErrorMasseage from "./forget.ui/errorMasseage";
 import { forgetPasswordType } from "@/type";
+import { apiRequest } from "../api/services/denti.services";
+import { checkEmail, dynamicApiAction } from "../[locale]/(patient)/patient/patient.actions";
+import { toast } from "react-toastify";
 interface ForgetFormProps {
   onSentSuccess: () => void;
 }
@@ -36,17 +39,19 @@ export default function ForgetForm({ onSentSuccess }: ForgetFormProps) {
     resolver: zodResolver(forgetPawwordSchema),
   });
 
+  
+
   async function mySubmit(data: forgetPasswordType) {
-    const myData = await forgetPasswordAction(data);
-    // console.log("myData : ", myData);
-    const { status: s } = myData;
-    if (s) {
-      setStatus("success");
-      onSentSuccess();
-    } else {
-      setStatus("error");
-    }
-  }
+  
+  const response = await forgetPasswordAction(data);
+
+  
+  setStatus("success");
+  onSentSuccess();
+  toast.success("لو الإيميل ده مسجل عندنا، هتوصلك رسالة فيه رابط استعادة كلمة المرور.");
+
+  
+}
   return (
     <>
       {status === "success" ? (

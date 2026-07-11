@@ -1,101 +1,122 @@
-"use client";
+import React from "react";
+import { getTranslations } from "next-intl/server";
+import { ChevronRight, User } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import { Button } from "@/components/ui/button";
 
-import React, { useState } from "react";
-import { useTranslations } from "next-intl";
-import { motion, AnimatePresence } from "framer-motion";
-import PageHeader from "@/app/_components/PageHeader"; // الكومبوننت بتاعك
-import CaseCard from "./CaseCard";
-import { FileQuestion } from "lucide-react";
+import CaseTabsClient from "./CaseTabsClient";
+import { apiRequest } from "@/app/api/services/denti.services";
+import { currentUserType, patientCaseType, studentTreatementRequest } from "@/type";
+import { cookies } from "next/headers";
+import { dynamicApiAction } from "@/app/[locale]/(patient)/patient/patient.actions";
+import CaseChatTab from "./CaseChatTab";
+import CaseRecordsTab from "./CaseRecordsTab";
+import CaseAppointmentsTab from "./CaseAppointmentsTab";
+import { FaCheck } from "react-icons/fa";
 import EmptyState from "@/app/_components/EmptyState";
+import { TfiLayoutPlaceholder } from "react-icons/tfi";
 
-// داتا وهمية للتجربة لحد ما نربط بالـ API
-const MOCK_CASES = [
-  { id: 1, patientName: "عصام عزام", specialty: "حشو عصب (Endo)", date: "2026-06-25", status: "inProgress" as const },
-  { id: 2, patientName: "سارة محمد", specialty: "خلع جراحي", date: "2026-06-20", status: "inProgress" as const },
-  { id: 3, patientName: "أحمد علي", specialty: "تركيبات ثابتة", date: "2026-05-10", status: "completed" as const },
-  { id: 4, patientName: "منى خالد", specialty: "تنظيف جير (Perio)", date: "2026-04-05", status: "completed" as const },
-];
+export default async function CaseDetailsPage() {
+  const t = await getTranslations("CaseDetails");
+  const d = await getTranslations("nonNumber_diseases");
 
-export default function StudentMyCasesPage() {
-  const t = useTranslations("StudentMyCases");
-  const [activeTab, setActiveTab] = useState<"inProgress" | "completed">(
-    "inProgress",
-  );
+  const cookieStore = await cookies();
+  const token = cookieStore.get("tkn")?.value || "";
+  
+  const myAcceptedTreateMentRequest = await apiRequest<studentTreatementRequest[]>(`http://localhost:5123/api/TreatmentRequests/my/student`);
+  const myTreatmentData = myAcceptedTreateMentRequest.data?.[0]; 
+  
+  const myPatientCase = await apiRequest<patientCaseType>(`http://localhost:5123/api/Case/${myTreatmentData?.caseId}`);
+  const caseDetails = myPatientCase.data;
 
-  // فلترة الحالات بناءً على التاب اللي شغال
-  const filteredCases = MOCK_CASES.filter((c) => c.status === activeTab);
+  console.log('myTreatmentDataId : ' , myTreatmentData?.requestId);
+  
+  const currentUeser = await apiRequest<currentUserType>(`http://localhost:5123/api/Authentication/currentuser`);
+  const currentStudentId = currentUeser.data?.userId || "";
+
+  let chatHistory: any[] = [];
+  if (myTreatmentData?.requestId) {
+    const chatRes = await dynamicApiAction(`Chat/${myTreatmentData.requestId}`, "GET");
+    chatHistory = (chatRes?.data as any[]) || [];
+  }
 
   return (
     <section className="flex-1 bg-bg-main min-h-screen p-4 md:p-6 lg:p-8">
-    <div className="max-w-7xl mx-auto space-y-8">
-        {/* ── الهيدر ── */}
-        <PageHeader title={t("pageTitle")} desc={t("pageDesc")} />
+      <div className="max-w-7xl mx-auto space-y-8">
 
-        {/* ── نظام التابات (Tabs) ── */}
-        <div className="flex bg-white p-1.5 rounded-2xl border border-border-light shadow-sm w-fit mx-auto lg:mx-0">
-          <button
-            type="button"
-            onClick={() => setActiveTab("inProgress")}
-            className={`relative px-8 py-3 rounded-xl font-bold text-sm transition-colors duration-300 ${
-              activeTab === "inProgress"
-                ? "text-primary"
-                : "text-text-muted hover:text-text-title"
-            }`}
-          >
-            {activeTab === "inProgress" && (
-              <motion.div
-                layoutId="activeTabIndicator"
-                className="absolute inset-0 bg-primary/10 rounded-xl"
-                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-              />
-            )}
-            <span className="relative z-10">{t("tabs.inProgress")}</span>
-          </button>
+        {!myTreatmentData ? (<EmptyState 
+            icon={<TfiLayoutPlaceholder />
+} 
+            title={'لا يوجد مريض'} 
+            description={`لم يتم تعيين مريض بعد `} 
+          />) : 
+        (<>
+        <Link href="/student/my-patients" className="inline-block">
+          <Button variant="ghost" className="text-text-muted hover:text-primary gap-2 font-bold px-0">
+            <ChevronRight className="w-5 h-5 rtl:rotate-180" />
+            {t("backBtn")}
+          </Button>
+        </Link>
 
-          <button
-            onClick={() => setActiveTab("completed")}
-            className={`relative px-8 py-3 rounded-xl font-bold text-sm transition-colors duration-300 ${
-              activeTab === "completed"
-                ? "text-primary"
-                : "text-text-muted hover:text-text-title"
-            }`}
-          >
-            {activeTab === "completed" && (
-              <motion.div
-                layoutId="activeTabIndicator"
-                className="absolute inset-0 bg-primary/10 rounded-xl"
-                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-              />
-            )}
-            <span className="relative z-10">{t("tabs.completed")}</span>
-          </button>
+        <div className="bg-white border border-border-light rounded-3xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
+              <User className="w-8 h-8" />
+            </div>
+            <div>
+              <p className="text-sm text-text-muted font-bold mb-1">{t("patientInfo.name")}</p>
+              <h2 className="text-2xl font-extrabold text-text-title font-heading">
+                {caseDetails?.patientName}
+              </h2>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-6 bg-bg-main p-4 rounded-2xl border border-border-light">
+            <div>
+              <p className="text-xs text-text-muted font-bold mb-1">{t("patientInfo.specialty")}</p>
+              <p className="text-sm font-bold text-text-title">
+                {caseDetails?.specidRequiredSpecialization ? d(caseDetails.specidRequiredSpecialization) : ""}
+              </p>
+            </div>
+            <div className="w-px h-8 bg-border-light hidden sm:block"></div>
+            <div>
+              <p className="text-xs text-text-muted font-bold mb-1">{t("patientInfo.date")}</p>
+              <p className="text-sm font-bold text-text-title" dir="ltr">
+                {caseDetails?.createdAt ? new Date(caseDetails.createdAt).toLocaleDateString('ar-EG') : ""}
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* ── عرض الحالات ── */}
-        <div className="mt-8">
-          <AnimatePresence mode="wait">
-            {filteredCases.length > 0 ? (
-              <motion.div
-                key={activeTab} // مفتاح عشان الأنيميشن يشتغل لما التاب يتغير
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
-              >
-                {filteredCases.map((caseItem) => (
-                  <CaseCard key={caseItem.id} caseData={caseItem} />
-                ))}
-              </motion.div>
-            ) : (
-              <EmptyState
-                icon={<FileQuestion className="w-10 h-10" />}
-                title={t("emptyState.title")}
-                description={t("emptyState.desc")}
+       {myTreatmentData && caseDetails && (
+          <CaseTabsClient 
+            chatTab={
+              <CaseChatTab 
+                requestId={myTreatmentData.requestId as number}
+                initialMessages={chatHistory}
+                currentUserId={currentStudentId}
+                token={token}
               />
-            )}
-          </AnimatePresence>
-        </div>
+            }
+            recordsTab={
+              <CaseRecordsTab
+              diseaseKey={caseDetails.specidRequiredSpecialization}
+                images={caseDetails.image ? [caseDetails.image] : []}
+                aiData={null}
+                rawAiResponse={caseDetails.aiAnalysisResult} 
+              />
+            }
+            appointmentsTab={
+              <CaseAppointmentsTab 
+                treatmentRequestId={myTreatmentData.requestId as number} 
+              />
+            }
+          />
+        )}
+        </>)
+        }
+        
+        
       </div>
     </section>
   );

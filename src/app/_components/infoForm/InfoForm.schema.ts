@@ -9,13 +9,5 @@ export const basicInfoSchema = (t: (key: string) => string) => z.object({
     .string()
     .regex(/^(?:\+20|002)?01[0125][0-9]{8}$/ , { message: t("basic_info.errors.phone_invalid") }),
     specializations: z.array(z.number()).nullable().optional(),
-  // dob: z
-  //   .string()
-  //   .min(1, { message: t("basic_info.errors.dob_required") }),
-  // email: z
-  //   .string()
-  //   .email({ message: t("basic_info.errors.email_invalid") }),
-  // location: z
-  //   .string()
-  //   .min(1, { message: t("basic_info.errors.location_required") }),
+  
 });

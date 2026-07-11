@@ -11,8 +11,8 @@ export default async function page() {
       <div className="container p-4 mx-auto space-y-4 ">
        
           <PageHeader
-            title={t("headerTitle")}
-            desc={t("headerDesc")}
+            title={t("header.title")}
+            desc={t("header.description")}
           />
           <div>
             <CreateCaseContainer />

@@ -2,7 +2,6 @@
 import { cookies } from "next/headers";
 import { ProposeAppointmentFormType } from "../../_components/BookAppointmentModal/appointment.schema";
 
-// غيرنا الـ Type لـ any أو ممكن تحط الـ Interface بتاعك (ProposeAppointmentFormType)
 export async function CreateAppointment(data: ProposeAppointmentFormType) {
   const cookiesStore = await cookies();
   const token = cookiesStore.get("tkn")?.value;
@@ -17,23 +16,22 @@ export async function CreateAppointment(data: ProposeAppointmentFormType) {
     }
 
     const resp = await fetch("http://localhost:5123/api/Appointments/Propose", {
-      method: "POST", // يفضل تكون كابيتال
+      method: "POST", 
       headers: {
         "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json", // ضروري جداً عشان الباك إيند يفهم الـ JSON
+        "Content-Type": "application/json", 
       },
-      body: JSON.stringify(data), // تحويل الأوبجكت لنص JSON
+      body: JSON.stringify(data), 
       cache: "no-store",
     });
 
-    // طريقة آمنة لقراءة الـ Response عشان لو الباك إيند مرجعش داتا ميحصلش Crash
     let finalData = null;
     const textData = await resp.text();
     if (textData) {
       try {
         finalData = JSON.parse(textData);
       } catch {
-        finalData = textData; // لو مرجعش JSON سليم، خده كـ Text عادي
+        finalData = textData; 
       }
     }
 

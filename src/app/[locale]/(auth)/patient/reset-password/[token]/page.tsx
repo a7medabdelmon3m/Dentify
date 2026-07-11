@@ -31,12 +31,10 @@ export default function ResetPasswordPage() {
   const t = useTranslations("auth.resetPassword");
   const router = useRouter();
   
-  // 2. استخراج التوكن والايميل من اللينك اللي جاي في الايميل
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const email = searchParams.get("email");
 
-  // التحكم في إظهار وإخفاء الباسورد
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -54,15 +52,13 @@ async function onSubmit(data: ResetFormType) {
       return;
     }
 
-    // تجهيز الداتا بالشكل الجديد اللي الباك إيند طالبه
     const requestBody = {
       email: email,
       token: token,
       newPassword: data.newPassword,
-      confirmNewPassword: data.confirmPassword, // ضفنا الحقل ده هنا
+      confirmNewPassword: data.confirmPassword, 
     };
 
-    // استدعاء الـ API
     const response = await dynamicApiAction("Auth/ResetPassword", "POST", undefined, requestBody);
 
     if (response.success) {
@@ -75,11 +71,9 @@ async function onSubmit(data: ResetFormType) {
   return (
     <div className="min-h-screen flex bg-bg-main">
       
-      {/* الجزء الأول: الفورمة (بيأخد الشاشة كلها في الموبايل، ونصها في الكمبيوتر) */}
       <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-8 sm:p-12 lg:p-24">
         <div className="w-full max-w-md space-y-8">
           
-          {/* عنوان الصفحة ووصفها */}
           <div className="text-rightAr space-y-2">
             <h1 className="text-3xl font-heading font-bold text-text-title">
               {t("title")}
@@ -91,7 +85,6 @@ async function onSubmit(data: ResetFormType) {
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 pt-4">
             
-            {/* حقل كلمة المرور الجديدة (بنفس الستايل بتاعك) */}
             <Controller
               name="newPassword"
               control={control}
@@ -102,7 +95,6 @@ async function onSubmit(data: ResetFormType) {
                 >
                   <div className="relative">
                     <Input
-                      // نفس الستايل اللي بعته بالظبط
                       className="border-t-0 border-l-0 border-r-0 border-b! border-[#3A3A3A] w-full bg-transparent py-2 outline-none! rounded-none! focus-visible:ring-0 placeholder:text-text-body placeholder:font-medium placeholder:text-lg text-lg! font-medium! pe-10"
                       {...field}
                       id="newPassword"
@@ -111,7 +103,6 @@ async function onSubmit(data: ResetFormType) {
                       placeholder={t("newPasswordPlaceholder")}
                       autoComplete="new-password"
                     />
-                    {/* زرار إظهار/إخفاء الباسورد */}
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
@@ -130,7 +121,6 @@ async function onSubmit(data: ResetFormType) {
               )}
             />
 
-            {/* حقل تأكيد كلمة المرور */}
             <Controller
               name="confirmPassword"
               control={control}
@@ -167,7 +157,6 @@ async function onSubmit(data: ResetFormType) {
               )}
             />
 
-            {/* زرار الحفظ */}
             <Button
               type="submit"
               disabled={isSubmitting}
@@ -180,9 +169,7 @@ async function onSubmit(data: ResetFormType) {
         </div>
       </div>
 
-      {/* الجزء الثاني: الصورة المعبرة (بيظهر في شاشات اللاب توب والكمبيوتر بس) */}
       <div className="hidden lg:flex w-1/2 bg-primary-subtle/30 justify-center items-center p-12 relative overflow-hidden">
-        {/* ممكن تضيف Pattern أو شكل هندسي في الخلفية هنا لو حابب */}
         <div className="relative w-full max-w-lg aspect-square">
           <Image
             src={resetImage}

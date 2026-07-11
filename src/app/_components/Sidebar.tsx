@@ -1,39 +1,38 @@
 "use client";
 
 import { useParams, usePathname } from "next/navigation";
-import React, { useState, useEffect } from "react"; // ضفنا useEffect هنا
+import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BsClipboardPlusFill } from "react-icons/bs";
 import {
   FaBars,
   FaBriefcaseMedical,
-  FaCalendarCheck,
   FaHandHoldingHeart,
   FaPaperPlane,
-  FaRegEnvelope,
   FaUsers,
 } from "react-icons/fa";
 import { FaUserDoctor, FaUserGear, FaXmark } from "react-icons/fa6";
-import { GoGear } from "react-icons/go";
-import { ImProfile } from "react-icons/im";
 import { IoIosCreate } from "react-icons/io";
-import { IoNotificationsOutline } from "react-icons/io5";
 import { MdDashboard } from "react-icons/md";
-import SearchInput from "./SearchInput";
-import { NotificationMenu } from "./menus/NotificationsMenu";
-import { MessagesMenu } from "./menus/messagesMenu";
-import { UserMenu } from "./menus/UserMenu";
+import { NotificationMenu } from "@/app/_components/menus/NotificationsMenu";
+import { MessagesMenu } from "@/app/_components/menus/messagesMenu";
+import { UserMenu } from "@/app/_components/menus/UserMenu";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { CalendarClock } from "lucide-react";
+import { CalendarClock, MessageSquare } from "lucide-react";
+import Image from "next/image";
+import logo from "../../assets/images/white-logo.png";
+import { notificationType } from "@/type";
 
 export type prop = {
   userType: "patient" | "student" | string;
+  token: string;
 };
 
-export default function Sidebar({ userType }: prop) {
+export default function Sidebar({ userType, token }: prop) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(true); // ضفنا State للشاشات الكبيرة
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  const [notifications, setNotifications] = useState<notificationType[]>([]);
 
   const pathName = usePathname();
   const { locale } = useParams();
@@ -41,110 +40,135 @@ export default function Sidebar({ userType }: prop) {
   const t = useTranslations("Sidebar");
   const isPatient = userType === "patient";
 
-  const patientItems = [
-    {
-      title: t("Patient.dashboard"),
-      url: `/patient/dashboard`,
-      icon: <MdDashboard />,
-    },
-    {
-      title: t("Patient.createCase"),
-      url: `/patient/create-case`,
-      icon: <IoIosCreate />,
-    },
-    {
-      title: t("Patient.availableDoctors"),
-      url: `/patient/available-doctors`,
-      icon: <FaUserDoctor />,
-    },
-    {
-      title: t("Patient.careProposals"),
-      url: `/patient/proposals`,
-      icon: <FaHandHoldingHeart />,
-    },
-    {
-      title: t("Patient.appointments"),
-      url: `/patient/my-appointment`,
-      icon: <FaCalendarCheck />,
-    },
-    {
-      title: t("Patient.profileAndSettings"),
-      url: "/patient/profile",
-      icon: <FaUserGear className="w-5 h-5" />,
-    },
-  ];
+  const menuItems = useMemo(() => {
+    const patientItems = [
+      {
+        title: t("Patient.dashboard"),
+        url: `/patient/dashboard`,
+        icon: <MdDashboard />,
+      },
+      {
+        title: t("Patient.createCase"),
+        url: `/patient/create-case`,
+        icon: <IoIosCreate />,
+      },
+      {
+        title: t("Patient.availableDoctors"),
+        url: `/patient/available-doctors`,
+        icon: <FaUserDoctor />,
+      },
+      {
+        title: t("Patient.careProposals"),
+        url: `/patient/proposals`,
+        icon: <FaHandHoldingHeart />,
+      },
+      {
+        title: t("Patient.chat"),
+        icon: <MessageSquare className="w-5 h-5" />,
+        url: "/patient/chat",
+      },
+      {
+        title: t("Patient.profileAndSettings"),
+        url: "/patient/profile",
+        icon: <FaUserGear className="w-5 h-5" />,
+      },
+    ];
 
-  const studentItems = [
-    {
-      title: t("Student.dashboard"),
-      url: `/student/dashboard`,
-      icon: <MdDashboard />,
-    },
-    {
-      title: t("Student.availableCases"),
-      url: `/student/available-cases`,
-      icon: <FaBriefcaseMedical />,
-    },
-    {
-      title: t("Student.myProposals"),
-      url: "/student/my-proposals",
-      icon: <FaPaperPlane className="w-5 h-5" />,
-    },
-    {
-      title: t("Student.myPatients"),
-      url: `/student/my-patients`,
-      icon: <FaUsers />,
-    },
-    {
-      title: t("Student.myAppointments"), // الاسم اللي هنترجمه
-      url: "/student/my-appointments", // المسار اللي عملناه
-      icon: <CalendarClock className="w-5 h-5" />,
-    },
-    {
-      title: t("Student.profileAndSettings"),
-      url: "/student/profile",
-      icon: <FaUserGear className="w-5 h-5" />,
-    },
-    
-  ];
+    const studentItems = [
+      {
+        title: t("Student.dashboard"),
+        url: `/student/dashboard`,
+        icon: <MdDashboard />,
+      },
+      {
+        title: t("Student.availableCases"),
+        url: `/student/available-cases`,
+        icon: <FaBriefcaseMedical />,
+      },
+      {
+        title: t("Student.myProposals"),
+        url: "/student/my-proposals",
+        icon: <FaPaperPlane className="w-5 h-5" />,
+      },
+      {
+        title: t("Student.myPatients"),
+        url: `/student/my-patients`,
+        icon: <FaUsers />,
+      },
+      {
+        title: t("Student.profileAndSettings"),
+        url: "/student/profile",
+        icon: <FaUserGear className="w-5 h-5" />,
+      },
+    ];
 
-  const menuItems = isPatient ? patientItems : studentItems;
+    return isPatient ? patientItems : studentItems;
+  }, [isPatient, t]);
 
-  // ── التعديل هنا: مراقبة حجم الشاشة عشان نعالج مشكلة الاختفاء ──
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      if (!token) return; 
+
+      try {
+        const res = await fetch("http://localhost:5123/api/Notification", {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          setNotifications(data);
+        } else {
+          console.error("Failed to fetch notifications, status:", res.status);
+        }
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    };
+
+    fetchNotifications();
+  }, [token]);
+
+  const msgNotifications = notifications.filter((n) => n.type === 1);
+  const generalNotifications = notifications.filter((n) => n.type !== 1);
+
   useEffect(() => {
     const handleResize = () => {
-      // لو الشاشة أكبر من 1024 بيكسل، خليها Desktop
       if (window.innerWidth >= 1024) {
         setIsDesktop(true);
-        setIsOpen(false); // نقفل المنيو بتاعة الموبايل عشان متبقاش معلقة
+        setIsOpen(false);
       } else {
         setIsDesktop(false);
       }
     };
 
-    // تشغيلها أول مرة لما الصفحة تفتح
     handleResize();
-
-    // نراقب أي تغيير في حجم الشاشة
     window.addEventListener("resize", handleResize);
 
-    // تنظيف المراقبة لما نقفل الصفحة
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-    <aside className="fixed top-0 lg:bottom-0 lg:h-screen z-50 w-full lg:w-72 bg-primary shadow-2xl lg:shadow-none transition-all duration-300 overflow-x-hidden overflow-y-auto">
-      {/* ── الهيدر (اللوجو وأيقونات الموبايل) ── */}
+    <aside className="fixed top-0 lg:bottom-0 lg:h-screen z-50 w-full lg:w-72 bg-primary shadow-2xl lg:shadow-none transition-all duration-300  ">
       <div className="flex justify-between items-center h-20 px-6 border-b border-white/10 lg:border-none">
-        <h1 className="text-white text-3xl font-extrabold font-heading tracking-wide">
-          Dentify<span className="text-[#FACC15]">.</span>
-        </h1>
+        <Link
+          href="/"
+          className="relative w-24 h-24 sm:w-26 sm:h-26 md:w-28 md:h-28"
+        >
+          <Image
+            fill
+            src={logo}
+            alt="Dentify Logo"
+            className="object-contain"
+          />
+        </Link>
 
-        {/* أيقونات الموبايل */}
         <div className="flex items-center gap-4 lg:hidden">
           <div className="flex gap-3 items-center">
-            <NotificationMenu />
-            <MessagesMenu />
+            <NotificationMenu items={generalNotifications} />
+            <MessagesMenu items={msgNotifications} />
             <UserMenu />
           </div>
           <button
@@ -156,17 +180,15 @@ export default function Sidebar({ userType }: prop) {
         </div>
       </div>
 
-      {/* ── القائمة (روابط السايدبار) ── */}
       <AnimatePresence>
-        {/* استخدمنا State الـ isDesktop هنا عشان تظهر أوتوماتيك */}
         {(isOpen || isDesktop) && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="lg:!h-auto lg:!opacity-100"
+            className="lg:h-auto! lg:opacity-100!"
           >
-            <div className="px-4 lg:px-0 lg:ps-6 py-6 space-y-2 lg:mt-6 overflow-hidden">
+            <div className="px-4 lg:px-0 lg:ps-6 py-6 space-y-2 lg:mt-6 overflow-hidden max-h-[calc(100vh-5rem)]">
               {menuItems.map((item, idx) => {
                 const isActive = pathName.includes(item.url);
 
@@ -185,30 +207,22 @@ export default function Sidebar({ userType }: prop) {
                         }
                       `}
                     >
-                      {/* آيكون العنصر */}
                       <span
                         className={`text-xl ${isActive ? "text-primary" : "text-white/70"}`}
                       >
                         {item.icon}
                       </span>
                       {item.title}
-
-                      {/* ── تأثير الشادو المفضل ليك ── */}
                       {isActive && (
                         <>
-                          <div className="hidden lg:block absolute -top-10 end-0 w-10 h-10 bg-transparent rounded-br-3xl shadow-[10px_10px_0_10px_#F3F4FF] rtl:rounded-br-none rtl:rounded-bl-3xl rtl:shadow-[-10px_10px_0_10px_#F3F4FF]"></div>
-                          <div className="hidden lg:block absolute -bottom-10 end-0 w-10 h-10 bg-transparent rounded-tr-3xl shadow-[10px_-10px_0_10px_#F3F4FF] rtl:rounded-tr-none rtl:rounded-tl-3xl rtl:shadow-[-10px_-10px_0_10px_#F3F4FF]"></div>
+                          <div className="hidden lg:block absolute -top-10 inset-e-0 w-10 h-10 bg-transparent rounded-br-3xl shadow-[10px_10px_0_10px_#F3F4FF] rtl:rounded-br-none rtl:rounded-bl-3xl rtl:shadow-[-10px_10px_0_10px_#F3F4FF]"></div>
+                          <div className="hidden lg:block absolute -bottom-10 inset-e-0 w-10 h-10 bg-transparent rounded-tr-3xl shadow-[10px_-10px_0_10px_#F3F4FF] rtl:rounded-tr-none rtl:rounded-tl-3xl rtl:shadow-[-10px_-10px_0_10px_#F3F4FF]"></div>
                         </>
                       )}
                     </div>
                   </Link>
                 );
               })}
-            </div>
-
-            {/* شريط البحث في الموبايل */}
-            <div className="container mx-auto px-4 pb-6 lg:hidden">
-              <SearchInput />
             </div>
           </motion.div>
         )}

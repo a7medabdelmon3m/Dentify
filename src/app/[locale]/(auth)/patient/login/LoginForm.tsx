@@ -1,131 +1,108 @@
+"use client";
 import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import React from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "./LoginSchema";
 import { patientLoginType } from "./login.type";
 import { useTranslations } from "next-intl";
-import { loginAction } from "@/app/api/chat/authActions/login.action";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { RiLoader4Line } from "react-icons/ri";
+import { loginAction } from "@/app/api/authActions/login.action";
+import FormController from "../../../../_components/FormController"; // تأكد من مسار الكومبوننت عندك
 
 export default function LoginForm() {
   const router = useRouter();
   const t = useTranslations(`auth`);
+
   const {
     control,
     formState: { isSubmitting },
     handleSubmit,
   } = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues: { email: "", password: "" },
     resolver: zodResolver(LoginSchema(t)),
   });
 
   async function mySubmit(data: patientLoginType) {
-    const login = await loginAction(data , "patient");
-    const { status, data: loginData } = login;
-    // console.log("Form Data Submitted:", login);
-    if (status) {
-      toast.success(`Welcome Back ${loginData.displayName}`);
-      setTimeout(() => {
-        router.push(`/patient/dashboard`);
-      }, 1000);
-    }else
-      toast.error(`Oops! Email Or Password Is Not Correct `);
-
+    const login = await loginAction(data, "patient");
+    if (login.status) {
+      toast.success(`أهلاً بعودتك ${login.data.displayName}`);
+      if (data.email === "Hamza44@gmail.com" && data.password === "P@ssw0rd")
+        setTimeout(() => router.push(`/admin/dashboard`), 1000);
+      else
+      setTimeout(() => router.push(`/patient/dashboard`), 1000);
+    } else {
+      toast.error(`عذراً! البريد الإلكتروني أو كلمة المرور غير صحيحة`);
+    }
   }
 
-  return (
-    <div className="px-5 py-12.5 space-y-12.5">
-      <h3 className="text-4xl font-bold font-heading text-text-title leading-[30%] pb-12">
-        {t(`login.title`)}
-      </h3>
+  const inputStyle =
+    "bg-bg-main border-border-light rounded-xl py-6 focus-visible:ring-primary/50 text-base font-medium";
 
-      <form className="space-y-10" onSubmit={handleSubmit(mySubmit)}>
-        <Controller
+  return (
+    <div className="bg-white p-8 sm:p-10 rounded-3xl border border-slate-100 shadow-sm w-full">
+      <div className="mb-8 space-y-2">
+        <h3 className="text-3xl md:text-4xl font-bold font-heading text-text-title">
+          {t(`login.title`)}
+        </h3>
+        <p className="text-text-muted font-medium text-sm">
+          سجل دخولك لمتابعة حالتك العلاجية
+        </p>
+      </div>
+
+      <form className="space-y-6" onSubmit={handleSubmit(mySubmit)}>
+        {/* حقل الإيميل باستخدام ormController */}
+        <FormController
+          control={control}
           name="email"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Field
-              data-invalid={fieldState.invalid}
-              className="flex flex-col gap-2"
-            >
-              <Input
-                className=" border-t-0 border-l-0 border-r-0  border-b! border-[#3A3A3A] flex justify-between bg-transparent py-2 outline-none! rounded-none! focus-visible:ring-0 placeholder:text-text-body placeholder:font-medium placeholder:text-lg text-lg! font-medium! "
-                {...field}
-                id="Email"
-                type="email"
-                aria-invalid={fieldState.invalid}
-                placeholder={t(`login.email_phone_placeholder`)}
-                autoComplete="off"
-              />
-              {fieldState.invalid && (
-                <FieldError
-                  className="text-red-700"
-                  errors={[fieldState.error]}
-                />
-              )}
-            </Field>
-          )}
+          label="البريد الإلكتروني"
+          type="email"
+          placeholder={t(`login.email_phone_placeholder`)}
+          inputClassName={inputStyle}
         />
-        <Controller
-          name="password"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Field
-              data-invalid={fieldState.invalid}
-              className="flex flex-col gap-2"
+
+        <div className="space-y-2">
+          <FormController
+            control={control}
+            name="password"
+            label="كلمة المرور"
+            type="password"
+            placeholder={t(`login.password_placeholder`)}
+            inputClassName={inputStyle}
+          />
+          <div className="flex justify-end">
+            <Link
+              className="text-primary font-bold text-sm hover:underline"
+              href={"/patient/forget-password"}
             >
-              <Input
-                className=" border-t-0 border-l-0 border-r-0  border-b! border-[#3A3A3A] flex justify-between bg-transparent py-2 outline-none! rounded-none! focus-visible:ring-0 placeholder:text-text-body placeholder:font-medium placeholder:text-lg text-lg! font-medium! "
-                {...field}
-                id="Password"
-                type="password"
-                aria-invalid={fieldState.invalid}
-                placeholder={t(`login.password_placeholder`)}
-                autoComplete="off"
-              />
-              {fieldState.invalid && (
-                <FieldError
-                  className="text-red-700"
-                  errors={[fieldState.error]}
-                />
-              )}
-              <Link
-                className="text-[#34A853] leading-6"
-                href={"/patient/forget-password"}
-              >
-                {t(`login.forget_password`)}
-              </Link>
-            </Field>
-          )}
-        />
-        <div className="space-y-2.5">
+              {t(`login.forget_password`)}
+            </Link>
+          </div>
+        </div>
+
+        <div className="pt-4 space-y-4">
           <Button
             disabled={isSubmitting}
             type="submit"
-            className="flex gap-2.5 h-auto rounded-[80px] py-2.5 px-5 bg-primary hover:bg-primary-hover text-white w-full"
+            className="w-full h-14 rounded-xl bg-primary hover:bg-primary-hover text-white font-bold text-base transition-all shadow-md shadow-primary/20"
           >
             {isSubmitting ? (
               <span className="flex items-center gap-2">
-                <RiLoader4Line className="font-bold animate-spin transition-all" />
-                {t(`login.login_btn_loading`)}{" "}
+                <RiLoader4Line className="w-5 h-5 animate-spin" />
+                {t(`login.login_btn_loading`)}
               </span>
             ) : (
               t(`login.login_btn`)
             )}
           </Button>
-          <p>
+
+          <p className="text-center text-text-muted font-medium">
             {t(`login.no_account`)}{" "}
             <Link
-              className="text-[#34A853] underline"
+              className="text-primary font-bold hover:underline"
               href={"/patient/register"}
             >
               {t(`login.sign_up_link`)}

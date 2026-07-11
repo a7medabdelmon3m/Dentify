@@ -81,6 +81,9 @@
       "email_placeholder": "ahnedmoneim@gmail.com",
       "academic_email_placeholder": "البريد الإلكتروني الجامعي",
       "phone_placeholder": "رقم الهاتف",
+      "age_placeholder": "أدخل عمرك",
+      
+      
       "code_placeholder": "الكود",
       "password_placeholder": "كلمة المرور",
       "confirm_password_placeholder": "تأكيد كلمة المرور",
@@ -170,6 +173,11 @@
       "university": {
         "required": "يرجى اختيار الجامعة الخاصة بك!"
       },
+      "age": {
+        "invalid": "يجب أن يكون العمر رقماً",
+        "min": "يجب أن يكون عمرك 18 سنة على الأقل",
+        "max": "العمر غير منطقي"
+      },
       "phoneNumber": {
         "required": "رقم الهاتف مطلوب!",
         "invalid": "رقم الهاتف غير صحيح! يجب أن يكون رقماً مصرياً مكوناً من 11 رقماً."
@@ -201,8 +209,9 @@
       "myCases": "حالاتي المرضية",
       "availableDoctors": "الأطباء المتاحين",
       "careProposals": "عروض الأطباء",
+      "chat": "المحادتة",
       "appointments": "مواعيدي",
-      "profileAndSettings": "Profile & Settings"
+      "profileAndSettings": "الملف الشخصي والإعدادات"
     },
     "Student": {
       "dashboard": "لوحة التحكم",
@@ -219,15 +228,12 @@
   "NotificationMenu": {
     "title": "الإشعارات",
     "label": "الإشعارات",
-    "defaultMessage": "أهلاً، هل يمكنني مساعدتك؟",
-    "timeAgo": "منذ ساعتين"
+    "empty": "لا توجد إشعارات حالياً"
   },
   "MessagesMenu": {
     "title": "الرسائل",
-    "label": "رسائلي",
-    "senderName": "علي محمد",
-    "defaultMessage": "أهلاً، هل يمكنني مساعدتك؟",
-    "timeAgo": "منذ ساعتين"
+    "label": "الرسائل",
+    "empty": "لا توجد رسائل حالياً"
   },
   "UserMenu": {
     "profile": "الملف الشخصي",
@@ -235,7 +241,7 @@
   },
   "available-doctors": {
     "AvailableDoctorCard": {
-      "requestButton": "طلب"
+      "requestButton": "عرض الملف الشخصي "
     },
     "AvailableDoctorsPage": {
       "title": "الأطباء المتاحون",
@@ -275,6 +281,7 @@
         "Completed": "مكتملة",
         "Expired": "منتهية"
       },
+
       "statusPending": "قيد الانتظار",
       "timeAgo": "منذ 3 أيام",
       "deleteTitle": "حذف",
@@ -282,7 +289,11 @@
       "phoneLabel": "رقم الهاتف",
       "locationLabel": "الموقع / المحافظة",
       "dateTimeLabel": "تاريخ النشر",
-      "ageLabel": "السن"
+      "ageLabel": "السن",
+      "editDialogTitle": "تعديل تفاصيل الحالة",
+      "editDialogDesc": "قم بتحديث المعلومات والشكوى الخاصة بحالتك الطبية. تأكد من صحة البيانات لضمان حصولك على الرعاية المناسبة.",
+      "closeBtn": "إلغاء وإغلاق",
+      "submitEditBtn": "حفظ التعديلات"
     },
     "MyCasesPage": {
       "title": "حَالَتِي المرضية الحالية ",
@@ -309,16 +320,26 @@
     }
   },
   "chat": {
-    "pageTitle": "دردشة الطبيب",
-    "pageDesc": "ناقش خطة علاجك، شارك الأشعة، ورتب مواعيدك بكل أمان.",
-    "heroTitle": "دردشة دينتيفاي",
-    "heroDesc": "تواصل مع طبيبك بسهولة",
-    "statusOnline": "متصل الآن",
-    "statusOffline": "غير متصل",
-    "menuBlock": "حظر",
-    "menuDelete": "حذف المحادثة",
+    "pageTitle": "محادثة الحالة العلاجية",
+    "pageDesc": "تواصل مباشرة مع الطبيب المتابع لحالتك",
+    "emptyChat": "لا توجد رسائل بعد، ابدأ المحادثة الآن",
     "today": "اليوم",
-    "inputPlaceholder": "اكتب رسالتك هنا..."
+    "inputPlaceholder": "اكتب رسالتك هنا...",
+    "caseId": "رقم الحالة",
+    "caseStatus": "حالة الطلب",
+    "studentOffer": "عرض الطالب",
+    "caseDetails": "تفاصيل الحالة",
+  "patientRequest": "وصف المريض / الشكوى",
+  "noDescription": "لا يوجد وصف كتابي للحالة.",
+  "aiAnalysisTab": "تحليل وعرض الذكاء الاصطناعي",
+  "painDuration": "مدة الألم",
+  "chronicDiseases": "الأمراض المزمنة",
+  "none": "لا يوجد",
+  "aiDiagnosis": "التشخيص المبدئي (AI)",
+  "recommendedDept": "توجيه القسم المختص",
+  "statusOnline": "متصل الآن",
+  "menuBlock": "حظر",
+  "menuDelete": "حذف المحادثة"
   },
   "chatBot": {
     "title": "المساعد الذكي بتاعك",
@@ -329,35 +350,14 @@
     "hiThere": "أهلاً بك!",
     "noImage": "لا توجد صورة"
   },
-  "Rating": {
-    "triggerButton": "إنهاءالحالة",
-    "title": "تقييم الجلسة",
-    "description": "رأيك يهمنا جداً! شاركنا تجربتك مع الطبيب المعالج.",
-    "studentRole": "طبيب أسنان متدرب",
-    "ratingRequired": "برجاء اختيار عدد النجوم لتقييم الطبيب أولاً!",
-    "stars": "نجوم",
-    "feedbackLabel": "كيف كانت تجربتك؟ (اختياري)",
-    "feedbackPlaceholder": "اكتب تعليقك هنا عن مدى رضاك عن العلاج، تعامل الطبيب، إلخ...",
-    "submitButton": "إرسال التقييم",
-    "or": "أو",
-    "cancelButton": "إلغاء",
-    "skipButton": "تخطي",
-    "confirmAction": {
-      "title": "هل أنت متأكد؟",
-      "text": "لن تتمكن من التراجع عن هذا الإجراء!",
-      "confirm": "نعم، أنهِ الحالة",
-      "cancel": "إلغاء",
-      "successTitle": "تم بنجاح!",
-      "successText": "تم إنهاء الحالة."
-    }
-  },
+
   "userProfile": {
     "patientRole": "مريض",
     "studentRole": "طالب",
     "phoneLabel": "رقم الهاتف",
     "emailLabel": "البريد الإلكتروني"
   },
-  
+
   "PatientDashboard": {
     "title": "لوحة التحكم",
     "description": "تابع حالاتك المرضية وراقب تطور خطة علاجك بكل سهولة.",
@@ -397,90 +397,51 @@
     "noNextAppointmentTitle": "لا توجد مواعيد قادمة مؤكدة",
     "noNextAppointmentDesc": "سيتم تحديد موعد في عيادة الكلية بعد الاتفاق على حالتك وقبول الطالب.",
     "welcomeTitle": "أهلاً محمد علي، كيف حال أسنانك اليوم؟",
-    "welcomeDesc": "إليك لمحة سريعة عن حالتك العلاجية ومواعيدك القادمة."
-  },
-  "CreateCase": {
-    "headerTitle": "أنشئ حالاتك",
-    "headerDesc": "سجل تفاصيل حالتك المرضية الآن واحصل على أفضل رعاية طبية مجانية.",
-    "analysisReportTitle": "[تقرير التحليل الطبي]",
-    "findingsLabel": "النتائج",
-    "recommendationLabel": "التوصية الطبية",
-    "title": "سجل حالة",
-    "patientNamePlaceholder": "اسم المريض...",
-    "phonePlaceholder": "رقم الهاتف...",
-    "cityPlaceholder": "اختر المحافظة",
-    "casePlaceholder": "اختر حالة الأسنان",
-    "descPlaceholder": "صف ما تشعر به... (مثال: ألم مع الساخن والبارد، انتفاخ في اللثة، حشو مكسور)",
-    "submitBtn": "إرسال",
-    "submitBtn_loading": "جاري الإرسال",
-    "optional": "(اختياري)",
-    "uploadBtn": "رفع الصورة",
-    "changePhoto": "تغيير الصورة",
-    "caseError": "يرجى اختيار نوع الحالة",
-    "diseases": {
-      "caries": "تسوس الأسنان",
-      "gingivitis": "التهاب اللثة",
-      "periodontitis": "التهاب دواعم السن",
-      "impacted_tooth": "ضرس العقل المطمور",
-      "tooth_loss": "فقدان الأسنان"
+    "welcomeDesc": "إليك لمحة سريعة عن حالتك العلاجية ومواعيدك القادمة.",
+    "appointmentStatus": {
+      "Pending": "في انتظار تأكيدك",
+      "Accepted": "تم تأكيد الموعد",
+      "Declined": "تم رفض الموعد"
     },
-    "xrayTitle": "الأشعة وصور الحالة",
-    "mandatory": "(إجباري)",
-    "uploadBtnText": "اضغط هنا لرفع الصور",
-    "uploadSubText": "يمكنك رفع أكثر من صورة (الحد الأقصى 5 صور)",
-    "analysisBtn": "عرض التحليل المبدئي للذكاء الاصطناعي",
-
-    "XRayDialog": {
-      "title": "تقرير الفحص المبدئي بالذكاء الاصطناعي",
-      "description": "هذا التقرير يوضح التحليل المبدئي للأشعة وصور الحالة المدخلة.",
-      "noImage": "لا توجد صورة",
-      "close": "إغلاق التقرير",
-      "sections": {
-        "documentInfo": "معلومات الوثيقة",
-        "medicalEval": "التقييم الطبي والتشخيص",
-        "carePlan": "خطة الرعاية والتوجيه"
-      },
-      "labels": {
-        "fileNumber": "رقم الملف",
-        "date": "التاريخ",
-        "source": "المصدر",
-        "caseClass": "تصنيف الحالة",
-        "department": "القسم المختص",
-        "priority": "الأولوية",
-        "diagnosis": "التشخيص"
-      }
-    },
-    "validation": {
-      "description": {
-        "min": "الوصف يجب أن يكون 15 حرفاً على الأقل!",
-        "max": "الوصف لا يمكن أن يتجاوز 1200 حرف!",
-        "required": "راحتك تهمنا. يرجى وصف ما تشعر به ليتمكن طلابنا من تقديم أفضل رعاية لك."
-      },
-      "city": {
-        "required": "يرجى اختيار المحافظة"
-      },
-      "case_error": "يجب اختيار نوع الحالة أو رفع صورة أشعة على الأقل",
-      "image_required": "يجب رفع صورة واحدة على الأقل للحالة.",
-      "image_max": "لا يمكنك رفع أكثر من 5 صور دفعة واحدة."
-    },
-    "submitError": {
-      "title": "عذراً، تعذر حفظ الحالة",
-      "description": "حدث خطأ أثناء إرسال البيانات، يرجى المحاولة مرة أخرى."
+    "appointmentActions": {
+      "confirm": "تأكيد الموعد",
+      "decline": "رفض الموعد"
     }
   },
+  "CreateCase": {
+    "header": {
+    "title": "تقديم حالة طبية جديدة",
+    "description": "قم برفع صورة الأشعة أو الحالة الخاصة بك، واكتب الأعراض ليتسنى لنظام الذكاء الاصطناعي الخاص بنا تحليلها وتوجيهك للقسم المختص."
+  },
+  "title": "إنشاء حالة جديدة",
+  "desc": "قم برفع صورة الأشعة أو الحالة واكتب الأعراض ليقوم الذكاء الاصطناعي بتحليلها وتحويلها للقسم المختص.",
+  "form": {
+    "image": "صورة الأشعة / الحالة (مطلوب)",
+    "city": "المدينة (مطلوب)",
+    "selectCityPlaceholder": "اختر المحافظة...",
+    "symptomsText": "وصف الأعراض (اختياري)",
+    "painDuration": "مدة الألم (اختياري)",
+    "chronicDiseases": "الأمراض المزمنة (اختياري)",
+    "submitBtn": "تحليل ورفع الحالة"
+  },
+  "validation": {
+    "imageRequired": "صورة الحالة مطلوبة لتمكين الذكاء الاصطناعي من التشخيص.",
+    "cityRequired": "يرجى تحديد المدينة."
+  }
+},
   "DoctorInsights": {
-    "pageTitle": "تفاصيل الطبيب",
-    "pageDesc": "راجع خبرة طبيبك المعالج وتقييمات المرضى السابقين لتطمئن.",
-    "statusOnline": "متصل الآن",
+    "pageTitle": "بيانات الطبيب",
+    "pageDesc": "تعرف على تفاصيل الطبيب المعالج وتقييمات المرضى السابقين.",
+    "statusOnline": "متاح حالياً",
     "ratingText": "تقييم",
-    "requestBtn": "طلب رعاية طبية",
-    "requestBtn_loading": "...جاري طلب الرعاية",
-    "dialogTitle": "إنشاء حالة",
-    "dialogClose": "إغلاق",
-    "aboutTitle": "عن",
+    "requestBtn": "إرسال طلب علاج",
+    "requestBtn_loading": "جاري الإرسال...",
+    "aboutTitle": "نبذة عن",
     "reviewsTitle": "آراء المرضى",
     "verifiedPatient": "مريض موثق",
-    "viewAllReviews": "عرض جميع الآراء"
+    "viewAllReviews": "عرض كل التقييمات",
+    "specialty": "طبيب أسنان متدرب",
+    "university": "جامعة بني سويف"
   },
   "proposal": {
     "title": "عروض العلاج",
@@ -512,7 +473,9 @@
       "treatmentProposal": "مقترح العلاج",
       "acceptBtn": "قبول الرعاية",
       "acceptBtn_loading": "جاي قبول الرعاية...",
+      "acceptedBtn": "تم القبول",
       "declineBtn": "رفض الرعاية",
+      "declineBtn_loading": "جااري الرفض...",
       "timeAgo": "منذ {time}",
       "specialty": "أخصائي تقويم أسنان أول",
       "university": "جامعة بني سويف"
@@ -533,45 +496,54 @@
     }
   },
   "profile": {
-  "profile_header": {
-    "title": "الملف الشخصي والإعدادات",
-    "description": "قم بإدارة بياناتك الشخصية وإعدادات الأمان الخاصة بحسابك."
-  },
-  "basic_info": {
-    "title": "البيانات الأساسية",
-    "edit_title": "تعديل البيانات",
-    "full_name": "الاسم الرباعي",
-    "phone_label": "رقم الهاتف",
-    "email_label": "البريد الإلكتروني",
-    "governorate_label": "المحافظة",
-    "role_label": "نوع الحساب",
-    "Patient": "مريض",
-    "Student": "طبيب (طالب طب أسنان)",
-    "university": "الجامعة",
-    "bio": "نبذة عنك (Bio)",
-    "specializations": "التخصصات المهتم بها",
-    "rating": "التقييم العام",
-    "verified_mobile": "رقم الهاتف الموثق",
-    "verified_badge": "موثق",
-    "phone_placeholder": "أدخل رقم الهاتف",
-    "cancel": "إلغاء",
-    "save_changes": "حفظ التعديلات",
-    "save_changes_loading": "جاري الحفظ..."
-  },
-  "security": {
-    "title": "إعدادات الأمان",
-    "current_password_label": "كلمة المرور الحالية",
-    "new_password_label": "كلمة المرور الجديدة",
-    "confirm_password_label": "تأكيد كلمة المرور",
-    "button": "تحديث كلمة المرور",
-    "button_loading": "جاري التحديث...",
-    "placeholders": {
-      "current": "أدخل كلمة المرور الحالية",
-      "new": "أدخل كلمة المرور الجديدة",
-      "confirm": "أعد إدخال كلمة المرور الجديدة"
+    "profile_header": {
+      "title": "الملف الشخصي والإعدادات",
+      "description": "قم بإدارة بياناتك الشخصية وإعدادات الأمان الخاصة بحسابك."
+    },
+    "basic_info": {
+      "title": "البيانات الأساسية",
+      "edit_title": "تعديل البيانات",
+      "full_name": "الاسم الرباعي",
+      "phone_label": "رقم الهاتف",
+      "change_avatar" :"غير الصورة",
+      "age_label": "السن",
+      "email_label": "البريد الإلكتروني",
+      "governorate_label": "المحافظة",
+      "role_label": "نوع الحساب",
+      "Patient": "مريض",
+      "Student": "طبيب (طالب طب أسنان)",
+      "university": "الجامعة",
+      "bio": "نبذة عنك (Bio)",
+      "specializations": "التخصصات المهتم بها",
+      "rating": "التقييم العام",
+      "verified_mobile": "رقم الهاتف الموثق",
+      "verified_badge": "موثق",
+      "phone_placeholder": "أدخل رقم الهاتف",
+      "location_placeholder": "أختر المحافظة",
+      
+      "cancel": "إلغاء",
+      "save_changes": "حفظ التعديلات",
+      "save_changes_loading": "جاري الحفظ..."
+    },
+    "security": {
+      "title": "إعدادات الأمان",
+      "current_password_label": "كلمة المرور الحالية",
+      "new_password_label": "كلمة المرور الجديدة",
+      "confirm_password_label": "تأكيد كلمة المرور",
+      "button": "تحديث كلمة المرور",
+      "button_loading": "جاري التحديث...",
+      "placeholders": {
+        "current": "أدخل كلمة المرور الحالية",
+        "new": "أدخل كلمة المرور الجديدة",
+        "confirm": "أعد إدخال كلمة المرور الجديدة"
+      }
+    },
+    "reviews": {
+      "title": "تقييمات المرضى",
+      "description": "آراء المرضى الذين قمت بعلاجهم مؤخراً",
+      "noReviews": "لا توجد تقييمات حتى الآن."
     }
-  }
-},
+  },
   "governorates": {
     "beni-suef": "بني سويف",
     "cairo": "القاهرة",
@@ -652,29 +624,7 @@
     "invalidDate": "التاريخ غير صالح",
     "invalidTime": "الوقت غير صالح"
   },
-  "studentAppointments": {
-  "pageTitle": "جدول المواعيد",
-  "pageDesc": "تابع مواعيد الجلسات القادمة والمعلقة مع مرضاك.",
-  "tabs": {
-    "confirmed": "المواعيد المؤكدة",
-    "pending": "في انتظار التأكيد"
-  },
-  "emptyState": {
-    "title": "لا توجد مواعيد هنا",
-    "description": "لا يوجد أي مواعيد مسجلة في هذه القائمة حالياً."
-  },
-  "card": {
-    "patient": "المريض",
-    "location": "العيادة / المكان",
-    "date": "التاريخ",
-    "time": "الوقت",
-    "status": {
-      "upcoming": "مؤكد (قادم)",
-      "completed": "مكتمل",
-      "pending": "معلق (بانتظار المريض)"
-    }
-  }
-},
+
   "noAppointments": {
     "title": "لا توجد مواعيد قادمة!",
     "description": "يبدو أنه ليس لديك أي مواعيد مؤكدة حالياً، تم نقلها جميعاً لقائمة 'المواعيد السابقة' تماماً مثل أسنان اللبن المفقودة.",
@@ -696,15 +646,16 @@
         "title": "لم تقم بطلب أي حالات بعد",
         "description": "سجلك خالي حالياً. تصفح الحالات المتاحة وابدأ في تقديم عروضك العلاجية للمرضى."
       }
-    },"header": {
-    "title": "الحالات المتاحة",
-    "description": "تصفح حالات المرضى المتاحة وقم بتقديم عرض معالجة."
-  },
-  "filters": {
-    "searchPlaceholder": "ابحث باسم المريض أو التشخيص...",
-    "allSpecialties": "كل التخصصات",
-    "noResults": "لم يتم العثور على حالات مطابقة للبحث."
-  }
+    },
+    "header": {
+      "title": "الحالات المتاحة",
+      "description": "تصفح حالات المرضى المتاحة وقم بتقديم عرض معالجة."
+    },
+    "filters": {
+      "searchPlaceholder": "ابحث باسم المريض أو التشخيص...",
+      "allSpecialties": "كل التخصصات",
+      "noResults": "لم يتم العثور على حالات مطابقة للبحث."
+    }
   },
   "studentCaseDetails": {
     "pageTitle": "تفاصيل الحالة الطبية",
@@ -726,121 +677,271 @@
     }
   },
   "student_dashboard": {
-    "overview": "نظرة عامة",
-    "stats": {
-      "completedCases": "الحالات المكتملة",
-      "casesToTarget": "حالات مستهدفة"
+    "no_patient": {
+    "title": "لا يوجد مريض حالياً",
+    "description": "لم يتم قبول أو تخصيص أي مريض لمتابعة هذه الحالة بعد."
+  },
+    "selectedSpecialties": "الحالات المستهدفة",
+    "noSpecialties": "لم تقم بتحديد حالات مستهدفة",
+    "myPatient": "المريض الحالي",
+    "noPatientTitle": "لا يوجد مريض حالياً",
+    "noPatientDesc": "لم تقم بقبول أو استلام أي حالة بعد.",
+    "viewPatient": "عرض تفاصيل المريض",
+    "nextAppointment": "الموعد القادم",
+    "noAppointmentTitle": "لا يوجد موعد",
+    "noAppointmentDesc": "لم يتم تحديد أي موعد مع المريض حتى الآن.",
+    "appointmentStatus": {
+      "Pending": "قيد الانتظار",
+      "Accepted": "مؤكد",
+      "Declined": "مرفوض"
     },
-    "shelvedCases": "الحالات المؤرشفة حسب النوع",
-    "status": {
-      "completed": "مكتمل",
-      "inProgress": "قيد التنفيذ"
+    "dateTime": "التاريخ والوقت",
+    "patientComplaint": "شكوى المريض:"
+  },
+  "StudentMyCases": {
+    "pageTitle": "حالاتي المرضية",
+    "pageDesc": "تابع وعالج مرضاك، وراجع أرشيف الحالات المكتملة.",
+    "tabs": {
+      "inProgress": "قيد التنفيذ",
+      "completed": "مكتملة"
     },
-    "patients": {
-      "heading": "مرضاي الحاليون",
-      "role": "مريض"
+    "card": {
+      "patient": "المريض",
+      "specialty": "التخصص",
+      "date": "تاريخ الإضافة",
+      "viewDetails": "عرض التفاصيل",
+      "status": {
+        "inProgress": "جاري العلاج",
+        "completed": "تم الانتهاء"
+      }
     },
-    "messages": {
-      "heading": "رسائلي الأخيرة",
-      "reply": "رد",
-      "viewThread": "عرض المحادثة"
+    "emptyState": {
+      "title": "لا توجد بيانات متاحة",
+      "desc": "لم يتم العثور على أي عناصر لعرضها في هذه الصفحة حالياً."
     }
   },
-"StudentMyCases": {
-  "pageTitle": "حالاتي المرضية",
-  "pageDesc": "تابع وعالج مرضاك، وراجع أرشيف الحالات المكتملة.",
-  "tabs": {
-    "inProgress": "قيد التنفيذ",
-    "completed": "مكتملة"
+  "EmptyState": {
+    "defaultTitle": "لا توجد بيانات لعرضها",
+    "defaultDesc": "عفواً، لا يوجد محتوى متاح في هذا القسم في الوقت الحالي."
   },
+  "CaseDetails": {
+    "backBtn": "الرجوع للحالات",
+    "patientInfo": {
+      "title": "بيانات الحالة",
+      "name": "المريض",
+      "specialty": "الحالة المرضية",
+      "date": "تاريخ البدء"
+    },
+    "tabs": {
+      "chat": "المحادثة والرسائل",
+      "records": "الأشعة والتقارير",
+      "appointments": "المواعيد"
+    },
+    "recordsTab": {
+      "patientDesc": "وصف شكوى المريض",
+      "uploadedImages": "الأشعة وصور الحالة",
+      "noImages": "لم يقم المريض برفع أي صور",
+      "aiReportTitle": "تحليل الذكاء الاصطناعي",
+      "aiReportDesc": "راجع التقييم المبدئي للحالة الذي تم استخراجه بواسطة النظام.",
+      "viewAiReportBtn": "عرض التقرير الذكي"
+    },
+    "chatTab": {
+      "inputPlaceholder": "اكتب رسالتك هنا...",
+      "sendBtn": "إرسال",
+      "emptyChat": "لا توجد رسائل حتى الآن. ابدأ المحادثة مع المريض!",
+      "today": "اليوم"
+    },
+    "appointmentsTab": {
+      "proposeBtn": "اقتراح موعد",
+      "appointmentsList": "المواعيد المقترحة",
+      "noAppointments": "لم تقم باقتراح أي مواعيد حتى الآن.",
+      "location": "المكان / العيادة",
+      "limitWarning": "لقد قمت باقتراح موعدين. يرجى انتظار رد المريض.",
+      "confirmedWarning": "تم تأكيد موعد بالفعل. تمت المهمة بنجاح!",
+      "status": {
+        "confirmed": "مؤكد",
+        "pending": "في انتظار الرد",
+        "ignored": "تم تجاهله"
+      }
+    }
+  },
+  "StudentProposals": {
+    "pageTitle": "الطلبات والعروض",
+    "pageDesc": "تابع عروض المرضى المتاحة وطلباتك التي قدمتها لعلاجهم.",
+    "tabs": {
+      "patientOffers": "عروض المرضى",
+      "myRequests": "طلباتي"
+    },
+    "card": {
+      "patient": "المريض",
+      "type": {
+        "patientOffer": "عرض مريض",
+        "myRequest": "طلبي المقدم"
+      },
+      "patientComplaint": "وصف الحالة (شكوى المريض)",
+      "disease": "التشخيص / المرض",
+      "acceptBtn": "قبول الطلب",
+      "viewMyRequestBtn": "عرض تفاصيل طلبي"
+    },
+    "emptyState": {
+      "patientOffersTitle": "لا توجد عروض مرضى",
+      "patientOffersDesc": "لا توجد حالات متاحة من المرضى حالياً.",
+      "myRequestsTitle": "لا توجد طلبات لك",
+      "myRequestsDesc": "لم تقم بتقديم أي طلبات لعلاج المرضى بعد."
+    },
+    "detailsDialog": {
+      "title": "تفاصيل الطلب المقدم",
+      "viewBtn": "عرض"
+    }
+  },
+  "SessionFlow": {
+    "title": {
+      "Patient": "هل تمت الجلسة العلاجية؟",
+      "Student": "هل أنهيت الجلسة مع المريض؟"
+    },
+    "description": {
+      "Patient": "بناءً على موعدك، هل قمت بمقابلة الطبيب وتلقيت العلاج في الموعد المحدد؟",
+      "Student": "هل قمت بتقديم العلاج للمريض في الموعد المحدد؟"
+    },
+    "yesButton": {
+      "Patient": "نعم، تمت المقابلة",
+      "Student": "نعم، تم إنهاء الجلسة"
+    },
+    "noButton": "لا، لم تتم"
+  },
+  "Rating": {
+    "title": {
+      "Patient": "تقييم الطبيب المعالج",
+      "Student": "تقييم المريض"
+    },
+    "description": {
+      "Patient": "رأيك يهمنا جداً! يرجى تقييم تجربتك مع الطبيب لمساعدتنا في تحسين الخدمة.",
+      "Student": "يرجى تقييم مدى تعاون المريض والتزامه بالتعليمات."
+    },
+    "appointmentDateLabel": "تاريخ ووقت الجلسة",
+    "ratingRequired": "يجب اختيار تقييم (عدد النجوم) قبل الإرسال",
+    "feedbackLabel": "أضف تعليقك (اختياري)",
+    "feedbackPlaceholder": {
+      "Patient": "اكتب رأيك في العلاج وتعامل الطبيب...",
+      "Student": "اكتب أي ملاحظات حول حالة المريض أو سلوكه..."
+    },
+    "submitButton": "تأكيد الجلسة وإرسال التقييم",
+    "backButton": "تراجع (لم أتم المقابلة)"
+  },
+  "AdminStudentReview": {
+    "pageTitle": "مراجعة حسابات الطلاب",
+    "pageDesc": "مراجعة طلبات تسجيل الطلاب المعلقة. يمكنك الموافقة لتفعيل الحساب أو الرفض.",
+    "card": {
+      "uniEmail": "البريد الجامعي",
+      "personalEmail": "البريد الشخصي",
+      "phone": "رقم الهاتف",
+      "city": "المدينة",
+      "specializations": "التخصصات",
+      "approveBtn": "موافقة",
+      "rejectBtn": "رفض"
+    },
+    "emptyState": {
+      "title": "لا توجد طلبات معلقة",
+      "desc": "تمت مراجعة جميع حسابات الطلاب."
+    },
+    "toast": {
+      "approved": "تمت الموافقة على حساب الطالب بنجاح",
+      "rejected": "تم رفض حساب الطالب"
+    }
+  },
+  "number_diseases": {
+    "1": "تسوس الأسنان",
+    "2": "أمراض اللثة",
+    "4": "نقص عدد الأسنان",
+    "8": "قرحة الفم",
+    "16": "تصبغ الأسنان"
+  },
+  "nonNumber_diseases": {
+    "None": " لا يوجد أمراض",
+    "DentalCaries": "تسوس الأسنان",
+    "PeriodontalDiseas": "أمراض اللثة",
+    "Hypodontia": "نقص عدد الأسنان",
+    "MouthUlcer": "قرحة الفم",
+    "ToothDiscoloration": "تصبغ الأسنان"
+  },
+  
+  "PatientMyCases": {
   "card": {
-    "patient": "المريض",
-    "specialty": "التخصص",
-    "date": "تاريخ الإضافة",
+    "patientNameLabel": "اسم المريض",
+    "unknownSpecialty": "جاري التحليل...",
     "viewDetails": "عرض التفاصيل",
+    "yearsOld": "سنة",
+    "painDuration": "مدة الألم",
+    "chronicDiseases": "الأمراض المزمنة",
+    "priorityLevel": "الأولوية",
+    "aiDiagnosis": "التشخيص المبدئي (AI)",
     "status": {
-      "inProgress": "جاري العلاج",
-      "completed": "تم الانتهاء"
+      "pending": "قيد المراجعة",
+      "accepted": "تم القبول",
+      "inprogress": "قيد العلاج",
+      "completed": "مكتملة",
+      "rejected": "مرفوضة"
     }
-  },
-  "emptyState": {
-  "title": "لا توجد بيانات متاحة",
-  "desc": "لم يتم العثور على أي عناصر لعرضها في هذه الصفحة حالياً."
-}
+  }
 },
-"EmptyState": {
-  "defaultTitle": "لا توجد بيانات لعرضها",
-  "defaultDesc": "عفواً، لا يوجد محتوى متاح في هذا القسم في الوقت الحالي."
+"Specialties": {
+  "DentalCaries": "تسوس الأسنان",
+  "PeriodontalDisease": "أمراض اللثة",
+  "Endodontics": "علاج جذور",
+  "Surgery": "جراحة فم"
 },
-"CaseDetails": {
-  "backBtn": "الرجوع للحالات",
-  "patientInfo": {
-    "title": "بيانات الحالة",
-    "name": "المريض",
-    "specialty": "التخصص",
-    "date": "تاريخ البدء"
-  },
-  "tabs": {
-    "chat": "المحادثة والرسائل",
-    "records": "الأشعة والتقارير",
-    "appointments": "المواعيد"
-  },
-  "recordsTab": {
-  "patientDesc": "وصف شكوى المريض",
-  "uploadedImages": "الأشعة وصور الحالة",
-  "noImages": "لم يقم المريض برفع أي صور",
-  "aiReportTitle": "تحليل الذكاء الاصطناعي",
-  "aiReportDesc": "راجع التقييم المبدئي للحالة الذي تم استخراجه بواسطة النظام.",
-  "viewAiReportBtn": "عرض التقرير الذكي"
-},
-  "chatTab": {
-  "inputPlaceholder": "اكتب رسالتك هنا...",
-  "sendBtn": "إرسال",
-  "emptyChat": "لا توجد رسائل حتى الآن. ابدأ المحادثة مع المريض!",
-  "today": "اليوم"
-},"appointmentsTab": {
-  "proposeBtn": "اقتراح موعد",
-  "appointmentsList": "المواعيد المقترحة",
-  "noAppointments": "لم تقم باقتراح أي مواعيد حتى الآن.",
-  "location": "المكان / العيادة",
-  "limitWarning": "لقد قمت باقتراح موعدين. يرجى انتظار رد المريض.",
-  "confirmedWarning": "تم تأكيد موعد بالفعل. تمت المهمة بنجاح!",
+"ComprehensiveCard": {
+  "yearsOld": "سنة",
+  "painDuration": "مدة الألم",
+  "chronicDiseases": "الأمراض المزمنة",
+  "none": "لا يوجد",
+  "aiAssessment": "تقييم الذكاء الاصطناعي",
+  "diagnosis": "التشخيص المبدئي لحالتك",
+  "recommendedDept": "القسم الجامعي المختص",
+  "nextSteps": "خطة الرعاية والخطوات القادمة",
+  "viewDetailsBtn": "التفاصيل",
+  "deleteBtn": "حذف الحالة",
+  "deleteConfirm": "هل أنت متأكد من رغبتك في حذف هذه الحالة نهائياً؟ لا يمكن التراجع عن هذا الإجراء.",
+  "deleteSuccess": "تم حذف ا,لحالة بنجاح.",
+  "deleteError": "عذراً، فشل حذف الحالة حاول مجدداً!",
   "status": {
-    "confirmed": "مؤكد",
-    "pending": "في انتظار الرد",
-    "ignored": "تم تجاهله"
-  }
-}
-
-},"StudentProposals": {
-  "pageTitle": "طلبات المعالجة",
-  "pageDesc": "تابع حالة العروض التي قدمتها للمرضى.",
-  "tabs": {
-    "pending": "قيد الانتظار",
+    "pending": "قيد المراجعة",
+    "accepted": "تم القبول",
+    "inprogress": "قيد العلاج",
+    "completed": "مكتملة",
     "rejected": "مرفوضة"
-  },
-  "card": {
-    "patient": "المريض",
-    "specialty": "التخصص",
-    "dateApplied": "تاريخ الطلب",
-    "cancelBtn": "إلغاء الطلب",
-    "deleteBtn": "إزالة من الأرشيف",
-    "status": {
-      "pending": "في انتظار الرد",
-      "rejected": "مرفوض"
-    }
-  },
-  "emptyState": {
-    "pendingTitle": "لا توجد طلبات معلقة",
-    "pendingDesc": "لم تقم بتقديم أي عروض معالجة جديدة مؤخراً.",
-    "rejectedTitle": "لا توجد طلبات مرفوضة",
-    "rejectedDesc": "سجلك نظيف! لا توجد عروض مرفوضة لعرضها."
-  },
-  "detailsDialog": {
-    "title": "نص الطلب المرسل",
-    "viewBtn": "عرض التفاصيل"
+  }
+},"MandatoryRating": {
+  "title": "تقييم الجلسة العلاجية",
+  "mandatoryDesc": "يرجى تقييم جلستك الأخيرة مع الطبيب للمتابعة واستخدام المنصة.",
+  "appointmentDateLabel": "تاريخ الجلسة",
+  "ratingRequired": "يجب اختيار تقييم بالنجوم أولاً",
+  "feedbackLabel": "كيف كانت تجربتك؟ (اختياري)",
+  "feedbackPlaceholder": "اكتب تعليقك هنا ليساعدنا في تحسين الخدمة...",
+  "submitButton": "إرسال التقييم",
+  "successToast": "تم إرسال التقييم بنجاح، شكراً لك!",
+  "errorToast": "حدث خطأ أثناء إرسال التقييم، يرجى المحاولة مرة أخرى."
+},
+"PatientCaseDetails": {
+  "pageTitle": "تفاصيل حالتي الطبية",
+  "patientInfo": "البيانات الأساسية",
+  "description": "وصف الشكوى",
+  "aiAnalysis": "التحليل المبدئي",
+  "status": {
+    "pending": "قيد المراجعة",
+    "assigned": "تم التوجيه للطبيب",
+    "completed": "مكتملة",
+    "rejected": "مرفوضة"
   }
 },
+"reviews": {
+  "title": "التقييم العام",
+  "description": "متوسط تقييمات المرضى لحالتك",
+  "basedOn": "بناءً على",
+  "ratingsCount": "تقييم",
+  "noReviews": "لا يوجد تقييمات حتى الآن"
+},
+
   "footer": {
     "description": "دينتيفاي هي منصتك الموثوقة للربط بين طلاب طب الأسنان والمرضى، لضمان رعاية صحية عالية الجودة وتجربة تعليمية إكلينيكية سلسة.",
     "follow_us": "تابعنا على",

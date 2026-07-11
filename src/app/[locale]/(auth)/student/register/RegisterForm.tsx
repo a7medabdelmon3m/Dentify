@@ -1,428 +1,202 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
+
 import React, { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { RiLoader4Line } from "react-icons/ri";
+
+import { Button } from "@/components/ui/button";
+import { Field, FieldError } from "@/components/ui/field";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RegisterSchema } from "./RegisterSchema";
 import { studentRegisterType } from "./register.type";
-import { useTranslations } from "next-intl";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { registerAction } from "@/app/api/authActions/register.action";
 import { govUniversities } from "@/app/constants/universities";
 import { dentalDiseases } from "@/app/constants/diseases";
-import { registerAction } from "@/app/api/chat/authActions/register.action";
-import { RiLoader4Line } from "react-icons/ri";
-import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import FormController from "../../../../_components/FormController"; 
 
 export default function RegisterForm() {
+  const [step, setStep] = useState(1);
+  const [isSpecializationsOpen, setIsSpecializationsOpen] = useState(false);
   const router = useRouter();
-  const t = useTranslations(`auth`);
-  const c = useTranslations(`profile`);
-  const {
-    control,
-    formState: { isSubmitting },
-    handleSubmit,
-  } = useForm({
-    defaultValues: {
-      userName: "",
-      email: "",
-      password: "",
-      fullName: "",
-      phoneNumber: "",
-      city: "",
-      uniEmail: "",
-      specializations: [],
+  const t = useTranslations("auth");
+  const c = useTranslations("profile");
+  const d = useTranslations("nonNumber_diseases");
+
+  const { control, trigger, handleSubmit, formState: { isSubmitting } } = useForm({
+    defaultValues: {  
+      email: "", 
+      password: "", 
+      fullName: "", 
+      phoneNumber: "", 
+      universityName: "", 
+      uniEmail: "", 
+      specializations: [] as number[] 
     },
     resolver: zodResolver(RegisterSchema(t)),
+    mode: "onChange"
   });
 
-  async function mySubmit(
-    data: studentRegisterType,
-    e?: React.BaseSyntheticEvent,
-  ) {
-    if (e) {
-      e.preventDefault();
-    }
-    const isSuccess = await registerAction(data, "student");
-    console.log("Form Data Submitted:", data);
-    console.log("isSuccess:", isSuccess);
-    if (isSuccess) {
-      toast.success("your account is created successfully");
+  const handleNext = async () => {
+    const isValid = await trigger(["fullName", "email", "password"]);
+    if (isValid) setStep(2);
+  };
 
-      setTimeout(() => {
-        router.push(`/student/dashboard`);
-      }, 1500);
-    } else {
-      toast.error("Oops!something is error or this mail is already exist");
+  async function mySubmit(data: studentRegisterType) {
+    try {
+      const numericSpecializations = Array.isArray(data.specializations)
+        ? data.specializations.map((val) => Number(val))
+        : [];
+
+      const finalPayload = {
+        email: data.email,
+        password: data.password,
+        fullName: data.fullName,
+        phoneNumber: data.phoneNumber,
+        universityName: data.universityName,
+        uniEmail: data.uniEmail,
+        specializations: numericSpecializations // 
+      };
+
+      const isSuccess = await registerAction(finalPayload as any, "student");
+      
+      if (isSuccess) {
+        toast.success("تم إنشاء حساب الطبيب بنجاح!");
+        setTimeout(() => router.push(`/student/dashboard`), 1500);
+      } else {
+        toast.error("عذراً، حدث خطأ أو البريد الإلكتروني مستخدم بالفعل.");
+      }
+    } catch (error) {
+      console.error("Register Error:", error);
+      toast.error("حدث خطأ غير متوقع أثناء التسجيل.");
     }
   }
+
+  const inputStyle = "bg-bg-main border-border-light rounded-xl py-6 focus-visible:ring-primary/50 text-base font-medium";
+
   return (
-    <div className="px-5 py-12.5 space-y-12.5">
-      <div className="text-text-black">
-        <h3 className="text-3xl md:text-4xl font-medium font-heading  leading-7.5 pb-12">
+    <div className="bg-white p-8 sm:p-10 rounded-3xl border border-slate-100 shadow-sm w-full">
+      <div className="mb-8 space-y-2 text-rightAr">
+        <h3 className="text-3xl md:text-4xl font-bold font-heading text-text-title">
           {t(`signup.title`)}
         </h3>
-        <p className="font-normal">{t(`signup.subtitle`)}</p>
+        <p className="text-text-muted font-medium text-sm">
+          {t(`signup.subtitle`)} - الخطوة {step} من 2
+        </p>
       </div>
 
-      <form className="space-y-10" onSubmit={handleSubmit(mySubmit)}>
-        <Controller
-          name="fullName"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Field
-              data-invalid={fieldState.invalid}
-              className="flex flex-col gap-2"
-            >
-              <Input
-                className=" border-t-0 border-l-0 border-r-0  border-b! border-[#3A3A3A] flex justify-between bg-transparent py-2 outline-none! rounded-none! focus-visible:ring-0 placeholder:text-text-body placeholder:font-medium placeholder:text-lg text-lg! font-medium! placeholder:opacity-40 "
-                {...field}
-                id="name"
-                type="text"
-                aria-invalid={fieldState.invalid}
-                placeholder={t(`signup.name_placeholder`)}
-                autoComplete="off"
-              />
-              {fieldState.invalid && (
-                <FieldError
-                  className="text-red-700"
-                  errors={[fieldState.error]}
-                />
-              )}
-            </Field>
-          )}
-        />
-        <Controller
-          name="userName"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Field
-              data-invalid={fieldState.invalid}
-              className="flex flex-col gap-2"
-            >
-              <Input
-                className=" border-t-0 border-l-0 border-r-0  border-b! border-[#3A3A3A] flex justify-between bg-transparent py-2 outline-none! rounded-none! focus-visible:ring-0 placeholder:text-text-body placeholder:font-medium placeholder:text-lg text-lg! font-medium! placeholder:opacity-40 "
-                {...field}
-                id="username"
-                type="text"
-                aria-invalid={fieldState.invalid}
-                placeholder={t(`signup.userName_placeholder`)}
-                autoComplete="off"
-              />
-              {fieldState.invalid && (
-                <FieldError
-                  className="text-red-700"
-                  errors={[fieldState.error]}
-                />
-              )}
-            </Field>
-          )}
-        />
-        <Controller
-          name="email"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Field
-              data-invalid={fieldState.invalid}
-              className="flex flex-col gap-2"
-            >
-              <Input
-                className=" border-t-0 border-l-0 border-r-0  border-b! border-[#3A3A3A] flex justify-between bg-transparent py-2 outline-none! rounded-none! focus-visible:ring-0 placeholder:text-text-body placeholder:font-medium placeholder:text-lg text-lg! font-medium! placeholder:opacity-40 "
-                {...field}
-                id="email"
-                type="email"
-                aria-invalid={fieldState.invalid}
-                placeholder={t(`signup.email_placeholder`)}
-                autoComplete="off"
-              />
-              {fieldState.invalid && (
-                <FieldError
-                  className="text-red-700"
-                  errors={[fieldState.error]}
-                />
-              )}
-            </Field>
-          )}
-        />
-        <Controller
-          name="password"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Field
-              data-invalid={fieldState.invalid}
-              className="flex flex-col gap-2"
-            >
-              <Input
-                className=" border-t-0 border-l-0 border-r-0  border-b! border-[#3A3A3A] flex justify-between bg-transparent py-2 outline-none! rounded-none! focus-visible:ring-0 placeholder:text-text-body placeholder:font-medium placeholder:text-lg text-lg! font-medium! placeholder:opacity-40 "
-                {...field}
-                id="Password"
-                type="Password"
-                aria-invalid={fieldState.invalid}
-                placeholder={t(`signup.password_placeholder`)}
-                autoComplete="off"
-              />
-              {fieldState.invalid && (
-                <FieldError
-                  className="text-red-700"
-                  errors={[fieldState.error]}
-                />
-              )}
-            </Field>
-          )}
-        />
-        <Controller
-          name="phoneNumber"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Field
-              data-invalid={fieldState.invalid}
-              className="flex flex-col gap-2"
-            >
-              <Input
-                className=" border-t-0 border-l-0 border-r-0  border-b! border-[#3A3A3A] flex justify-between bg-transparent py-2 outline-none! rounded-none! focus-visible:ring-0 placeholder:text-text-body placeholder:font-medium placeholder:text-lg text-lg! font-medium! placeholder:opacity-40 "
-                {...field}
-                id="Phone"
-                type="tel"
-                aria-invalid={fieldState.invalid}
-                placeholder={t(`signup.phone_placeholder`)}
-                autoComplete="off"
-              />
-              {fieldState.invalid && (
-                <FieldError
-                  className="text-red-700"
-                  errors={[fieldState.error]}
-                />
-              )}
-            </Field>
-          )}
-        />
-        <Controller
-          name="city"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Field
-              data-invalid={fieldState.invalid}
-              className="flex flex-col gap-2 md:col-span-2"
-            >
-              <div className="space-y-2">
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <SelectTrigger className="w-full h-auto! border-t-0 border-l-0 border-r-0 border-b! border-[#3A3A3A] bg-transparent py-3 px-0 rounded-none! shadow-none focus:ring-0 focus:border-sky-500 data-placeholder:text-gray-300 text-lg font-medium">
-                    <SelectValue
-                      placeholder={c("basic_info.location_placeholder")}
-                    />
-                  </SelectTrigger>
+      <form className="space-y-6" onSubmit={handleSubmit(mySubmit)}>
+        <AnimatePresence mode="wait">
+          {step === 1 ? (
+            <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-5 text-rightAr">
+              <FormController control={control} name="fullName" label="الاسم بالكامل" placeholder={t(`signup.name_placeholder`)} inputClassName={inputStyle} />
+              <FormController control={control} name="email" type="email" label="البريد الإلكتروني الشخصي" placeholder={t(`signup.email_placeholder`)} inputClassName={inputStyle} />
+              <FormController control={control} name="password" type="password" label="كلمة المرور" placeholder={t(`signup.password_placeholder`)} inputClassName={inputStyle} />
+              
+              <Button type="button" onClick={handleNext} className="w-full h-14 mt-4 rounded-xl bg-primary hover:bg-primary-hover text-white font-bold text-base shadow-md shadow-primary/20">
+                التالي
+              </Button>
+            </motion.div>
+          ) : (
+            <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-5 text-rightAr text-start font-bold">
+              <FormController control={control} name="phoneNumber" type="tel" label="رقم الهاتف" placeholder={t(`signup.phone_placeholder`)} inputClassName={inputStyle} />
+              <FormController control={control} name="uniEmail" type="email" label="البريد الجامعي" placeholder={t(`signup.academic_email_placeholder`)} inputClassName={inputStyle} />
 
-                  <SelectContent className="bg-white max-h-75">
-                    {govUniversities.map((govKey) => (
-                      <SelectItem
-                        key={govKey.label}
-                        value={govKey.value}
-                        className="cursor-pointer hover:bg-sky-50 focus:bg-sky-50 transition-colors"
-                      >
-                        {t(`signup.universities.${govKey.label}`)}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              <Controller name="universityName" control={control} render={({ field, fieldState }) => (
+                <Field className="flex flex-col gap-2">
+                  <label className="text-sm font-bold text-text-title">الجامعة</label>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <SelectTrigger className="w-full bg-bg-main border-border-light rounded-xl py-6 focus:ring-primary/50 text-base font-medium">
+                      <SelectValue placeholder={c("basic_info.location_placeholder")} />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white rounded-xl max-h-75">
+                      {govUniversities.map((govKey) => (
+                        <SelectItem key={govKey.value} value={govKey.value}>{t(`signup.universities.${govKey.label}`)}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {fieldState.invalid && <FieldError className="text-red-700 text-sm font-bold" errors={[fieldState.error]} />}
+                </Field>
+              )} />
 
-                {fieldState.invalid && (
-                  <FieldError
-                    className="text-red-700 text-sm"
-                    errors={[fieldState.error]}
-                  />
-                )}
+              <Controller name="specializations" control={control} render={({ field, fieldState }) => {
+                const selected = field.value || [];
+                
+                const toggle = (val: number) => {
+                  const numVal = Number(val);
+                  const newSelected = selected.includes(numVal) 
+                    ? selected.filter((s: number) => s !== numVal) 
+                    : [...selected, numVal];
+                  field.onChange(newSelected);
+                };
+
+                const displayLabel = selected.length === 0 
+                  ? null 
+                  : selected.length === 1 
+                    ? t(`signup.diseases.${dentalDiseases.find((d) => Number(d.value) === selected[0])?.label}`) 
+                    : `${selected.length} ${t("signup.diseases_selected")}`;
+                
+                return (
+                  <Field className="flex flex-col gap-2">
+                    <label className="text-sm font-bold text-text-title">التخصصات / الحالات المدعومة</label>
+                    <div className="relative w-full">
+                      <button type="button" onClick={() => setIsSpecializationsOpen((o) => !o)} className="w-full flex items-center justify-between bg-bg-main border border-border-light rounded-xl py-4 px-4 focus:ring-primary/50 text-base font-medium">
+                        <span className={!displayLabel ? "text-gray-400" : "text-text-black"}>{displayLabel ?? t("signup.disease_placeholder")}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`opacity-50 transition-transform duration-200 ${isSpecializationsOpen ? "rotate-180" : ""}`}>
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </button>
+                      {isSpecializationsOpen && (
+                        <>
+                          <div className="fixed inset-0 z-40" onClick={() => setIsSpecializationsOpen(false)} />
+                          <div className="absolute z-50 mt-1 w-full overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg animate-in fade-in-0 zoom-in-95">
+                            <div className="p-2 max-h-60 overflow-y-auto space-y-1">
+                              {dentalDiseases.map((disease) => {
+                                const diseaseNumValue = Number(disease.value);
+                                const isChecked = selected.includes(diseaseNumValue);
+                                return (
+                                  <div key={disease.value} onClick={() => toggle(diseaseNumValue)} className="relative flex cursor-pointer select-none items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors hover:bg-slate-50">
+                                    <div className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border transition-colors ${isChecked ? "bg-primary border-primary" : "border-slate-300 bg-transparent"}`}>
+                                      {isChecked && <svg viewBox="0 0 12 12" fill="none" className="h-3.5 w-3.5"><path d="M2 6l3 3 5-5" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" /></svg>}
+                                    </div>
+                                    <span className="text-slate-700">{d(`${disease.label}`)}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    {fieldState.invalid && <FieldError className="text-red-700 text-sm font-bold" errors={[fieldState.error]} />}
+                  </Field>
+                );
+              }} />
+
+              <div className="flex gap-3 pt-4">
+                <Button type="button" onClick={() => setStep(1)} className="flex-1 h-14 rounded-xl bg-slate-100 hover:bg-slate-200 text-text-title font-bold text-base border border-slate-200">
+                  رجوع
+                </Button>
+                <Button disabled={isSubmitting} type="submit" className="flex-[2] h-14 rounded-xl bg-primary hover:bg-primary-hover text-white font-bold text-base shadow-md shadow-primary/20">
+                  {isSubmitting ? <RiLoader4Line className="animate-spin w-5 h-5 mx-auto" /> : t(`signup.create_btn`)}
+                </Button>
               </div>
-            </Field>
+            </motion.div>
           )}
-        />
-        <Controller
-          name="uniEmail"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Field
-              data-invalid={fieldState.invalid}
-              className="flex flex-col gap-2"
-            >
-              <Input
-                className=" border-t-0 border-l-0 border-r-0  border-b! border-[#3A3A3A] flex justify-between bg-transparent py-2 outline-none! rounded-none! focus-visible:ring-0 placeholder:text-text-body placeholder:font-medium placeholder:text-lg text-lg! font-medium! placeholder:opacity-40 "
-                {...field}
-                id="academic_email"
-                type="email"
-                aria-invalid={fieldState.invalid}
-                placeholder={t(`signup.academic_email_placeholder`)}
-                autoComplete="off"
-              />
-              {fieldState.invalid && (
-                <FieldError
-                  className="text-red-700"
-                  errors={[fieldState.error]}
-                />
-              )}
-            </Field>
-          )}
-        />
+        </AnimatePresence>
 
-        <Controller
-          name="specializations"
-          control={control}
-          render={({ field, fieldState }) => {
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            const [open, setOpen] = useState(false);
-
-            const selected = field.value || [];
-
-            const toggle = (val: number) => {
-              const newSelected = selected.includes(val)
-                ? selected.filter((s: number) => s !== val)
-                : [...selected, val];
-              field.onChange(newSelected);
-            };
-
-            // عشان نعرض اسم المرض لو اختار واحد، أو عددهم لو اختار أكتر من واحد
-            const displayLabel =
-              selected.length === 0
-                ? null
-                : selected.length === 1
-                  ? t(
-                      `signup.diseases.${dentalDiseases.find((d) => d.value === selected[0])?.label}`,
-                    )
-                  : `${selected.length} ${t("signup.diseases_selected")}`;
-
-            return (
-              <Field
-                data-invalid={fieldState.invalid}
-                className="flex flex-col gap-2 md:col-span-2"
-              >
-                <div className="relative w-full">
-                  <button
-                    type="button"
-                    onClick={() => setOpen((o) => !o)}
-                    className="w-full h-auto! border-t-0 border-l-0 border-r-0 border-b! border-[#3A3A3A] flex items-center justify-between bg-transparent py-3 px-0 outline-none! rounded-none! shadow-none focus:ring-0 text-lg font-medium"
-                  >
-                    <span
-                      className={
-                        !displayLabel
-                          ? "text-gray-400 opacity-80"
-                          : "text-text-black"
-                      }
-                    >
-                      {displayLabel ?? t("signup.disease_placeholder")}
-                    </span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className={`shrink-0 opacity-50 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-                    >
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  </button>
-
-                  {/* ── القائمة المنسدلة (Dropdown Content) ── */}
-                  {open && (
-                    <>
-                      {/* خلفية شفافة عشان لما تدوس بره يقفل */}
-                      <div
-                        className="fixed inset-0 z-40"
-                        onClick={() => setOpen(false)}
-                      />
-
-                      <div className="absolute z-50 mt-1 w-full overflow-hidden rounded-md border bg-white shadow-lg animate-in fade-in-0 zoom-in-95">
-                        <div className="p-1 max-h-60 overflow-y-auto">
-                          {dentalDiseases.map((disease) => {
-                            const isChecked = selected.includes(disease.value);
-                            return (
-                              <div
-                                key={disease.value}
-                                onClick={() => toggle(disease.value)}
-                                className="relative flex cursor-pointer select-none items-center gap-3 rounded-sm px-3 py-2 text-base outline-none transition-colors hover:bg-sky-50"
-                              >
-                                {/* مربع الـ Checkbox المخصص */}
-                                <div
-                                  className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border transition-colors ${
-                                    isChecked
-                                      ? "bg-primary border-primary"
-                                      : "border-gray-400 bg-transparent"
-                                  }`}
-                                >
-                                  {isChecked && (
-                                    <svg
-                                      viewBox="0 0 12 12"
-                                      fill="none"
-                                      className="h-3.5 w-3.5"
-                                    >
-                                      <path
-                                        d="M2 6l3 3 5-5"
-                                        stroke="white"
-                                        strokeWidth={2}
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                      />
-                                    </svg>
-                                  )}
-                                </div>
-                                <span className="font-medium text-gray-800">
-                                  {t(`signup.diseases.${disease.label}`)}
-                                </span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </div>
-
-                {/* ── رسالة الخطأ لو مسابها فاضية ── */}
-                {fieldState.invalid && (
-                  <FieldError
-                    className="text-red-700 text-sm"
-                    errors={[fieldState.error]}
-                  />
-                )}
-              </Field>
-            );
-          }}
-        />
-        <div className="space-y-8">
-          <Button
-            disabled={isSubmitting}
-            type="submit"
-            className="flex gap-2.5 h-auto rounded-[70px] py-4 px-25 mx-auto bg-primary hover:bg-primary-hover text-[#E3EFFF] font-medium "
-          >
-            {isSubmitting ? (
-              <span className="flex items-center gap-2">
-                <RiLoader4Line className="font-bold animate-spin transition-all" />
-                {t(`signup.signup.create_btn_Loading`)}{" "}
-              </span>
-            ) : (
-              t(`signup.create_btn`)
-            )}{" "}
-          </Button>
-          <div className="flex gap-4 text-text-black ">
-            {t(`signup.already_have_account`)}
-            <Link className="font-medium" href={"/student/login"}>
+        <div className="pt-6 border-t border-slate-100">
+          <p className="text-center text-text-muted font-medium">
+            {t(`signup.already_have_account`)}{" "}
+            <Link className="text-primary font-bold hover:underline" href={"/student/login"}>
               {t(`signup.login_link`)}
             </Link>
-          </div>
+          </p>
         </div>
       </form>
     </div>
