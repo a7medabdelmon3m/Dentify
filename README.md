@@ -10,11 +10,11 @@
 
 | Patient Dashboard | AI X-ray Analysis |
 | :---: | :---: |
-| ![Dashboard](./assets/images/dashboard.png) | ![X-ray AI](./assets/images/x-ray.png) |
+| ![Dashboard](./src/assets/images/dashboard.png) | ![X-ray AI](./src/assets/images/dental-x-rays.png) |
 
 | Real-time Chat (SignalR) | AI Chatbot Assistant |
 | :---: | :---: |
-| ![Chat](./assets/images/chat.png) | ![Chatbot](./assets/images/chatbot.png) |
+| ![Chat](./src/assets/images/chat.png) | ![Chatbot](./src/assets/images/chatbot.png) |
 
 ## 📌 1. Executive Summary & Vision
 
